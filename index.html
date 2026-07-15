@@ -31,6 +31,12 @@ body {
 .page.active { display: flex; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
+/* === Video Background === */
+.video-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+.video-bg video { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; }
+.video-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,15,26,.85) 0%, rgba(26,26,46,.75) 50%, rgba(15,15,26,.85) 100%); }
+
+
 /* === Back Button === */
 .back-btn {
   position: fixed; top: 20px; left: 20px; z-index: 9999;
@@ -43,7 +49,7 @@ body {
 .back-btn:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
 
 /* === Home Page === */
-#page-home { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%); align-items: center; justify-content: center; padding: 40px 20px; }
+#page-home { background: transparent; align-items: center; justify-content: center; padding: 40px 20px; }
 
 .avatar-wrap {
   width: 72px; height: 72px; border-radius: 50%;
@@ -174,6 +180,13 @@ body {
 </style>
 </head>
 <body>
+<!-- ========== VIDEO BACKGROUND ========== -->
+<div class="video-bg">
+  <video autoplay muted loop playsinline poster="images/avatar.png">
+    <source src="https://github.com/bilibilibaiyun/bilibilibaiyun.github.io/releases/download/bg-video/bg-video.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+</div>
 
 <!-- ========== HOME PAGE ========== -->
 <div id="page-home" class="page active">
