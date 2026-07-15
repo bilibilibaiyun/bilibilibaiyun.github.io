@@ -279,7 +279,6 @@ const TOOLS = [
   { id: 5, cat: "电脑工具", name: "WinRAR", thumb: "images/winrar.webp", desc: "经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。", download: "https://wwasm.lanzouq.com/ix6Qj3va59ji", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1t3Mj6EEPA" },
   { id: 6, cat: "其他工具", name: "新机系统优化", thumb: "images/optimize.webp", desc: "超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。", download: null, password: "", tutorial: "https://www.bilibili.com/video/BV1b9Nn6sENh" }
 ];
-
 const CATEGORIES = ["电脑工具", "手机工具", "其他工具"];
 
 function renderCategories() {
@@ -287,105 +286,134 @@ function renderCategories() {
   el.innerHTML = CATEGORIES.map(cat => {
     const count = TOOLS.filter(t => t.cat === cat).length;
     const icons = { "电脑工具": "💻", "手机工具": "📱", "其他工具": "📂" };
-    return `<div class="category-card" onclick="openGrid('${cat}')">
-      <span class="cat-icon">${icons[cat] || '📂'}</span>
-      <div class="cat-name">${cat}</div>
-      <div class="cat-count">共 <span>${count}</span> 个工具</div>
-    </div>`;
+    return '<div class="category-card" onclick="openGrid(\''+cat+'\')">' +
+      '<span class="cat-icon">'+(icons[cat]||'📂')+'</span>' +
+      '<div class="cat-name">'+cat+'</div>' +
+      '<div class="cat-count">共 <span>'+count+'</span> 个工具</div></div>';
   }).join('');
 }
-
 function openGrid(cat) {
   document.getElementById('page-home').classList.remove('active');
-  const gridPage = document.getElementById('page-grid');
-  gridPage.classList.add('active');
+  document.getElementById('page-grid').classList.add('active');
   document.getElementById('grid-title').textContent = cat;
   const tools = TOOLS.filter(t => t.cat === cat);
-  document.getElementById('grid-sub').textContent = `共 ${tools.length} 个工具`;
+  document.getElementById('grid-sub').textContent = '共 '+tools.length+' 个工具';
   const container = document.getElementById('grid-container');
-  container.innerHTML = tools.map((t, i) => {
+  container.innerHTML = tools.map(function(t, i) {
     const globalNum = TOOLS.indexOf(t) + 1;
-    return `<div class="grid-item" onclick="openModal(${globalNum - 1})">
-      <span class="grid-number">#${globalNum}</span>
-      <img class="grid-icon" src="${t.thumb}" alt="${t.name}" loading="lazy">
-      <span class="grid-name">${t.name}</span>
-    </div>`;
+    return '<div class="grid-item" onclick="openModal('+(globalNum-1)+')">' +
+      '<span class="grid-number">#'+globalNum+'</span>' +
+      '<img class="grid-icon" src="'+t.thumb+'" alt="'+t.name+'" loading="lazy">' +
+      '<span class="grid-name">'+t.name+'</span></div>';
   }).join('');
   container.scrollTop = 0;
 }
-
 function openModal(index) {
-  const t = TOOLS[index];
-  if (!t) return;
+  const t = TOOLS[index]; if (!t) return;
   document.getElementById('modal-icon').src = t.thumb;
   document.getElementById('modal-icon').alt = t.name;
   document.getElementById('modal-title').textContent = t.name;
   document.getElementById('modal-desc').textContent = t.desc;
-
   const dlBtn = document.getElementById('btn-download');
   const tutBtn = document.getElementById('btn-tutorial');
   tutBtn.href = t.tutorial;
-
   if (t.download) {
-    // Try direct download URL pattern (lanzou supports pwd parameter)
-    const sep = t.download.includes('?') ? '&' : '?';
+    const sep = t.download.includes('?')?'&':'?';
     dlBtn.href = t.download + sep + 'pwd=' + t.password;
     dlBtn.textContent = '⬇️ 下载 · 密码: ' + t.password;
     dlBtn.style.display = '';
-    dlBtn.onclick = function(e) {
-      navigator.clipboard.writeText(t.password).catch(function(){});
-    };
-  } else {
-    dlBtn.style.display = 'none';
-  }
+    dlBtn.onclick = function(){ navigator.clipboard.writeText(t.password).catch(function(){}); };
+  } else { dlBtn.style.display = 'none'; }
   document.getElementById('modal-overlay').classList.add('active');
 }
-
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modal-overlay')) return;
   document.getElementById('modal-overlay').classList.remove('active');
 }
-
 function goHome() {
   document.getElementById('page-grid').classList.remove('active');
   document.getElementById('modal-overlay').classList.remove('active');
   document.getElementById('page-home').classList.add('active');
 }
-
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    if (document.getElementById('modal-overlay').classList.contains('active')) {
-      document.getElementById('modal-overlay').classList.remove('active');
-    } else if (document.getElementById('page-grid').classList.contains('active')) {
-      goHome();
-    }
+    if (document.getElementById('modal-overlay').classList.contains('active')) { document.getElementById('modal-overlay').classList.remove('active'); }
+    else if (document.getElementById('page-grid').classList.contains('active')) { goHome(); }
   }
 });
-
 window.addEventListener('popstate', function() {
-  if (document.getElementById('modal-overlay').classList.contains('active')) {
-    document.getElementById('modal-overlay').classList.remove('active');
-  } else if (document.getElementById('page-grid').classList.contains('active')) {
-    goHome();
-  }
+  if (document.getElementById('modal-overlay').classList.contains('active')) { document.getElementById('modal-overlay').classList.remove('active'); }
+  else if (document.getElementById('page-grid').classList.contains('active')) { goHome(); }
 });
 
-// ===== Force autoplay video background =====
+// ===== Loading Screen + Video Background =====
 (function() {
-  var v = document.querySelector('.video-bg video');
-  if (v) {
-    v.muted = true;
-    var tryPlay = function() { v.play().catch(function(){}); };
-    tryPlay();
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) tryPlay();
-    });
+  var loading = document.getElementById('loading-screen');
+  var video = document.querySelector('.video-bg video');
+  var bar = document.getElementById('loader-bar-inner');
+  if (!loading || !video) return;
+
+  function hideLoading() {
+    loading.classList.add('hidden');
+    document.body.style.overflow = '';
   }
+
+  // Progress bar
+  video.addEventListener('progress', function() {
+    if (video.buffered.length > 0 && bar) {
+      var pct = video.buffered.end(0) / video.duration * 100;
+      if (pct > 100) pct = 100;
+      bar.style.width = pct + '%';
+    }
+  });
+
+  // When enough data loaded
+  video.addEventListener('canplaythrough', function() {
+    if (bar) bar.style.width = '100%';
+    setTimeout(hideLoading, 400);
+  }, { once: true });
+
+  // Also try loadeddata
+  video.addEventListener('loadeddata', function() {
+    // Start playback once we have first frame
+    video.play().catch(function(){});
+  }, { once: true });
+
+  // Fallback timeout 8s
+  setTimeout(function() {
+    if (!loading.classList.contains('hidden')) {
+      if (bar) bar.style.width = '100%';
+      setTimeout(hideLoading, 300);
+    }
+  }, 8000);
+
+  // Force play when visible
+  video.muted = true;
+  video.load();
+  function tryPlay() { video.play().catch(function(){}); }
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && !video.paused) { video.pause(); }
+    else if (!document.hidden) { tryPlay(); }
+  });
+  window.addEventListener('blur', function() { if (!video.paused) video.pause(); });
+  window.addEventListener('focus', function() { tryPlay(); });
+
+  // Stutter recovery
+  var lastT = video.currentTime, stallCount = 0;
+  setInterval(function() {
+    if (video.paused || document.hidden) return;
+    var nowT = video.currentTime;
+    if (nowT === lastT) { stallCount++; if (stallCount > 3) { video.currentTime = Math.max(0, nowT-0.5); video.play().catch(function(){}); stallCount = 0; } }
+    else { stallCount = 0; }
+    lastT = nowT;
+  }, 2000);
+
+  // Start play check
+  var pt = setInterval(function() {
+    if (video.readyState >= 2) { tryPlay(); clearInterval(pt); }
+  }, 500);
+  setTimeout(function() { clearInterval(pt); }, 8000);
 })();
-
-
-// ===== Loading screen + video background ===== (replaced below)
-
 
 renderCategories();
 </script>
