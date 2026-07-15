@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -348,71 +348,32 @@ window.addEventListener('popstate', function() {
 
 // ===== Loading Screen + Video Background =====
 (function() {
-  var loading = document.getElementById('loading-screen');
-  var video = document.querySelector('.video-bg video');
-  var bar = document.getElementById('loader-bar-inner');
+  var loading = document.getElementById("loading-screen");
+  var video = document.querySelector(".video-bg video");
+  var bar = document.getElementById("loader-bar-inner");
   if (!loading || !video) return;
-
-  function hideLoading() {
-    loading.classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-
-  // Progress bar
-  video.addEventListener('progress', function() {
-    if (video.buffered.length > 0 && bar) {
-      var pct = video.buffered.end(0) / video.duration * 100;
-      if (pct > 100) pct = 100;
-      bar.style.width = pct + '%';
-    }
-  });
-
-  // When enough data loaded
-  video.addEventListener('canplaythrough', function() {
-    if (bar) bar.style.width = '100%';
-    setTimeout(hideLoading, 400);
-  }, { once: true });
-
-  // Also try loadeddata
-  video.addEventListener('loadeddata', function() {
-    // Start playback once we have first frame
-    video.play().catch(function(){});
-  }, { once: true });
-
-  // Fallback timeout 8s
-  setTimeout(function() {
-    if (!loading.classList.contains('hidden')) {
-      if (bar) bar.style.width = '100%';
-      setTimeout(hideLoading, 300);
-    }
-  }, 8000);
-
-  // Force play when visible
   video.muted = true;
-  video.load();
-  function tryPlay() { video.play().catch(function(){}); }
-  document.addEventListener('visibilitychange', function() {
-    if (document.hidden && !video.paused) { video.pause(); }
-    else if (!document.hidden) { tryPlay(); }
+  var done = false;
+  function hide() {
+    if (done) return; done = true;
+    loading.classList.add("hidden");
+    document.body.style.overflow = "";
+    video.play().catch(function(){});
+  }
+  video.addEventListener("progress", function() {
+    if (bar && video.buffered.length > 0) {
+      bar.style.width = Math.min(video.buffered.end(0)/video.duration*100, 100) + "%";
+    }
   });
-  window.addEventListener('blur', function() { if (!video.paused) video.pause(); });
-  window.addEventListener('focus', function() { tryPlay(); });
-
-  // Stutter recovery
-  var lastT = video.currentTime, stallCount = 0;
-  setInterval(function() {
-    if (video.paused || document.hidden) return;
-    var nowT = video.currentTime;
-    if (nowT === lastT) { stallCount++; if (stallCount > 3) { video.currentTime = Math.max(0, nowT-0.5); video.play().catch(function(){}); stallCount = 0; } }
-    else { stallCount = 0; }
-    lastT = nowT;
-  }, 2000);
-
-  // Start play check
-  var pt = setInterval(function() {
-    if (video.readyState >= 2) { tryPlay(); clearInterval(pt); }
-  }, 500);
-  setTimeout(function() { clearInterval(pt); }, 8000);
+  video.addEventListener("canplaythrough", hide, {once:true});
+  video.addEventListener("loadeddata", function(){video.play().catch(function(){})}, {once:true});
+  setTimeout(hide, 4000);
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden && video && !video.paused) video.pause();
+    else if (!document.hidden) video.play().catch(function(){});
+  });
+  window.addEventListener("blur", function(){if(video&&!video.paused)video.pause()});
+  window.addEventListener("focus", function(){video.play().catch(function(){})});
 })();
 
 renderCategories();
