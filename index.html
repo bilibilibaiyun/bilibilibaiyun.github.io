@@ -326,6 +326,20 @@ window.addEventListener('popstate', function() {
   }
 });
 
+// ===== Force autoplay video background =====
+(function() {
+  var v = document.querySelector('.video-bg video');
+  if (v) {
+    v.muted = true;
+    var tryPlay = function() { v.play().catch(function(){}); };
+    tryPlay();
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) tryPlay();
+    });
+  }
+})();
+
+
 renderCategories();
 </script>
 </body>
