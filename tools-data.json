@@ -1,0 +1,14 @@
+{
+  "tools": [
+    { "name": "NDM 下载器", "bvid": "BV1zoMJ65ExN", "bilibiliUrl": "https://www.bilibili.com/video/BV1zoMJ65ExN", "downloadUrl": "https://wwasm.lanzouq.com/idGMW3vfq5fg", "password": "baiyun", "category": "电脑工具", "icon": "images/ndm.webp" },
+    { "name": "Wallpaper Engine", "bvid": "BV11fNX63Evu", "bilibiliUrl": "https://www.bilibili.com/video/BV11fNX63Evu", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf", "password": "baiyun", "category": "电脑工具", "icon": "images/wallpaper.webp" },
+    { "name": "洛雪音乐", "bvid": "BV1TJN16REmy", "bilibiliUrl": "https://www.bilibili.com/video/BV1TJN16REmy", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb", "password": "baiyun", "category": "电脑工具", "icon": "images/music.webp" },
+    { "name": "BandiScreen 录屏", "bvid": "BV1kMNg6LEFd", "bilibiliUrl": "https://www.bilibili.com/video/BV1kMNg6LEFd", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/i77t83w07sja", "password": "baiyun", "category": "电脑工具", "icon": "images/bandicam.webp" },
+    { "name": "WinRAR", "bvid": "BV1t3Mj6EEPA", "bilibiliUrl": "https://www.bilibili.com/video/BV1t3Mj6EEPA", "downloadUrl": "https://wwasm.lanzouq.com/ix6Qj3va59ji", "password": "baiyun", "category": "电脑工具", "icon": "images/winrar.webp" },
+    { "name": "新机系统优化", "bvid": "BV1b9Nn6sENh", "bilibiliUrl": "https://www.bilibili.com/video/BV1b9Nn6sENh", "downloadUrl": null, "password": "", "category": "其他工具", "icon": "images/optimize.webp" }
+  ],
+  "lastUpdated": "2026-07-15T07:40:00+08:00",
+  "bilibiliChannel": "https://space.bilibili.com/3546697630222922",
+  "bilibiliChannelName": "健谈的白云",
+  "defaultPassword": "baiyun"
+}
