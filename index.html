@@ -65,6 +65,9 @@ body {
 .page.active { display: flex; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
+/* === Video Performance Optimizations === */
+.video-bg video { will-change: transform; transform: translateZ(0); backface-visibility: hidden; }
+
 /* === Video Background === */
 .video-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
 .video-bg video { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; }
@@ -381,61 +384,7 @@ window.addEventListener('popstate', function() {
 })();
 
 
-// ===== Loading screen + video background =====
-(function() {
-  var loading = document.getElementById('loading-screen');
-  var video = document.querySelector('.video-bg video');
-  var bar = document.getElementById('loader-bar-inner');
-  if (!video || !loading) return;
-
-  var showContent = function() {
-    loading.classList.add('hidden');
-    document.body.style.overflow = '';
-  };
-
-  // Update progress bar
-  video.addEventListener('progress', function() {
-    if (video.buffered.length > 0) {
-      var pct = video.buffered.end(0) / video.duration * 100;
-      if (bar) bar.style.width = Math.min(pct, 100) + '%';
-    }
-  });
-
-  // Video ready to play through
-  video.addEventListener('canplaythrough', function() {
-    if (bar) bar.style.width = '100%';
-    setTimeout(showContent, 400);
-  }, { once: true });
-
-  // Fallback: timeout after 10s
-  setTimeout(function() {
-    if (!loading.classList.contains('hidden')) {
-      if (bar) bar.style.width = '100%';
-      setTimeout(showContent, 300);
-    }
-  }, 10000);
-
-  // Start loading
-  video.muted = true;
-  video.load();
-
-  // Try play
-  var tryPlay = function() {
-    video.play().catch(function(){});
-  };
-  document.addEventListener('visibilitychange', function() {
-    if (!document.hidden) tryPlay();
-  });
-
-  // Also try play immediately
-  var playTimer = setInterval(function() {
-    if (video.readyState >= 2) {
-      tryPlay();
-      clearInterval(playTimer);
-    }
-  }, 500);
-  setTimeout(function() { clearInterval(playTimer); }, 8000);
-})();
+// ===== Loading screen + video background ===== (replaced below)
 
 
 renderCategories();
