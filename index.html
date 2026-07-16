@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>白云工具盒</title>
+<title>鐧戒簯宸ュ叿鐩?/title>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
@@ -18,7 +18,7 @@
   --radius: 16px;
   --radius-sm: 10px;
 }
-html, body { height: 100%; overflow: hidden; } body { overflow: hidden; }
+html, body { height: 100%; overflow: hidden; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   background: var(--bg);
@@ -26,53 +26,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* === Loading Screen === */
-#loading-screen {
-  position: fixed; inset: 0; z-index: 99999;
-  background: #0f0f1a;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  transition: opacity .6s ease, visibility .6s ease;
-}
-#loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-spinner {
-  width: 50px; height: 50px;
-  border: 3px solid rgba(108,99,255,.15);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loader-text {
-  color: var(--text2); font-size: 14px; margin-top: 20px;
-  letter-spacing: 2px;
-}
-.loader-bar {
-  width: 200px; height: 3px;
-  background: rgba(255,255,255,.06);
-  border-radius: 2px; margin-top: 16px; overflow: hidden;
-}
-.loader-bar-inner {
-  height: 100%; width: 0;
-  background: linear-gradient(90deg, var(--primary), #8b7aff);
-  border-radius: 2px;
-  transition: width .3s ease;
-}
-
-
 /* === Page System === */
 .page { position: fixed; inset: 0; display: none; flex-direction: column; z-index: 1; animation: fadeIn .3s ease; }
 .page.active { display: flex; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-/* === Video Performance Optimizations === */
-.video-bg video { will-change: transform; transform: translateZ(0); backface-visibility: hidden; }
-
-/* === Video Background === */
-.video-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
-.video-bg video { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; }
-.video-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,15,26,.85) 0%, rgba(26,26,46,.75) 50%, rgba(15,15,26,.85) 100%); }
-
 
 /* === Back Button === */
 .back-btn {
@@ -86,7 +43,7 @@ body {
 .back-btn:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
 
 /* === Home Page === */
-#page-home { background: transparent; align-items: center; justify-content: center; padding: 40px 20px; }
+#page-home { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%); align-items: center; justify-content: center; padding: 40px 20px; }
 
 .avatar-wrap {
   width: 72px; height: 72px; border-radius: 50%;
@@ -214,50 +171,23 @@ body {
 }
 @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
 @media (min-width: 1200px) { .grid-container { grid-template-columns: repeat(6, 1fr); } }
-
-/* === Cloud Drive Button === */
-.cloud-drive-btn {
-  position: fixed; top: 20px; right: 80px; z-index: 9998;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(108,99,255,.2); border: 1px solid rgba(108,99,255,.3);
-  color: #fff; font-size: 20px; display: flex;
-  align-items: center; justify-content: center;
-  text-decoration: none; backdrop-filter: blur(10px);
-  transition: all .3s ease;
-}
-.cloud-drive-btn:hover { background: rgba(108,99,255,.4); transform: scale(1.1); box-shadow: 0 0 20px var(--primary-glow); }
-@media (max-width: 480px) { .cloud-drive-btn { right: 16px; top: 14px; width: 38px; height: 38px; font-size: 18px; } }
 </style>
 </head>
 <body>
-<!-- ========== LOADING SCREEN ========== -->
-<div id="loading-screen">
-  <div class="loader-spinner"></div>
-  <div class="loader-text">☁️ 加载中...</div>
-  <div class="loader-bar"><div class="loader-bar-inner" id="loader-bar-inner"></div></div>
-</div>
-
-<!-- ========== VIDEO BACKGROUND ========== -->
-<div class="video-bg">
-  <video autoplay muted loop playsinline poster="images/avatar.png">
-    <source src="https://h.uguu.se/leowUNnr.mp4" type="video/mp4">
-  </video>
-  <div class="video-overlay"></div>
-</div>
 
 <!-- ========== HOME PAGE ========== -->
 <div id="page-home" class="page active">
-  <div class="avatar-wrap"><img src="images/avatar.png" alt="健谈的白云"></div>
-  <div class="hero-title">☁️ 白云工具盒</div>
-  <div class="hero-sub">精选实用工具，免费分享 · 出品：<a href="https://space.bilibili.com/3546697630222922" target="_blank" style="color:#6c63ff;text-decoration:none;">健谈的白云</a></div>
+  <div class="avatar-wrap"><img src="images/avatar.png" alt="鍋ヨ皥鐨勭櫧浜?></div>
+  <div class="hero-title">鈽侊笍 鐧戒簯宸ュ叿鐩?/div>
+  <div class="hero-sub">绮鹃€夊疄鐢ㄥ伐鍏凤紝鍏嶈垂鍒嗕韩 路 鍑哄搧锛?a href="https://space.bilibili.com/3546697630222922" target="_blank" style="color:#6c63ff;text-decoration:none;">鍋ヨ皥鐨勭櫧浜?/a></div>
   <div class="categories" id="category-list"></div>
 </div>
 
 <!-- ========== GRID PAGE ========== -->
 <div id="page-grid" class="page">
-  <button class="back-btn" onclick="goHome()">←</button>
+  <button class="back-btn" onclick="goHome()">鈫?/button>
   <div class="grid-header">
-    <h2 id="grid-title">电脑工具</h2>
+    <h2 id="grid-title">鐢佃剳宸ュ叿</h2>
     <p id="grid-sub"></p>
   </div>
   <div class="grid-content">
@@ -268,128 +198,120 @@ body {
 <!-- ========== MODAL ========== -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">✕</button>
+    <button class="modal-close" onclick="closeModal()">鉁?/button>
     <div class="modal-icon-wrap"><img id="modal-icon" src="" alt=""></div>
-    <div class="modal-title" id="modal-title">工具名称</div>
-    <div class="modal-desc" id="modal-desc">工具简介</div>
+    <div class="modal-title" id="modal-title">宸ュ叿鍚嶇О</div>
+    <div class="modal-desc" id="modal-desc">宸ュ叿绠€浠?/div>
     <div class="modal-btns">
-      <a class="modal-btn btn-download" id="btn-download" target="_blank" rel="noopener">⬇️ 下载</a>
-      <a class="modal-btn btn-tutorial" id="btn-tutorial" target="_blank" rel="noopener">📺 教程</a>
+      <a class="modal-btn btn-download" id="btn-download" target="_blank" rel="noopener">猬囷笍 涓嬭浇</a>
+      <a class="modal-btn btn-tutorial" id="btn-tutorial" target="_blank" rel="noopener">馃摵 鏁欑▼</a>
     </div>
-    <p style="text-align:center;color:var(--text2);font-size:12px;margin-top:12px;">💡 提取码：<b style="color:var(--primary);">baiyun</b>（点击下载自动复制）</p>
+    <p style="text-align:center;color:var(--text2);font-size:12px;margin-top:12px;">馃挕 鎻愬彇鐮侊細<b style="color:var(--primary);">baiyun</b>锛堢偣鍑讳笅杞借嚜鍔ㄥ鍒讹級</p>
   </div>
 </div>
 
 <!-- ========== FOOTER ========== -->
-<a href="http://43.226.47.133/" target="_blank" rel="noopener" class="cloud-drive-btn" title="云盘">☁️</a>
-
-<div class="footer">白云工具盒 · 数据来源于健谈的白云 · 所有软件仅供学习交流，请于下载后24小时内删除</div>
+<div class="footer">鐧戒簯宸ュ叿鐩?路 鏁版嵁鏉ユ簮浜庡仴璋堢殑鐧戒簯 路 鎵€鏈夎蒋浠朵粎渚涘涔犱氦娴侊紝璇蜂簬涓嬭浇鍚?4灏忔椂鍐呭垹闄?/div>
 
 <script>
 const TOOLS = [
-  { id: 1, cat: "电脑工具", name: "NDM 下载器", thumb: "images/ndm.webp", desc: "最强免费多线下载工具，支持多线程下载、浏览器插件集成，替代IDM的免费选择。", download: "https://wwasm.lanzouq.com/idGMW3vfq5fg", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1zoMJ65ExN" },
-  { id: 2, cat: "电脑工具", name: "Wallpaper Engine", thumb: "images/wallpaper.webp", desc: "动态壁纸软件打包版，免费纯净好用，无需付费即可体验海量动态壁纸。", download: "https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV11fNX63Evu" },
-  { id: 3, cat: "电脑工具", name: "洛雪音乐", thumb: "images/music.webp", desc: "开源免费音乐播放器，支持多平台，可安装音源插件畅听全网音乐，支持无损下载。", download: "https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1TJN16REmy" },
-  { id: 4, cat: "电脑工具", name: "BandiScreen 录屏", thumb: "images/bandicam.webp", desc: "Bandi录屏满血版，简单好用的电脑录屏工具，支持高清录制，建议人手一个。", download: "https://bilibilibaiyun.lanzouq.com/i77t83w07sja", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1kMNg6LEFd" },
-  { id: 5, cat: "电脑工具", name: "WinRAR", thumb: "images/winrar.webp", desc: "经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。", download: "https://wwasm.lanzouq.com/ix6Qj3va59ji", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1t3Mj6EEPA" },
-  { id: 6, cat: "其他工具", name: "新机系统优化", thumb: "images/optimize.webp", desc: "超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。", download: null, password: "", tutorial: "https://www.bilibili.com/video/BV1b9Nn6sENh" }
+  { id: 1, cat: "鐢佃剳宸ュ叿", name: "NDM 涓嬭浇鍣?, thumb: "images/ndm.webp", desc: "鏈€寮哄厤璐瑰绾夸笅杞藉伐鍏凤紝鏀寔澶氱嚎绋嬩笅杞姐€佹祻瑙堝櫒鎻掍欢闆嗘垚锛屾浛浠DM鐨勫厤璐归€夋嫨銆?, download: "https://wwasm.lanzouq.com/idGMW3vfq5fg", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1zoMJ65ExN" },
+  { id: 2, cat: "鐢佃剳宸ュ叿", name: "Wallpaper Engine", thumb: "images/wallpaper.webp", desc: "鍔ㄦ€佸绾歌蒋浠舵墦鍖呯増锛屽厤璐圭函鍑€濂界敤锛屾棤闇€浠樿垂鍗冲彲浣撻獙娴烽噺鍔ㄦ€佸绾搞€?, download: "https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV11fNX63Evu" },
+  { id: 3, cat: "鐢佃剳宸ュ叿", name: "娲涢洩闊充箰", thumb: "images/music.webp", desc: "寮€婧愬厤璐归煶涔愭挱鏀惧櫒锛屾敮鎸佸骞冲彴锛屽彲瀹夎闊虫簮鎻掍欢鐣呭惉鍏ㄧ綉闊充箰锛屾敮鎸佹棤鎹熶笅杞姐€?, download: "https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1TJN16REmy" },
+  { id: 4, cat: "鐢佃剳宸ュ叿", name: "BandiScreen 褰曞睆", thumb: "images/bandicam.webp", desc: "Bandi褰曞睆婊¤鐗堬紝绠€鍗曞ソ鐢ㄧ殑鐢佃剳褰曞睆宸ュ叿锛屾敮鎸侀珮娓呭綍鍒讹紝寤鸿浜烘墜涓€涓€?, download: "https://bilibilibaiyun.lanzouq.com/i77t83w07sja", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1kMNg6LEFd" },
+  { id: 5, cat: "鐢佃剳宸ュ叿", name: "WinRAR", thumb: "images/winrar.webp", desc: "缁忓吀鍘嬬缉瑙ｅ帇宸ュ叿锛屾敮鎸丷AR/ZIP绛夊绉嶆牸寮忥紝绾噣鐗堝厤骞垮憡鍏嶆縺娲汇€?, download: "https://wwasm.lanzouq.com/ix6Qj3va59ji", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1t3Mj6EEPA" },
+  { id: 6, cat: "鍏朵粬宸ュ叿", name: "鏂版満绯荤粺浼樺寲", thumb: "images/optimize.webp", desc: "瓒呰缁嗙殑鏂版満绯荤粺浼樺寲鏀荤暐锛屽惈绯荤粺璁剧疆銆佽蒋浠跺畨瑁呫€佹€ц兘浼樺寲绛夊叏鏂逛綅鎸囧崡銆?, download: null, password: "", tutorial: "https://www.bilibili.com/video/BV1b9Nn6sENh" }
 ];
-const CATEGORIES = ["电脑工具", "手机工具", "其他工具"];
+
+const CATEGORIES = ["鐢佃剳宸ュ叿", "鎵嬫満宸ュ叿", "鍏朵粬宸ュ叿"];
 
 function renderCategories() {
   const el = document.getElementById('category-list');
   el.innerHTML = CATEGORIES.map(cat => {
     const count = TOOLS.filter(t => t.cat === cat).length;
-    const icons = { "电脑工具": "💻", "手机工具": "📱", "其他工具": "📂" };
-    return '<div class="category-card" onclick="openGrid(\''+cat+'\')">' +
-      '<span class="cat-icon">'+(icons[cat]||'📂')+'</span>' +
-      '<div class="cat-name">'+cat+'</div>' +
-      '<div class="cat-count">共 <span>'+count+'</span> 个工具</div></div>';
+    const icons = { "鐢佃剳宸ュ叿": "馃捇", "鎵嬫満宸ュ叿": "馃摫", "鍏朵粬宸ュ叿": "馃搨" };
+    return `<div class="category-card" onclick="openGrid('${cat}')">
+      <span class="cat-icon">${icons[cat] || '馃搨'}</span>
+      <div class="cat-name">${cat}</div>
+      <div class="cat-count">鍏?<span>${count}</span> 涓伐鍏?/div>
+    </div>`;
   }).join('');
 }
+
 function openGrid(cat) {
   document.getElementById('page-home').classList.remove('active');
-  document.getElementById('page-grid').classList.add('active');
+  const gridPage = document.getElementById('page-grid');
+  gridPage.classList.add('active');
   document.getElementById('grid-title').textContent = cat;
   const tools = TOOLS.filter(t => t.cat === cat);
-  document.getElementById('grid-sub').textContent = '共 '+tools.length+' 个工具';
+  document.getElementById('grid-sub').textContent = `鍏?${tools.length} 涓伐鍏穈;
   const container = document.getElementById('grid-container');
-  container.innerHTML = tools.map(function(t, i) {
+  container.innerHTML = tools.map((t, i) => {
     const globalNum = TOOLS.indexOf(t) + 1;
-    return '<div class="grid-item" onclick="openModal('+(globalNum-1)+')">' +
-      '<span class="grid-number">#'+globalNum+'</span>' +
-      '<img class="grid-icon" src="'+t.thumb+'" alt="'+t.name+'" loading="lazy">' +
-      '<span class="grid-name">'+t.name+'</span></div>';
+    return `<div class="grid-item" onclick="openModal(${globalNum - 1})">
+      <span class="grid-number">#${globalNum}</span>
+      <img class="grid-icon" src="${t.thumb}" alt="${t.name}" loading="lazy">
+      <span class="grid-name">${t.name}</span>
+    </div>`;
   }).join('');
   container.scrollTop = 0;
 }
+
 function openModal(index) {
-  const t = TOOLS[index]; if (!t) return;
+  const t = TOOLS[index];
+  if (!t) return;
   document.getElementById('modal-icon').src = t.thumb;
   document.getElementById('modal-icon').alt = t.name;
   document.getElementById('modal-title').textContent = t.name;
   document.getElementById('modal-desc').textContent = t.desc;
+
   const dlBtn = document.getElementById('btn-download');
   const tutBtn = document.getElementById('btn-tutorial');
   tutBtn.href = t.tutorial;
+
   if (t.download) {
-    const sep = t.download.includes('?')?'&':'?';
+    // Try direct download URL pattern (lanzou supports pwd parameter)
+    const sep = t.download.includes('?') ? '&' : '?';
     dlBtn.href = t.download + sep + 'pwd=' + t.password;
-    dlBtn.textContent = '⬇️ 下载 · 密码: ' + t.password;
+    dlBtn.textContent = '猬囷笍 涓嬭浇 路 瀵嗙爜: ' + t.password;
     dlBtn.style.display = '';
-    dlBtn.onclick = function(){ navigator.clipboard.writeText(t.password).catch(function(){}); };
-  } else { dlBtn.style.display = 'none'; }
+    dlBtn.onclick = function(e) {
+      navigator.clipboard.writeText(t.password).catch(function(){});
+    };
+  } else {
+    dlBtn.style.display = 'none';
+  }
   document.getElementById('modal-overlay').classList.add('active');
 }
+
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modal-overlay')) return;
   document.getElementById('modal-overlay').classList.remove('active');
 }
+
 function goHome() {
   document.getElementById('page-grid').classList.remove('active');
   document.getElementById('modal-overlay').classList.remove('active');
   document.getElementById('page-home').classList.add('active');
 }
+
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    if (document.getElementById('modal-overlay').classList.contains('active')) { document.getElementById('modal-overlay').classList.remove('active'); }
-    else if (document.getElementById('page-grid').classList.contains('active')) { goHome(); }
+    if (document.getElementById('modal-overlay').classList.contains('active')) {
+      document.getElementById('modal-overlay').classList.remove('active');
+    } else if (document.getElementById('page-grid').classList.contains('active')) {
+      goHome();
+    }
   }
-});
-window.addEventListener('popstate', function() {
-  if (document.getElementById('modal-overlay').classList.contains('active')) { document.getElementById('modal-overlay').classList.remove('active'); }
-  else if (document.getElementById('page-grid').classList.contains('active')) { goHome(); }
 });
 
-// ===== Loading Screen + Video Background =====
-(function() {
-  var loading = document.getElementById("loading-screen");
-  var video = document.querySelector(".video-bg video");
-  var bar = document.getElementById("loader-bar-inner");
-  if (!loading || !video) return;
-  video.muted = true;
-  var done = false;
-  function hide() {
-    if (done) return; done = true;
-    loading.classList.add("hidden");
-    document.body.style.overflow = "";
-    video.play().catch(function(){});
+window.addEventListener('popstate', function() {
+  if (document.getElementById('modal-overlay').classList.contains('active')) {
+    document.getElementById('modal-overlay').classList.remove('active');
+  } else if (document.getElementById('page-grid').classList.contains('active')) {
+    goHome();
   }
-  video.addEventListener("progress", function() {
-    if (bar && video.buffered.length > 0) {
-      bar.style.width = Math.min(video.buffered.end(0)/video.duration*100, 100) + "%";
-    }
-  });
-  video.addEventListener("canplaythrough", hide, {once:true});
-  video.addEventListener("loadeddata", function(){video.play().catch(function(){})}, {once:true});
-  setTimeout(hide, 4000);
-  document.addEventListener("visibilitychange", function() {
-    if (document.hidden && video && !video.paused) video.pause();
-    else if (!document.hidden) video.play().catch(function(){});
-  });
-  window.addEventListener("blur", function(){if(video&&!video.paused)video.pause()});
-  window.addEventListener("focus", function(){video.play().catch(function(){})});
-})();
+});
 
 renderCategories();
 </script>
