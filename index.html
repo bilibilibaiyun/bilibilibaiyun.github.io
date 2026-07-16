@@ -488,9 +488,10 @@ function renderContent(cat, sub){
 
   grid.innerHTML = items.map((item, i) => {
     const isWeb = item.type === 'web';
-    const iconHtml = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'))
-      ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.parentElement.innerHTML=\''+(item.icon.match(/^[\u{1F300}-\u{1FAFF}]/) ? item.icon : '📋')+'\'">'
-      : item.icon || '📋';
+    const isImgPath = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'));
+    const iconHtml = isImgPath
+      ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=none;this.parentElement.textContent=this.alt.charAt(0)||\'📋\'">'
+      : (item.icon || '📋');
     return '<div class="card'+(isWeb?' website':'')+'" onclick="openItem(\''+(isWeb?'w':'t')+'_'+item.id+'\')">'+
       '<span class="card-link-icon">'+(isWeb?'🔗':'⬇️')+'</span>'+
       '<div class="card-icon">'+iconHtml+'</div>'+
@@ -513,8 +514,9 @@ function openItem(key){
   const modal = document.getElementById('modal');
   const isWeb = item.type === 'web';
 
-  document.getElementById('modal-icon-wrap').innerHTML = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'))
-    ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.innerHTML=\''+(item.icon.match(/^[\u{1F300}-\u{1FAFF}]/) ? item.icon : '📋')+'\'">'
+  const isImgPath = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'));
+  document.getElementById('modal-icon-wrap').innerHTML = isImgPath
+    ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=none;this.parentElement.innerHTML=\'<div class=modal-icon-placeholder>📋</div>\'">'
     : '<div class="modal-icon-placeholder">'+(item.icon||'📋')+'</div>';
   document.getElementById('modal-title').textContent = item.name;
   document.getElementById('modal-desc').textContent = item.desc;
