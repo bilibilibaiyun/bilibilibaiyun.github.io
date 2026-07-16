@@ -2,403 +2,580 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>白云工具盒</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白云工具盒 - 精选实用工具与网站</title>
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --bg: #0f0f1a;
-  --surface: #1a1a2e;
-  --surface2: #16213e;
-  --primary: #6c63ff;
-  --primary-glow: rgba(108,99,255,.4);
-  --accent: #e94560;
-  --text: #eaeaea;
-  --text2: #8a8aa0;
-  --radius: 16px;
-  --version: 2;
-  --radius-sm: 10px;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d1a;
+  --sidebar-bg:#111128;
+  --surface:#1a1a35;
+  --surface2:#1e1e3a;
+  --border:rgba(255,255,255,.06);
+  --primary:#7c6ff7;
+  --primary-glow:rgba(124,111,247,.35);
+  --accent:#f04e6e;
+  --text:#e8e8f0;
+  --text2:#8888a8;
+  --text3:#666688;
+  --radius:14px;
+  --radius-sm:10px;
+  --sidebar-w:260px;
 }
-html, body { height: 100%; overflow: hidden; } body { overflow: hidden; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* === Loading Screen === */
-#loading-screen {
-  position: fixed; inset: 0; z-index: 99999;
-  background: #0f0f1a;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  transition: opacity .6s ease, visibility .6s ease;
-}
-#loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-spinner {
-  width: 50px; height: 50px;
-  border: 3px solid rgba(108,99,255,.15);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loader-text {
-  color: var(--text2); font-size: 14px; margin-top: 20px;
-  letter-spacing: 2px;
-}
-.loader-bar {
-  width: 200px; height: 3px;
-  background: rgba(255,255,255,.06);
-  border-radius: 2px; margin-top: 16px; overflow: hidden;
-}
-.loader-bar-inner {
-  height: 100%; width: 0;
-  background: linear-gradient(90deg, var(--primary), #8b7aff);
-  border-radius: 2px;
-  transition: width .3s ease;
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  background:var(--bg);color:var(--text);
+  display:flex;-webkit-font-smoothing:antialiased;
 }
 
-
-/* === Page System === */
-.page { position: fixed; inset: 0; display: none; flex-direction: column; z-index: 1; animation: fadeIn .3s ease; }
-.page.active { display: flex; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-/* === Video Performance Optimizations === */
-.video-bg video { will-change: transform; transform: translateZ(0); backface-visibility: hidden; }
-
-/* === Video Background === */
-.video-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
-.video-bg video { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; }
-.video-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,15,26,.85) 0%, rgba(26,26,46,.75) 50%, rgba(15,15,26,.85) 100%); }
-
-
-/* === Back Button === */
-.back-btn {
-  position: fixed; top: 20px; left: 20px; z-index: 9999;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--surface); border: 1px solid rgba(255,255,255,.08);
-  color: var(--text); font-size: 20px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  backdrop-filter: blur(12px); transition: all .2s;
+/* ===== Sidebar ===== */
+.sidebar{
+  width:var(--sidebar-w);min-width:var(--sidebar-w);
+  height:100vh;background:var(--sidebar-bg);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;
+  z-index:100;transition:transform .3s ease;
 }
-.back-btn:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.05); }
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+.sidebar-logo{
+  padding:24px 20px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.sidebar-logo img{width:42px;height:42px;border-radius:50%;border:2px solid var(--primary)}
+.sidebar-logo-text h2{font-size:18px;font-weight:700;background:linear-gradient(135deg,#7c6ff7,#f04e6e);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar-logo-text span{font-size:11px;color:var(--text3);display:block}
+.sidebar-nav{padding:12px 0;flex:1}
+.nav-section{margin-bottom:4px}
+.nav-section-title{
+  padding:8px 20px;font-size:11px;font-weight:600;
+  color:var(--text3);text-transform:uppercase;
+  letter-spacing:1px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  user-select:none;transition:color .2s;
+}
+.nav-section-title:hover{color:var(--text2)}
+.nav-section-title::after{content:'▾';font-size:10px;margin-left:auto;transition:transform .2s}
+.nav-section.collapsed .nav-section-title::after{transform:rotate(-90deg)}
+.nav-section.collapsed .nav-items{display:none}
+.nav-items{display:flex;flex-direction:column}
+.nav-item{
+  padding:9px 20px 9px 28px;font-size:13px;color:var(--text2);
+  cursor:pointer;transition:all .15s;border-left:2px solid transparent;
+  display:flex;align-items:center;gap:8px;text-decoration:none;
+}
+.nav-item:hover{color:var(--text);background:rgba(124,111,247,.08)}
+.nav-item.active{color:var(--primary);background:rgba(124,111,247,.12);border-left-color:var(--primary)}
+.nav-item .badge{font-size:10px;background:rgba(124,111,247,.2);color:var(--primary);padding:1px 7px;border-radius:8px;margin-left:auto}
+.sidebar-footer{
+  padding:16px 20px;border-top:1px solid var(--border);
+  font-size:11px;color:var(--text3)
+}
+.sidebar-footer a{color:var(--primary);text-decoration:none}
 
-/* === Home Page === */
-#page-home { background: transparent; align-items: center; justify-content: center; padding: 40px 20px; }
+/* ===== Main Content ===== */
+.main-content{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.top-bar{
+  padding:16px 28px;display:flex;align-items:center;gap:16px;
+  border-bottom:1px solid var(--border);background:rgba(13,13,26,.8);
+  backdrop-filter:blur(12px);z-index:50
+}
+.search-wrap{flex:1;max-width:500px;position:relative}
+.search-wrap input{
+  width:100%;padding:10px 16px 10px 40px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;color:var(--text);font-size:14px;
+  outline:none;transition:all .2s
+}
+.search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,111,247,.1)}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
+.top-bar-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.top-btn{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text2);font-size:16px;cursor:pointer;
+  transition:all .2s;text-decoration:none
+}
+.top-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 0 16px var(--primary-glow)}
+.menu-toggle{display:none}
 
-.avatar-wrap {
-  width: 72px; height: 72px; border-radius: 50%;
-  border: 3px solid var(--primary);
-  overflow: hidden; margin: 0 auto 16px;
-  box-shadow: 0 0 30px var(--primary-glow);
-}
-.avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.content-area{flex:1;overflow-y:auto;padding:24px 28px 40px}
+.content-area::-webkit-scrollbar{width:6px}
+.content-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
 
-.hero-title {
-  font-size: clamp(32px, 6vw, 56px); font-weight: 800;
-  background: linear-gradient(135deg, #6c63ff, #e94560);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  text-align: center; margin-bottom: 8px;
-}
-.hero-sub { color: var(--text2); font-size: clamp(14px, 2.5vw, 18px); text-align: center; margin-bottom: 50px; }
+/* ===== Category Header ===== */
+.cat-header{margin-bottom:24px}
+.cat-header h1{font-size:26px;font-weight:700;margin-bottom:6px}
+.cat-header p{color:var(--text2);font-size:14px}
+.cat-stats{display:flex;gap:16px;margin-top:12px}
+.cat-stat{font-size:12px;color:var(--text3)}
+.cat-stat b{color:var(--primary)}
 
-.categories { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; max-width: 900px; width: 100%; }
-.category-card {
-  flex: 1 1 240px; max-width: 280px; min-width: 200px;
-  background: var(--surface); border: 1px solid rgba(255,255,255,.06);
-  border-radius: var(--radius); padding: 40px 24px 32px; text-align: center;
-  cursor: pointer; transition: all .3s ease; position: relative; overflow: hidden;
+/* ===== Cards Grid ===== */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;cursor:pointer;
+  transition:all .25s ease;display:flex;flex-direction:column;
+  position:relative;overflow:hidden
 }
-.category-card::before {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: radial-gradient(circle at center, var(--primary-glow), transparent 60%);
-  opacity: 0; transition: opacity .4s;
+.card:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.card:hover::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,var(--primary-glow),transparent 60%);
+  opacity:.6;pointer-events:none
 }
-.category-card:hover { transform: translateY(-6px); border-color: var(--primary); }
-.category-card:hover::before { opacity: 1; }
-.cat-icon { font-size: 48px; margin-bottom: 16px; display: block; }
-.cat-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-.cat-count { color: var(--text2); font-size: 14px; }
-.cat-count span { color: var(--primary); font-weight: 700; }
+.card-icon{
+  width:48px;height:48px;border-radius:12px;
+  margin-bottom:12px;object-fit:cover;
+  background:var(--surface2);display:flex;
+  align-items:center;justify-content:center;
+  font-size:24px;position:relative;z-index:1
+}
+.card-icon img{width:100%;height:100%;border-radius:12px;object-fit:cover}
+.card-name{font-size:15px;font-weight:600;margin-bottom:6px;position:relative;z-index:1}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.5;flex:1;position:relative;z-index:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-tag{font-size:10px;color:var(--primary);margin-top:10px;position:relative;z-index:1;background:rgba(124,111,247,.1);display:inline-block;padding:2px 8px;border-radius:6px;align-self:flex-start}
+.card-link-icon{position:absolute;top:12px;right:14px;color:var(--text3);font-size:14px;opacity:0;transition:opacity .2s;z-index:1}
+.card:hover .card-link-icon{opacity:1}
 
-/* === Grid Page === */
-#page-grid { background: var(--bg); }
-.grid-header { padding: 24px 20px 16px 74px; border-bottom: 1px solid rgba(255,255,255,.06); }
-.grid-header h2 { font-size: clamp(20px, 3vw, 28px); font-weight: 700; }
-.grid-header p { color: var(--text2); font-size: 14px; margin-top: 4px; }
-.grid-content { flex: 1; overflow-y: auto; padding: 24px 20px 100px; scroll-behavior: smooth; }
-.grid-content::-webkit-scrollbar { width: 6px; }
-.grid-content::-webkit-scrollbar-track { background: transparent; }
-.grid-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 3px; }
+/* ===== Website Card (slightly different) ===== */
+.card.website .card-icon{background:rgba(124,111,247,.1)}
+.card.website .card-tag{background:rgba(240,78,110,.1);color:var(--accent)}
 
-.grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; max-width: 1200px; margin: 0 auto; }
+/* ===== Empty State ===== */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-state .empty-icon{font-size:56px;margin-bottom:16px}
+.empty-state p{font-size:14px}
 
-.grid-item {
-  aspect-ratio: 1;
-  background: var(--surface); border: 1px solid rgba(255,255,255,.06);
-  border-radius: var(--radius-sm);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  cursor: pointer; transition: all .25s ease; position: relative; padding: 12px; text-align: center;
-  overflow: hidden;
+/* ===== Modal ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  backdrop-filter:blur(8px);z-index:10000;
+  display:none;align-items:center;justify-content:center;padding:20px
 }
-.grid-item:hover { border-color: var(--primary); background: var(--surface2); transform: translateY(-2px); }
-.grid-number {
-  position: absolute; top: 8px; left: 10px;
-  font-size: 11px; font-weight: 700; color: var(--primary);
-  background: rgba(108,99,255,.15); padding: 2px 7px; border-radius: 6px;
-  z-index: 2;
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--surface);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius);max-width:460px;width:100%;
+  padding:32px 28px 24px;position:relative;animation:modalIn .25s ease
 }
-.grid-icon { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; margin-bottom: 6px; background: #2a2a40; }
-.grid-name { font-size: 12px; line-height: 1.3; color: var(--text); max-width: 100%; word-break: break-all; }
+@keyframes modalIn{from{transform:scale(.92) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-close{
+  position:absolute;top:12px;right:12px;
+  width:32px;height:32px;border-radius:50%;
+  border:none;background:rgba(255,255,255,.08);color:var(--text2);font-size:16px;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center
+}
+.modal-close:hover{background:var(--accent);color:#fff}
+.modal-header{text-align:center;margin-bottom:16px}
+.modal-header img,.modal-header .modal-icon-placeholder{width:72px;height:72px;border-radius:16px;margin:0 auto 12px;object-fit:cover;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:36px}
+.modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
+.modal-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:24px;text-align:center}
+.modal-btns{display:flex;gap:10px;flex-direction:column}
+.modal-btn{
+  padding:14px 20px;border-radius:var(--radius-sm);border:none;
+  font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;
+  text-decoration:none;text-align:center;display:block
+}
+.btn-primary{background:linear-gradient(135deg,var(--primary),#9b8fff);color:#fff}
+.btn-primary:hover{box-shadow:0 4px 24px var(--primary-glow)}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid rgba(255,255,255,.1)}
+.btn-secondary:hover{background:var(--primary);border-color:var(--primary);color:#fff}
+.modal-password{text-align:center;color:var(--text3);font-size:12px;margin-top:14px}
+.modal-password b{color:var(--primary)}
 
-/* === Modal === */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.7); backdrop-filter: blur(8px);
-  z-index: 10000; display: none;
-  align-items: center; justify-content: center; padding: 20px;
-  animation: fadeIn .2s ease;
-}
-.modal-overlay.active { display: flex; }
-.modal {
-  background: var(--surface); border: 1px solid rgba(255,255,255,.08);
-  border-radius: var(--radius); max-width: 440px; width: 100%;
-  padding: 32px 28px 24px; position: relative;
-  animation: modalIn .25s ease;
-}
-@keyframes modalIn { from { transform: scale(.92) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
-.modal-close {
-  position: absolute; top: 12px; right: 12px;
-  width: 32px; height: 32px; border-radius: 50%;
-  border: none; background: rgba(255,255,255,.08); color: var(--text2); font-size: 16px;
-  cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center;
-}
-.modal-close:hover { background: var(--accent); color: #fff; }
-.modal-icon-wrap { text-align: center; margin-bottom: 12px; }
-.modal-icon-wrap img { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; background: #2a2a40; }
-.modal-title { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 8px; }
-.modal-desc { color: var(--text2); font-size: 14px; line-height: 1.6; text-align: center; margin-bottom: 24px; }
-.modal-btns { display: flex; gap: 12px; flex-direction: column; }
-.modal-btn {
-  flex: 1; padding: 14px 20px; border-radius: var(--radius-sm);
-  border: none; font-size: 15px; font-weight: 600;
-  cursor: pointer; transition: all .2s; text-decoration: none; text-align: center;
-}
-.btn-download { background: linear-gradient(135deg, var(--primary), #8b7aff); color: #fff; }
-.btn-download:hover { box-shadow: 0 4px 20px var(--primary-glow); }
-.btn-tutorial { background: var(--surface2); color: var(--text); border: 1px solid rgba(255,255,255,.1); }
-.btn-tutorial:hover { background: var(--primary); border-color: var(--primary); }
-
-/* === Footer === */
-.footer {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  text-align: center; padding: 12px 20px;
-  font-size: 12px; color: rgba(255,255,255,.25);
-  background: linear-gradient(transparent, var(--bg) 40%); z-index: 2; pointer-events: none;
+/* ===== Footer ===== */
+.footer{
+  text-align:center;padding:12px 20px;font-size:11px;
+  color:rgba(255,255,255,.2);border-top:1px solid var(--border);
+  background:var(--bg)
 }
 
-/* === Scrollbar === */
-*::-webkit-scrollbar { width: 6px; }
-*::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 3px; }
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .menu-toggle{display:flex}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .card{padding:14px}
+  .top-bar{padding:12px 16px}
+  .content-area{padding:16px}
+  .cat-header h1{font-size:20px}
+}
+@media(max-width:480px){
+  .card-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .card-name{font-size:13px}
+  .card-desc{font-size:11px}
+}
 
-@media (max-width: 480px) {
-  .categories { gap: 14px; }
-  .category-card { flex: 1 1 100%; max-width: 100%; padding: 28px 16px 24px; }
-  .grid-container { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .modal { padding: 24px 20px 20px; }
-  .grid-header { padding: 20px 16px 12px 60px; }
-  .back-btn { top: 14px; left: 14px; width: 38px; height: 38px; font-size: 16px; }
+/* ===== Loading ===== */
+.loading-overlay{
+  position:fixed;inset:0;z-index:99999;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .5s,visibility .5s
 }
-@media (min-width: 768px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
-@media (min-width: 1200px) { .grid-container { grid-template-columns: repeat(6, 1fr); } }
-
-/* === Top-Right Buttons === */
-.top-bar-btns {
-  position: fixed; top: 20px; right: 80px; z-index: 9998;
-  display: flex; gap: 10px;
+.loading-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loading-spinner{
+  width:44px;height:44px;border:3px solid rgba(124,111,247,.2);
+  border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite
 }
-.top-bar-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(108,99,255,.2); border: 1px solid rgba(108,99,255,.3);
-  color: #fff; font-size: 20px; display: flex;
-  align-items: center; justify-content: center;
-  text-decoration: none; backdrop-filter: blur(10px);
-  transition: all .3s ease; cursor: pointer;
-}
-.top-bar-btn:hover { background: rgba(108,99,255,.4); transform: scale(1.1); box-shadow: 0 0 20px var(--primary-glow); }
-@media (max-width: 480px) { .top-bar-btns { right: 16px; top: 14px; } .top-bar-btn { width: 38px; height: 38px; font-size: 18px; } }
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{color:var(--text2);font-size:13px;margin-top:16px}
 </style>
 </head>
 <body>
-<!-- ========== LOADING SCREEN ========== -->
-<div id="loading-screen" class="hidden">
-  <div class="loader-spinner"></div>
-  <div class="loader-text">☁️ 加载中...</div>
-  <div class="loader-bar"><div class="loader-bar-inner" id="loader-bar-inner"></div></div>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">☁️ 加载中...</div>
 </div>
 
-<!-- ========== VIDEO BACKGROUND ========== -->
-<div class="video-bg">
-  <video autoplay muted loop playsinline poster="images/avatar.png">
-    <source src="https://h.uguu.se/leowUNnr.mp4" type="video/mp4">
-  </video>
-  <div class="video-overlay"></div>
-</div>
-
-<!-- ========== HOME PAGE ========== -->
-<div id="page-home" class="page active">
-  <div class="avatar-wrap"><img src="images/avatar.png" alt="健谈的白云"></div>
-  <div class="hero-title">☁️ 白云工具盒</div>
-  <div class="hero-sub">精选实用工具，免费分享 · 出品：<a href="https://space.bilibili.com/3546697630222922" target="_blank" style="color:#6c63ff;text-decoration:none;">健谈的白云</a></div>
-  <div class="categories" id="category-list"></div>
-</div>
-
-<!-- ========== GRID PAGE ========== -->
-<div id="page-grid" class="page">
-  <button class="back-btn" onclick="goHome()">←</button>
-  <div class="grid-header">
-    <h2 id="grid-title">电脑工具</h2>
-    <p id="grid-sub"></p>
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <img src="images/avatar.png" alt="白云" onerror="this.style.display='none'">
+    <div class="sidebar-logo-text">
+      <h2>☁️ 白云工具盒</h2>
+      <span>精选工具 · 实用网站</span>
+    </div>
   </div>
-  <div class="grid-content">
-    <div class="grid-container" id="grid-container"></div>
+  <nav class="sidebar-nav" id="sidebar-nav"></nav>
+  <div class="sidebar-footer">
+    🎬 <a href="https://space.bilibili.com/3546697630222922" target="_blank">健谈的白云</a> · 出品
   </div>
+</aside>
+
+<!-- Main -->
+<div class="main-content">
+  <div class="top-bar">
+    <button class="top-btn menu-toggle" onclick="toggleSidebar()" title="菜单">☰</button>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="搜索工具或网站..." oninput="doSearch()">
+    </div>
+    <div class="top-bar-actions">
+      <a href="https://43.226.47.133/drive.html" class="top-btn" title="白云盘">☁️</a>
+      <a href="https://43.226.47.133/notices.html" class="top-btn" title="通知">📢</a>
+    </div>
+  </div>
+  <div class="content-area" id="content-area">
+    <div class="cat-header">
+      <h1 id="cat-title">电脑工具</h1>
+      <p id="cat-desc"></p>
+      <div class="cat-stats" id="cat-stats"></div>
+    </div>
+    <div class="card-grid" id="card-grid"></div>
+    <div class="empty-state" id="empty-state" style="display:none">
+      <div class="empty-icon">🔍</div>
+      <p>没有找到匹配的内容，换个关键词试试？</p>
+    </div>
+  </div>
+  <div class="footer">白云工具盒 · 所有软件仅供学习交流，请于下载后24小时内删除 · 数据来源于健谈的白云</div>
 </div>
 
-<!-- ========== MODAL ========== -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-icon-wrap"><img id="modal-icon" src="" alt=""></div>
-    <div class="modal-title" id="modal-title">工具名称</div>
-    <div class="modal-desc" id="modal-desc">工具简介</div>
-    <div class="modal-btns">
-      <a class="modal-btn btn-download" id="btn-download" target="_blank" rel="noopener">⬇️ 下载</a>
-      <a class="modal-btn btn-tutorial" id="btn-tutorial" target="_blank" rel="noopener">📺 教程</a>
+    <div class="modal-header">
+      <span id="modal-icon-wrap"></span>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-desc" id="modal-desc"></div>
     </div>
-    <p style="text-align:center;color:var(--text2);font-size:12px;margin-top:12px;">💡 提取码：<b style="color:var(--primary);">baiyun</b>（点击下载自动复制）</p>
+    <div class="modal-btns" id="modal-btns"></div>
+    <div class="modal-password" id="modal-pwd-hint"></div>
   </div>
 </div>
 
-<!-- ========== TOP-RIGHT BUTTONS ========== -->
-<div class="top-bar-btns">
-  <a href="https://43.226.47.133/drive.html" class="top-bar-btn" title="白云盘" onclick="window.location.href=this.href;return false;">☁️</a>
-  <a href="https://43.226.47.133/notices.html" class="top-bar-btn" title="通知" onclick="window.location.href=this.href;return false;">📢</a>
-</div>
-
-<div class="footer">白云工具盒 · 数据来源于健谈的白云 · 所有软件仅供学习交流，请于下载后24小时内删除</div>
-
 <script>
+// ========== DATA ==========
 const TOOLS = [
-  { id: 1, cat: "电脑工具", name: "NDM 下载器", thumb: "images/ndm.webp", desc: "最强免费多线下载工具，支持多线程下载、浏览器插件集成，替代IDM的免费选择。", download: "https://wwasm.lanzouq.com/idGMW3vfq5fg", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1zoMJ65ExN" },
-  { id: 2, cat: "电脑工具", name: "Wallpaper Engine", thumb: "images/wallpaper.webp", desc: "动态壁纸软件打包版，免费纯净好用，无需付费即可体验海量动态壁纸。", download: "https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV11fNX63Evu" },
-  { id: 3, cat: "电脑工具", name: "洛雪音乐", thumb: "images/music.webp", desc: "开源免费音乐播放器，支持多平台，可安装音源插件畅听全网音乐，支持无损下载。", download: "https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1TJN16REmy" },
-  { id: 4, cat: "电脑工具", name: "BandiScreen 录屏", thumb: "images/bandicam.webp", desc: "Bandi录屏满血版，简单好用的电脑录屏工具，支持高清录制，建议人手一个。", download: "https://bilibilibaiyun.lanzouq.com/i77t83w07sja", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1kMNg6LEFd" },
-  { id: 5, cat: "电脑工具", name: "WinRAR", thumb: "images/winrar.webp", desc: "经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。", download: "https://wwasm.lanzouq.com/ix6Qj3va59ji", password: "baiyun", tutorial: "https://www.bilibili.com/video/BV1t3Mj6EEPA" },
-  { id: 6, cat: "其他工具", name: "新机系统优化", thumb: "images/optimize.webp", desc: "超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。", download: null, password: "", tutorial: "https://www.bilibili.com/video/BV1b9Nn6sENh" }
+  {id:1,cat:"电脑工具",name:"NDM 下载器",icon:"images/ndm.webp",desc:"最强免费多线下载工具，支持多线程下载、浏览器插件集成，替代IDM的免费选择。",url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
+  {id:2,cat:"电脑工具",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"动态壁纸软件打包版，免费纯净好用，无需付费即可体验海量动态壁纸。",url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"},
+  {id:3,cat:"电脑工具",name:"洛雪音乐",icon:"images/music.webp",desc:"开源免费音乐播放器，支持多平台，可安装音源插件畅听全网音乐，支持无损下载。",url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
+  {id:4,cat:"电脑工具",name:"BandiScreen 录屏",icon:"images/bandicam.webp",desc:"Bandi录屏满血版，简单好用的电脑录屏工具，支持高清录制，建议人手一个。",url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
+  {id:5,cat:"电脑工具",name:"WinRAR",icon:"images/winrar.webp",desc:"经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。",url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
+  {id:6,cat:"其他工具",name:"新机系统优化",icon:"images/optimize.webp",desc:"超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。",url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"}
 ];
-const CATEGORIES = ["电脑工具", "手机工具", "其他工具"];
 
-function renderCategories() {
-  const el = document.getElementById('category-list');
-  el.innerHTML = CATEGORIES.map(cat => {
-    const count = TOOLS.filter(t => t.cat === cat).length;
-    const icons = { "电脑工具": "💻", "手机工具": "📱", "其他工具": "📂" };
-    return '<div class="category-card" onclick="openGrid(\''+cat+'\')">' +
-      '<span class="cat-icon">'+(icons[cat]||'📂')+'</span>' +
-      '<div class="cat-name">'+cat+'</div>' +
-      '<div class="cat-count">共 <span>'+count+'</span> 个工具</div></div>';
-  }).join('');
-}
-function openGrid(cat) {
-  document.getElementById('page-home').classList.remove('active');
-  document.getElementById('page-grid').classList.add('active');
-  document.getElementById('grid-title').textContent = cat;
-  const tools = TOOLS.filter(t => t.cat === cat);
-  document.getElementById('grid-sub').textContent = '共 '+tools.length+' 个工具';
-  const container = document.getElementById('grid-container');
-  container.innerHTML = tools.map(function(t, i) {
-    const globalNum = TOOLS.indexOf(t) + 1;
-    return '<div class="grid-item" onclick="openModal('+(globalNum-1)+')">' +
-      '<span class="grid-number">#'+globalNum+'</span>' +
-      '<img class="grid-icon" src="'+t.thumb+'" alt="'+t.name+'" loading="lazy">' +
-      '<span class="grid-name">'+t.name+'</span></div>';
-  }).join('');
-  container.scrollTop = 0;
-}
-function openModal(index) {
-  const t = TOOLS[index]; if (!t) return;
-  document.getElementById('modal-icon').src = t.thumb;
-  document.getElementById('modal-icon').alt = t.name;
-  document.getElementById('modal-title').textContent = t.name;
-  document.getElementById('modal-desc').textContent = t.desc;
-  const dlBtn = document.getElementById('btn-download');
-  const tutBtn = document.getElementById('btn-tutorial');
-  tutBtn.href = t.tutorial;
-  if (t.download) {
-    const sep = t.download.includes('?')?'&':'?';
-    dlBtn.href = t.download + sep + 'pwd=' + t.password;
-    dlBtn.textContent = '⬇️ 下载 · 密码: ' + t.password;
-    dlBtn.style.display = '';
-    dlBtn.onclick = function(){ navigator.clipboard.writeText(t.password).catch(function(){}); };
-  } else { dlBtn.style.display = 'none'; }
-  document.getElementById('modal-overlay').classList.add('active');
-}
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modal-overlay')) return;
-  document.getElementById('modal-overlay').classList.remove('active');
-}
-function goHome() {
-  document.getElementById('page-grid').classList.remove('active');
-  document.getElementById('modal-overlay').classList.remove('active');
-  document.getElementById('page-home').classList.add('active');
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    if (document.getElementById('modal-overlay').classList.contains('active')) { document.getElementById('modal-overlay').classList.remove('active'); }
-    else if (document.getElementById('page-grid').classList.contains('active')) { goHome(); }
-  }
-});
-window.addEventListener('popstate', function() {
-  if (document.getElementById('modal-overlay').classList.contains('active')) { document.getElementById('modal-overlay').classList.remove('active'); }
-  else if (document.getElementById('page-grid').classList.contains('active')) { goHome(); }
-});
+const WEBSITES = [
+  // ===== AI 工具 =====
+  {id:"w1",cat:"实用网站",sub:"AI工具",name:"DeepSeek",icon:"🤖",desc:"国产顶级大模型，免费使用，支持深度思考和联网搜索。",url:"https://www.deepseek.com/",type:"web"},
+  {id:"w2",cat:"实用网站",sub:"AI工具",name:"ChatGPT",icon:"💬",desc:"OpenAI 旗下人工智能聊天机器人，全球最流行的AI助手。",url:"https://chatgpt.com/",type:"web"},
+  {id:"w3",cat:"实用网站",sub:"AI工具",name:"可灵 AI",icon:"🎬",desc:"快手旗下AI创意平台，支持文生图、图生视频等强大功能。",url:"https://klingai.kuaishou.com/",type:"web"},
+  {id:"w4",cat:"实用网站",sub:"AI工具",name:"即梦AI",icon:"✨",desc:"剪映旗下AI创作平台，一站式视频/图片生成工具。",url:"https://jimeng.jianying.com/",type:"web"},
+  {id:"w5",cat:"实用网站",sub:"AI工具",name:"通义万相",icon:"🎨",desc:"阿里云AI创意作画平台，支持文生图、视频创作等。",url:"https://tongyi.aliyun.com/wanxiang/videoCreation",type:"web"},
+  {id:"w6",cat:"实用网站",sub:"AI工具",name:"Gomoon",icon:"🌙",desc:"桌面端大模型效率工具，集成多种AI能力提升工作效率。",url:"https://gomoon.top/",type:"web"},
+  {id:"w7",cat:"实用网站",sub:"AI工具",name:"Tavily AI",icon:"🔎",desc:"AI驱动的搜索引擎，专为AI代理和研究场景设计。",url:"https://app.tavily.com/home",type:"web"},
+  {id:"w8",cat:"实用网站",sub:"AI工具",name:"智谱清言",icon:"🧠",desc:"智谱AI旗下大模型产品，支持视频生成等高级功能。",url:"https://chatglm.cn/video",type:"web"},
+  {id:"w9",cat:"实用网站",sub:"AI工具",name:"AI价格雷达",icon:"📡",desc:"全球AI工具价格、模型能力和免费额度每日追踪。",url:"https://yangmao.ai/zh/",type:"web"},
+  // ===== 设计素材 =====
+  {id:"w10",cat:"实用网站",sub:"设计素材",name:"Pexels",icon:"📸",desc:"全球最大的免费素材平台之一，海量高质量图片和视频。",url:"https://www.pexels.com/zh-cn/",type:"web"},
+  {id:"w11",cat:"实用网站",sub:"设计素材",name:"Pixabay",icon:"🖼️",desc:"免费正版高清图片、视频和音频素材库，CC0协议。",url:"https://pixabay.com/",type:"web"},
+  {id:"w12",cat:"实用网站",sub:"设计素材",name:"iconfont",icon:"🔣",desc:"阿里巴巴矢量图标库，海量免费图标，支持SVG/PNG下载。",url:"https://www.iconfont.cn/",type:"web"},
+  {id:"w13",cat:"实用网站",sub:"设计素材",name:"Canva 设计",icon:"🎯",desc:"在线平面设计平台，海量模板，轻松制作海报、PPT、Logo。",url:"https://www.canva.cn/",type:"web"},
+  {id:"w14",cat:"实用网站",sub:"设计素材",name:"极简壁纸",icon:"🖥️",desc:"海量高清电脑壁纸，支持多种分辨率，简约风格。",url:"https://bz.zzzmh.cn/",type:"web"},
+  {id:"w15",cat:"实用网站",sub:"设计素材",name:"wallhaven",icon:"🏞️",desc:"超高质量壁纸网站，分类丰富，支持关键词搜索。",url:"https://wallhaven.cc/",type:"web"},
+  {id:"w16",cat:"实用网站",sub:"设计素材",name:"清洁PNG",icon:"✂️",desc:"免费高清透明PNG图片下载，无需抠图直接使用。",url:"https://www.cleanpng.com/",type:"web"},
+  {id:"w17",cat:"实用网站",sub:"设计素材",name:"矢量图标",icon:"🔷",desc:"免费矢量图标下载，超过114万SVG和PNG图标。",url:"https://igoutu.cn/icons",type:"web"},
+  // ===== 在线工具 =====
+  {id:"w18",cat:"实用网站",sub:"在线工具",name:"iLovePDF",icon:"📄",desc:"全能PDF在线处理工具，合并、拆分、压缩、转换一站式。",url:"https://www.ilovepdf.com/",type:"web"},
+  {id:"w19",cat:"实用网站",sub:"在线工具",name:"一个木函",icon:"🧰",desc:"多功能在线工具箱，图片处理、文字转换、加密等应有尽有。",url:"https://ol.woobx.cn/",type:"web"},
+  {id:"w20",cat:"实用网站",sub:"在线工具",name:"Photopea",icon:"🖌️",desc:"在线版Photoshop，无需安装，支持PSD文件编辑。",url:"https://www.photopea.com/",type:"web"},
+  {id:"w21",cat:"实用网站",sub:"在线工具",name:"即时工具",icon:"⚡",desc:"数百种在线工具合集，视频、音频、图片、文档处理。",url:"https://www.67tool.com/",type:"web"},
+  {id:"w22",cat:"实用网站",sub:"在线工具",name:"TTSMaker",icon:"🔊",desc:"免费文字转语音工具，支持多种语言和声音风格。",url:"https://ttsmaker.cn/",type:"web"},
+  {id:"w23",cat:"实用网站",sub:"在线工具",name:"LALAL.AI",icon:"🎵",desc:"AI音轨分离工具，从音频中提取人声或伴奏。",url:"https://www.lalal.ai/zh-hans/",type:"web"},
+  {id:"w24",cat:"实用网站",sub:"在线工具",name:"VirusTotal",icon:"🛡️",desc:"在线病毒检测工具，多引擎扫描文件安全性。",url:"https://www.virustotal.com/",type:"web"},
+  {id:"w25",cat:"实用网站",sub:"在线工具",name:"改图鸭",icon:"🦆",desc:"在线图片编辑处理工具，压缩、裁剪、格式转换等。",url:"https://www.gaituya.com/",type:"web"},
+  {id:"w26",cat:"实用网站",sub:"在线工具",name:"Bfsub 抠图",icon:"🔲",desc:"免费AI在线抠图工具，一键去除图片背景。",url:"https://bgsub.cn/webapp/",type:"web"},
+  {id:"w27",cat:"实用网站",sub:"在线工具",name:"网速测试",icon:"📶",desc:"快速测试当前网络速度，简洁无广告。",url:"https://fast.com/",type:"web"},
+  {id:"w28",cat:"实用网站",sub:"在线工具",name:"docsmall",icon:"📦",desc:"免费在线图片/GIF/PDF压缩工具，轻量高效。",url:"https://docsmall.com/",type:"web"},
+  {id:"w29",cat:"实用网站",sub:"在线工具",name:"文件传输",icon:"📤",desc:"在线文件传输工具，无需登录即可快速分享文件。",url:"https://send.terase.cn/#/send",type:"web"},
+  {id:"w30",cat:"实用网站",sub:"在线工具",name:"Splitter.ai",icon:"🎧",desc:"AI音频处理工具，分离音轨、提取乐器声部。",url:"https://splitter.ai/",type:"web"},
+  {id:"w31",cat:"实用网站",sub:"在线工具",name:"在线印章设计",icon:"🔴",desc:"在线个性化印章设计工具，多种形状与古风字体。",url:"https://www.butterpig.top/personalseal",type:"web"},
+  {id:"w32",cat:"实用网站",sub:"在线工具",name:"SnapWC",icon:"⬇️",desc:"免费视频下载解析工具，支持多平台视频音频提取。",url:"https://snapwc.com/zh",type:"web"},
+  // ===== 资源获取 =====
+  {id:"w33",cat:"实用网站",sub:"资源获取",name:"果核剥壳",icon:"🥜",desc:"互联网净土，分享纯净软件和实用工具。",url:"https://www.ghxi.com/",type:"web"},
+  {id:"w34",cat:"实用网站",sub:"资源获取",name:"奇迹秀工具箱",icon:"🧰",desc:"设计师的百宝箱，各类设计资源与工具合集。",url:"https://www.qijishow.com/",type:"web"},
+  {id:"w35",cat:"实用网站",sub:"资源获取",name:"不死鸟",icon:"🐦",desc:"分享为王，免费实用有趣的资源导航站。",url:"https://iui.su/",type:"web"},
+  {id:"w36",cat:"实用网站",sub:"资源获取",name:"阿虚同学的储物间",icon:"📦",desc:"阿虚的软件和资源收藏，分类清晰资源丰富。",url:"https://www.axutongxue.com/",type:"web"},
+  {id:"w37",cat:"实用网站",sub:"资源获取",name:"小众技术工具库",icon:"🔧",desc:"专注分享实用软件和精品网站的合集。",url:"https://www.xiaozhongjishu.com/",type:"web"},
+  {id:"w38",cat:"实用网站",sub:"资源获取",name:"软仓",icon:"📚",desc:"软件资源导航，收集各类优质软件和素材。",url:"https://www.ruancang.net/",type:"web"},
+  {id:"w39",cat:"实用网站",sub:"资源获取",name:"枫音应用",icon:"🍁",desc:"专注分享免费绿色无毒无广的实用软件。",url:"https://www.fy6b.com/",type:"web"},
+  {id:"w40",cat:"实用网站",sub:"资源获取",name:"开源精选",icon:"💎",desc:"探索免费优质的开源工具，尽享数字自由。",url:"https://www.ossnav.com/",type:"web"},
+  {id:"w41",cat:"实用网站",sub:"资源获取",name:"Jiumo 搜书",icon:"📖",desc:"电子书搜索引擎，帮助找到各类电子书资源。",url:"https://www.jiumosearch.com/",type:"web"},
+  {id:"w42",cat:"实用网站",sub:"资源获取",name:"素材资源网",icon:"🎭",desc:"免费高质量设计素材分享站，种类齐全。",url:"https://www.sucaizy.com/",type:"web"},
+  {id:"w43",cat:"实用网站",sub:"资源获取",name:"考拉新媒体导航",icon:"🐨",desc:"新媒体运营必备导航，收录大量运营工具。",url:"https://www.kaolamedia.com/",type:"web"},
+  {id:"w44",cat:"实用网站",sub:"资源获取",name:"LX Music",icon:"🎶",desc:"开源免费音乐查找工具，聚合全网音乐资源。",url:"https://lxmusic.toside.cn/",type:"web"},
+  // ===== 学习知识 =====
+  {id:"w45",cat:"实用网站",sub:"学习知识",name:"学吧导航",icon:"🎓",desc:"学习资源大全，聚合各类优质学习网站。",url:"https://www.xue8nav.com/",type:"web"},
+  {id:"w46",cat:"实用网站",sub:"学习知识",name:"书享家",icon:"📚",desc:"电子书资源导航，找书看书的绝佳入口。",url:"http://shuxiangjia.cn/",type:"web"},
+  {id:"w47",cat:"实用网站",sub:"学习知识",name:"wikiHow",icon:"📝",desc:"你可以信赖的万事指南，涵盖生活方方面面。",url:"https://zh.wikihow.com/",type:"web"},
+  {id:"w48",cat:"实用网站",sub:"学习知识",name:"全历史",icon:"🏛️",desc:"以时空关系呈现的历史知识平台，可视化历史。",url:"https://www.allhistory.com/",type:"web"},
+  {id:"w49",cat:"实用网站",sub:"学习知识",name:"书格",icon:"📜",desc:"在线古籍图书馆，分享高质量的公共版权书籍。",url:"https://new.shuge.org/",type:"web"},
+  {id:"w50",cat:"实用网站",sub:"学习知识",name:"国外网站大全",icon:"🌍",desc:"世界各国网址大全，探索全球互联网。",url:"http://www.world68.com/",type:"web"},
+  {id:"w51",cat:"实用网站",sub:"学习知识",name:"GitHub 探索",icon:"🐙",desc:"全球最大的开源社区，发现有趣的开源项目。",url:"https://github.com/explore",type:"web"},
+  // ===== 休闲娱乐 =====
+  {id:"w52",cat:"实用网站",sub:"休闲娱乐",name:"茶杯狐",icon:"🦊",desc:"在线影视搜索聚合，免费追剧看电影。",url:"https://cupfox.app/",type:"web"},
+  {id:"w53",cat:"实用网站",sub:"休闲娱乐",name:"模拟钢琴",icon:"🎹",desc:"在线虚拟钢琴，无需下载即可弹奏。",url:"https://www.autopiano.cn/",type:"web"},
+  {id:"w54",cat:"实用网站",sub:"休闲娱乐",name:"虚拟海洋",icon:"🌊",desc:"在线3D虚拟海洋体验，放松身心。",url:"https://virtocean.com/",type:"web"},
+  {id:"w55",cat:"实用网站",sub:"休闲娱乐",name:"千亿像素看中国",icon:"🏙️",desc:"超高清城市全景照片，探索中国的每个角落。",url:"http://pf.bigpixel.cn/zh-CN.html",type:"web"},
+  {id:"w56",cat:"实用网站",sub:"休闲娱乐",name:"4399小游戏",icon:"🎮",desc:"经典在线小游戏平台，海量免费游戏。",url:"https://www.4399.com/",type:"web"},
+  // ===== 音频素材 =====
+  {id:"w57",cat:"实用网站",sub:"音频素材",name:"淘声网",icon:"🎼",desc:"综合音效素材搜索平台，找音效就上淘声。",url:"https://www.tosound.com/",type:"web"},
+  {id:"w58",cat:"实用网站",sub:"音频素材",name:"1Music.cc",icon:"🎵",desc:"免费高品质音乐下载，支持FLAC/MP3格式。",url:"https://1music.cc/",type:"web"},
+  {id:"w59",cat:"实用网站",sub:"音频素材",name:"BGM猫",icon:"🐱",desc:"AI定制背景音乐下载平台，免版权。",url:"http://bgmcat.com/",type:"web"},
+  // ===== 网盘传输 =====
+  {id:"w60",cat:"实用网站",sub:"网盘传输",name:"小飞机网盘",icon:"✈️",desc:"免费网盘，上传下载不限速，分享方便。",url:"https://www.feijipan.com/",type:"web"},
+  {id:"w61",cat:"实用网站",sub:"网盘传输",name:"AirPortal",icon:"📡",desc:"空投快传，设备间快速传输文件。",url:"https://airportal.cn/",type:"web"},
+  {id:"w62",cat:"实用网站",sub:"网盘传输",name:"钛盘",icon:"💿",desc:"临时大文件网盘，无需注册即可分享。",url:"https://tmp.link/",type:"web"}
+];
 
-// ===== Loading Screen + Video Background =====
-(function() {
-  var loading = document.getElementById("loading-screen");
-  var video = document.querySelector(".video-bg video");
-  var bar = document.getElementById("loader-bar-inner");
-  if (!loading || !video) return;
-  video.muted = true;
-  var done = false;
-  function hide() {
-    if (done) return; done = true;
-    loading.classList.add("hidden");
-    document.body.style.overflow = "";
-    video.play().catch(function(){});
-  }
-  video.addEventListener("progress", function() {
-    if (bar && video.buffered.length > 0) {
-      bar.style.width = Math.min(video.buffered.end(0)/video.duration*100, 100) + "%";
+// Build category tree
+function getCatTree(){
+  const tree = {};
+  // Add tool categories
+  TOOLS.forEach(t => {
+    if(!tree[t.cat]) tree[t.cat] = {type:'tool', items:[], subs:{}};
+    tree[t.cat].items.push(t);
+  });
+  // Add website categories
+  WEBSITES.forEach(w => {
+    if(!tree[w.cat]) tree[w.cat] = {type:'web', items:[], subs:{}};
+    tree[w.cat].items.push(w);
+    if(w.sub){
+      if(!tree[w.cat].subs[w.sub]) tree[w.cat].subs[w.sub] = [];
+      tree[w.cat].subs[w.sub].push(w);
     }
   });
-  video.addEventListener("canplaythrough", hide, {once:true});
-  video.addEventListener("loadeddata", function(){video.play().catch(function(){})}, {once:true});
-  setTimeout(hide, 4000);
-  document.addEventListener("visibilitychange", function() {
-    if (document.hidden && video && !video.paused) video.pause();
-    else if (!document.hidden) video.play().catch(function(){});
-  });
-  window.addEventListener("blur", function(){if(video&&!video.paused)video.pause()});
-  window.addEventListener("focus", function(){video.play().catch(function(){})});
-})();
+  return tree;
+}
 
-renderCategories();
+let activeCat = null;
+let activeSub = null;
+let searchQuery = '';
+
+// Init
+function init(){
+  setTimeout(() => {
+    document.getElementById('loading').classList.add('hidden');
+  }, 600);
+  renderSidebar();
+  // Default: show first category
+  const cats = Object.keys(getCatTree());
+  if(cats.length) selectCategory(cats[0]);
+}
+function renderSidebar(){
+  const tree = getCatTree();
+  const nav = document.getElementById('sidebar-nav');
+  const icons = {'电脑工具':'💻','手机工具':'📱','其他工具':'📂','实用网站':'🌐'};
+  let html = '';
+  for(const [cat, data] of Object.entries(tree)){
+    const isWeb = data.type === 'web';
+    const subKeys = Object.keys(data.subs);
+    html += '<div class="nav-section" id="nav-section-'+cat.replace(/\s/g,'')+'">';
+    html += '<div class="nav-section-title" onclick="toggleSection(\''+cat.replace(/\s/g,'')+'\')">'+(icons[cat]||'📋')+' '+cat+'</div>';
+    html += '<div class="nav-items">';
+    html += '<div class="nav-item" data-cat="'+cat+'" onclick="selectCategory(\''+cat+'\')">📋 全部<span class="badge">'+data.items.length+'</span></div>';
+    for(const sub of subKeys){
+      html += '<div class="nav-item" data-cat="'+cat+'" data-sub="'+sub+'" onclick="selectSubCategory(\''+cat+'\',\''+sub+'\')">'+sub+'<span class="badge">'+data.subs[sub].length+'</span></div>';
+    }
+    html += '</div></div>';
+  }
+  nav.innerHTML = html;
+}
+function toggleSection(catId){
+  const sec = document.getElementById('nav-section-'+catId);
+  sec.classList.toggle('collapsed');
+}
+function selectCategory(cat){
+  activeCat = cat; activeSub = null;
+  updateActiveNav();
+  renderContent(cat);
+}
+function selectSubCategory(cat, sub){
+  activeCat = cat; activeSub = sub;
+  updateActiveNav();
+  renderContent(cat, sub);
+}
+function updateActiveNav(){
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const sel = activeSub
+    ? document.querySelector('.nav-item[data-cat="'+activeCat+'"][data-sub="'+activeSub+'"]')
+    : document.querySelector('.nav-item[data-cat="'+activeCat+'"]:not([data-sub])');
+  if(sel) sel.classList.add('active');
+}
+
+function getFilteredItems(cat, sub){
+  let items;
+  if(cat === '实用网站'){
+    items = sub ? WEBSITES.filter(w => w.sub === sub) : WEBSITES;
+  } else {
+    items = sub ? [] : TOOLS.filter(t => t.cat === cat);
+  }
+  if(searchQuery){
+    const q = searchQuery.toLowerCase();
+    items = items.filter(i =>
+      i.name.toLowerCase().includes(q) ||
+      (i.desc && i.desc.toLowerCase().includes(q)) ||
+      (i.sub && i.sub.toLowerCase().includes(q))
+    );
+  }
+  return items;
+}
+
+function renderContent(cat, sub){
+  const items = getFilteredItems(cat, sub);
+  document.getElementById('cat-title').textContent = sub || cat;
+  const isWeb = cat === '实用网站';
+  document.getElementById('cat-desc').textContent = isWeb ? '精选实用网站，按分类整理' : '精选免费工具，带教程和下载';
+  document.getElementById('cat-stats').innerHTML = '<span class="cat-stat">共 <b>'+items.length+'</b> 个'+(isWeb?'网站':'工具')+'</span>';
+
+  const grid = document.getElementById('card-grid');
+  const empty = document.getElementById('empty-state');
+  if(items.length === 0){
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = items.map((item, i) => {
+    const isWeb = item.type === 'web';
+    const iconHtml = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'))
+      ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.parentElement.innerHTML=\''+(item.icon.match(/^[\u{1F300}-\u{1FAFF}]/) ? item.icon : '📋')+'\'">'
+      : item.icon || '📋';
+    return '<div class="card'+(isWeb?' website':'')+'" onclick="openItem(\''+(isWeb?'w':'t')+'_'+item.id+'\')">'+
+      '<span class="card-link-icon">'+(isWeb?'🔗':'⬇️')+'</span>'+
+      '<div class="card-icon">'+iconHtml+'</div>'+
+      '<div class="card-name">'+item.name+'</div>'+
+      '<div class="card-desc">'+item.desc+'</div>'+
+      '<span class="card-tag">'+(isWeb?(item.sub||'网站'):'工具')+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+function openItem(key){
+  const [type, id] = key.split('_');
+  let item;
+  if(type === 't'){
+    item = TOOLS.find(t => t.id === parseInt(id));
+  } else {
+    item = WEBSITES.find(w => w.id === id);
+  }
+  if(!item) return;
+  const modal = document.getElementById('modal');
+  const isWeb = item.type === 'web';
+
+  document.getElementById('modal-icon-wrap').innerHTML = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'))
+    ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.innerHTML=\''+(item.icon.match(/^[\u{1F300}-\u{1FAFF}]/) ? item.icon : '📋')+'\'">'
+    : '<div class="modal-icon-placeholder">'+(item.icon||'📋')+'</div>';
+  document.getElementById('modal-title').textContent = item.name;
+  document.getElementById('modal-desc').textContent = item.desc;
+
+  const btns = document.getElementById('modal-btns');
+  const pwd = document.getElementById('modal-pwd-hint');
+
+  if(isWeb){
+    btns.innerHTML = '<a class="modal-btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener">🔗 打开网站</a>';
+    pwd.innerHTML = '';
+  } else {
+    let btnHtml = '';
+    if(item.url){
+      const sep = item.url.includes('?')?'&':'?';
+      btnHtml += '<a class="modal-btn btn-primary" href="'+item.url+sep+'pwd='+item.pwd+'" target="_blank" rel="noopener" onclick="navigator.clipboard.writeText(\''+item.pwd+'\').catch(()=>{})">⬇️ 下载 · 密码: '+item.pwd+'</a>';
+    }
+    if(item.tutorial){
+      btnHtml += '<a class="modal-btn btn-secondary" href="'+item.tutorial+'" target="_blank" rel="noopener">📺 观看教程</a>';
+    }
+    btns.innerHTML = btnHtml;
+    pwd.innerHTML = item.pwd ? '💡 提取码：<b>'+item.pwd+'</b>（点击下载自动复制）' : '';
+  }
+
+  modal.classList.add('active');
+}
+
+function closeModal(e){
+  if(e && e.target !== document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('active');
+}
+
+function doSearch(){
+  searchQuery = document.getElementById('search-input').value.trim();
+  if(activeCat) renderContent(activeCat, activeSub);
+}
+
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    const modal = document.getElementById('modal');
+    if(modal.classList.contains('active')){ modal.classList.remove('active'); return; }
+    document.getElementById('search-input').value = '';
+    searchQuery = '';
+    if(activeCat) renderContent(activeCat, activeSub);
+  }
+  if(e.ctrlKey && e.key === 'k'){
+    e.preventDefault();
+    document.getElementById('search-input').focus();
+  }
+});
+
+// Close sidebar on content click (mobile)
+document.querySelector('.main-content').addEventListener('click', function(){
+  document.getElementById('sidebar').classList.remove('open');
+});
+
+init();
 </script>
 </body>
 </html>
