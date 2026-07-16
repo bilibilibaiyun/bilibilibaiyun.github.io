@@ -214,6 +214,19 @@ body {
 }
 @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
 @media (min-width: 1200px) { .grid-container { grid-template-columns: repeat(6, 1fr); } }
+
+/* === Cloud Drive Button === */
+.cloud-drive-btn {
+  position: fixed; top: 20px; right: 80px; z-index: 9998;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(108,99,255,.2); border: 1px solid rgba(108,99,255,.3);
+  color: #fff; font-size: 20px; display: flex;
+  align-items: center; justify-content: center;
+  text-decoration: none; backdrop-filter: blur(10px);
+  transition: all .3s ease;
+}
+.cloud-drive-btn:hover { background: rgba(108,99,255,.4); transform: scale(1.1); box-shadow: 0 0 20px var(--primary-glow); }
+@media (max-width: 480px) { .cloud-drive-btn { right: 16px; top: 14px; width: 38px; height: 38px; font-size: 18px; } }
 </style>
 </head>
 <body>
@@ -268,6 +281,8 @@ body {
 </div>
 
 <!-- ========== FOOTER ========== -->
+<a href="drive.html" class="cloud-drive-btn" title="云盘">☁️</a>
+
 <div class="footer">白云工具盒 · 数据来源于健谈的白云 · 所有软件仅供学习交流，请于下载后24小时内删除</div>
 
 <script>
