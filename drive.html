@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浜戠洏 - 鐧戒簯宸ュ叿鐩?/title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Microsoft YaHei', sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+.header {
+  background: #111;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #222;
+}
+.header h1 { font-size: 20px; color: #fff; }
+.header a { color: #888; text-decoration: none; font-size: 13px; }
+.header a:hover { color: #fff; }
+.user-bar { display: flex; align-items: center; gap: 12px; }
+
+.logout-btn {
+  background: none; border: 1px solid #444; color: #888;
+  padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;
+}
+.logout-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+
+/* Login */
+.login-box {
+  max-width: 360px; margin: 80px auto;
+  background: #141414; border: 1px solid #222; border-radius: 8px; padding: 32px;
+  text-align: center;
+}
+.login-box h2 { margin-bottom: 8px; font-size: 22px; }
+.login-box p { color: #666; font-size: 13px; margin-bottom: 20px; }
+.login-box input {
+  width: 100%; padding: 10px 14px; background: #1a1a1a; border: 1px solid #333;
+  color: #fff; border-radius: 6px; font-size: 14px; margin-bottom: 12px; outline: none;
+}
+.login-box input:focus { border-color: #4a90d9; }
+.login-box button {
+  width: 100%; padding: 10px; background: #4a90d9; border: none; color: #fff;
+  border-radius: 6px; font-size: 14px; cursor: pointer; font-weight: bold;
+}
+.login-box button:hover { background: #357abd; }
+.error-msg { color: #e74c3c; font-size: 12px; margin-top: 8px; display: none; }
+
+/* Toolbar */
+.toolbar {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.upload-btn {
+  padding: 8px 18px; background: #2ecc71; border: none; color: #fff;
+  border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold;
+}
+.upload-btn:hover { background: #27ae60; }
+.refresh-btn {
+  padding: 8px 18px; background: #333; border: none; color: #ccc;
+  border-radius: 6px; cursor: pointer; font-size: 13px;
+}
+.refresh-btn:hover { background: #444; }
+.quota { margin-left: auto; color: #666; font-size: 12px; }
+#fileInput { display: none; }
+
+/* Progress */
+.progress-bar {
+  width: 100%; height: 4px; background: #222; border-radius: 2px;
+  margin-bottom: 16px; display: none;
+}
+.progress-bar .fill {
+  height: 100%; background: #2ecc71; border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* File list */
+.file-list { background: #141414; border: 1px solid #222; border-radius: 8px; overflow: hidden; }
+.file-list .empty { padding: 48px; text-align: center; color: #555; font-size: 14px; }
+.file-item {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #1a1a1a; transition: background 0.15s;
+}
+.file-item:hover { background: #1a1a1a; }
+.file-item:last-child { border-bottom: none; }
+.file-icon { font-size: 24px; margin-right: 12px; width: 32px; text-align: center; }
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: 14px; color: #e0e0e0; word-break: break-all; }
+.file-meta { font-size: 11px; color: #666; margin-top: 2px; }
+.file-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.file-actions button {
+  padding: 4px 10px; border: none; border-radius: 4px;
+  cursor: pointer; font-size: 11px; color: #fff;
+}
+.dl-btn { background: #4a90d9; }
+.dl-btn:hover { background: #357abd; }
+.del-btn { background: #c0392b; }
+.del-btn:hover { background: #a93226; }
+
+/* Toast */
+.toast {
+  position: fixed; top: 20px; right: 20px; background: #2ecc71; color: #fff;
+  padding: 10px 20px; border-radius: 6px; font-size: 13px; z-index: 999;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.toast.show { opacity: 1; }
+.toast.error { background: #e74c3c; }
+
+/* Loading */
+.loading { text-align: center; padding: 48px; color: #666; }
+.spinner {
+  display: inline-block; width: 24px; height: 24px; border: 2px solid #333;
+  border-top-color: #4a90d9; border-radius: 50%; animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+  .container { padding: 12px; }
+  .file-actions { flex-direction: column; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>鈽侊笍 浜戠洏</h1>
+  <div class="user-bar" id="userBar" style="display:none">
+    <span style="font-size:12px;color:#888">宸茬櫥褰?/span>
+    <button class="logout-btn" onclick="logout()">閫€鍑?/button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Login form -->
+  <div id="loginSection">
+    <div class="login-box">
+      <h2>馃攼 璇疯緭鍏ュ瘑鐮?/h2>
+      <p>姝や簯鐩橀渶瑕佸瘑鐮佹墠鑳借闂?/p>
+      <input type="password" id="passwordInput" placeholder="璇疯緭鍏ュ瘑鐮? onkeydown="if(event.key==='Enter')login()">
+      <button onclick="login()">杩涘叆浜戠洏</button>
+      <div class="error-msg" id="loginError">瀵嗙爜閿欒锛岃閲嶈瘯</div>
+    </div>
+  </div>
+
+  <!-- Drive content -->
+  <div id="driveSection" style="display:none">
+    <div class="toolbar">
+      <button class="upload-btn" onclick="document.getElementById('fileInput').click()">馃摛 涓婁紶鏂囦欢</button>
+      <input type="file" id="fileInput" onchange="uploadFile(this)">
+      <button class="refresh-btn" onclick="loadFiles()">馃攧 鍒锋柊</button>
+      <span class="quota" id="quotaInfo"></span>
+    </div>
+    <div class="progress-bar" id="progressBar"><div class="fill" id="progressFill"></div></div>
+    <div class="file-list" id="fileList">
+      <div class="loading"><div class="spinner"></div><p style="margin-top:12px">鍔犺浇涓?..</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE = 'http://43.226.47.133:3000';
+let token = localStorage.getItem('drive_token');
+
+// Check if already logged in
+if (token) {
+  verifyToken();
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 2000);
+}
+
+function login() {
+  const pwd = document.getElementById('passwordInput').value;
+  if (!pwd) return;
+
+  fetch(API_BASE + '/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pwd })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      token = data.token;
+      localStorage.setItem('drive_token', token);
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('driveSection').style.display = 'block';
+      document.getElementById('userBar').style.display = 'flex';
+      loadFiles();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  })
+  .catch(() => {
+    document.getElementById('loginError').textContent = '鏃犳硶杩炴帴鏈嶅姟鍣?;
+    document.getElementById('loginError').style.display = 'block';
+  });
+}
+
+function logout() {
+  localStorage.removeItem('drive_token');
+  token = null;
+  document.getElementById('loginSection').style.display = 'block';
+  document.getElementById('driveSection').style.display = 'none';
+  document.getElementById('userBar').style.display = 'none';
+}
+
+function verifyToken() {
+  fetch(API_BASE + '/api/health', {
+    headers: { 'Authorization': 'Bearer ' + token }
+  })
+  .then(r => {
+    if (r.ok) {
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('driveSection').style.display = 'block';
+      document.getElementById('userBar').style.display = 'flex';
+      loadFiles();
+    } else {
+      logout();
+    }
+  })
+  .catch(() => {
+    // Server might be down, still show drive UI but note
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('driveSection').style.display = 'block';
+    document.getElementById('userBar').style.display = 'flex';
+    document.getElementById('fileList').innerHTML = '<div class="empty">鈿狅笍 鏃犳硶杩炴帴鏈嶅姟鍣紝璇风◢鍚庨噸璇?/div>';
+  });
+}
+
+function loadFiles() {
+  if (!token) return;
+  document.getElementById('fileList').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  fetch(API_BASE + '/api/files', {
+    headers: { 'Authorization': 'Bearer ' + token }
+  })
+  .then(r => {
+    if (r.status === 401) { logout(); return; }
+    return r.json();
+  })
+  .then(data => {
+    if (!data || !data.files) return;
+    const list = document.getElementById('fileList');
+    if (data.files.length === 0) {
+      list.innerHTML = '<div class="empty">馃搧 鏆傛棤鏂囦欢锛岀偣鍑讳笂鏂规寜閽笂浼?/div>';
+      updateQuota(0);
+      return;
+    }
+
+    let totalSize = 0;
+    let html = '';
+    data.files.forEach(f => {
+      totalSize += f.size;
+      const icon = getFileIcon(f.type);
+      html += `
+        <div class="file-item">
+          <div class="file-icon">${icon}</div>
+          <div class="file-info">
+            <div class="file-name">${escapeHtml(f.name)}</div>
+            <div class="file-meta">${f.sizeFormatted} 路 ${formatDate(f.modified)}</div>
+          </div>
+          <div class="file-actions">
+            <button class="dl-btn" onclick="downloadFile('${escapeHtml(f.name)}')">涓嬭浇</button>
+            <button class="del-btn" onclick="deleteFile('${escapeHtml(f.name)}')">鍒犻櫎</button>
+          </div>
+        </div>`;
+    });
+    list.innerHTML = html;
+    updateQuota(totalSize);
+  })
+  .catch(() => {
+    document.getElementById('fileList').innerHTML = '<div class="empty">鈿狅笍 鍔犺浇澶辫触锛岃妫€鏌ョ綉缁滆繛鎺?/div>';
+  });
+}
+
+function uploadFile(input) {
+  if (!input.files.length) return;
+  const file = input.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const bar = document.getElementById('progressBar');
+  const fill = document.getElementById('progressFill');
+  bar.style.display = 'block';
+  fill.style.width = '0%';
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', API_BASE + '/api/upload');
+  xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+  xhr.upload.onprogress = (e) => {
+    if (e.lengthComputable) {
+      fill.style.width = (e.loaded / e.total * 100) + '%';
+    }
+  };
+
+  xhr.onload = () => {
+    bar.style.display = 'none';
+    input.value = '';
+    if (xhr.status === 200) {
+      showToast('鉁?涓婁紶鎴愬姛');
+      loadFiles();
+    } else if (xhr.status === 401) {
+      logout();
+    } else {
+      try {
+        const err = JSON.parse(xhr.responseText);
+        showToast(err.error || '涓婁紶澶辫触', true);
+      } catch(e) { showToast('涓婁紶澶辫触', true); }
+    }
+  };
+
+  xhr.onerror = () => {
+    bar.style.display = 'none';
+    showToast('涓婁紶澶辫触锛岃妫€鏌ョ綉缁?, true);
+  };
+
+  xhr.send(formData);
+}
+
+function downloadFile(filename) {
+  window.open(API_BASE + '/api/download/' + encodeURIComponent(filename) + '?token=' + token, '_blank');
+}
+
+function deleteFile(filename) {
+  if (!confirm('纭畾鍒犻櫎銆? + filename + '銆嶅悧锛?)) return;
+
+  fetch(API_BASE + '/api/files/' + encodeURIComponent(filename), {
+    method: 'DELETE',
+    headers: { 'Authorization': 'Bearer ' + token }
+  })
+  .then(r => {
+    if (r.status === 401) { logout(); return; }
+    return r.json();
+  })
+  .then(data => {
+    if (data && data.success) {
+      showToast('宸插垹闄?);
+      loadFiles();
+    }
+  })
+  .catch(() => showToast('鍒犻櫎澶辫触', true));
+}
+
+function getFileIcon(ext) {
+  const icons = {
+    '.jpg': '馃柤锔?, '.jpeg': '馃柤锔?, '.png': '馃柤锔?, '.gif': '馃柤锔?, '.webp': '馃柤锔?, '.svg': '馃柤锔?,
+    '.mp4': '馃幀', '.avi': '馃幀', '.mov': '馃幀', '.mkv': '馃幀',
+    '.mp3': '馃幍', '.wav': '馃幍', '.ogg': '馃幍', '.flac': '馃幍',
+    '.pdf': '馃搫', '.doc': '馃摑', '.docx': '馃摑', '.xls': '馃搳', '.xlsx': '馃搳', '.ppt': '馃搳', '.pptx': '馃搳',
+    '.zip': '馃摝', '.rar': '馃摝', '.7z': '馃摝', '.tar': '馃摝', '.gz': '馃摝',
+    '.txt': '馃搩', '.md': '馃搩', '.json': '馃搩', '.xml': '馃搩',
+    '.exe': '鈿欙笍', '.msi': '鈿欙笍', '.apk': '馃摫',
+    '.py': '馃捇', '.js': '馃捇', '.html': '馃捇', '.css': '馃捇', '.java': '馃捇', '.cpp': '馃捇'
+  };
+  return icons[ext.toLowerCase()] || '馃搧';
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const pad = n => n.toString().padStart(2, '0');
+  return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+}
+
+function updateQuota(bytes) {
+  const gb = (bytes / (1024 * 1024 * 1024)).toFixed(2);
+  document.getElementById('quotaInfo').textContent = '宸茬敤 ' + gb + ' GB / 鍏?20 GB';
+}
+</script>
+
+</body>
+</html>
