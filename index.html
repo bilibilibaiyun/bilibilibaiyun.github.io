@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>鐧戒簯宸ュ叿鐩?- 绮鹃€夊疄鐢ㄥ伐鍏蜂笌缃戠珯</title>
+<title>白云工具盒 - 精选实用工具与网站</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -59,7 +59,7 @@ body{
   user-select:none;transition:color .2s;
 }
 .nav-section-title:hover{color:var(--text2)}
-.nav-section-title::after{content:'鈻?;font-size:10px;margin-left:auto;transition:transform .2s}
+.nav-section-title::after{content:'▾';font-size:10px;margin-left:auto;transition:transform .2s}
 .nav-section.collapsed .nav-section-title::after{transform:rotate(-90deg)}
 .nav-section.collapsed .nav-items{display:none}
 .nav-items{display:flex;flex-direction:column}
@@ -222,50 +222,50 @@ body{
 <!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <img src="images/avatar.png" alt="鐧戒簯" onerror="this.style.display='none'">
+    <img src="images/avatar.png" alt="白云" onerror="this.style.display='none'">
     <div class="sidebar-logo-text">
-      <h2>鈽侊笍 鐧戒簯宸ュ叿鐩?/h2>
-      <span>绮鹃€夊伐鍏?路 瀹炵敤缃戠珯</span>
+      <h2>☁️ 白云工具盒</h2>
+      <span>精选工具 · 实用网站</span>
     </div>
   </div>
   <nav class="sidebar-nav" id="sidebar-nav"></nav>
   <div class="sidebar-footer">
-    馃幀 <a href="https://space.bilibili.com/3546697630222922" target="_blank">鍋ヨ皥鐨勭櫧浜?/a> 路 鍑哄搧
+    🎬 <a href="https://space.bilibili.com/3546697630222922" target="_blank">健谈的白云</a> · 出品
   </div>
 </aside>
 
 <!-- Main -->
 <div class="main-content">
   <div class="top-bar">
-    <button class="top-btn menu-toggle" onclick="toggleSidebar()" title="鑿滃崟">鈽?/button>
+    <button class="top-btn menu-toggle" onclick="toggleSidebar()" title="菜单">☰</button>
     <div class="search-wrap">
-      <span class="search-icon">馃攳</span>
-      <input type="text" id="search-input" placeholder="鎼滅储宸ュ叿鎴栫綉绔?.." oninput="doSearch()">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="搜索工具或网站..." oninput="doSearch()">
     </div>
     <div class="top-bar-actions">
-      <a href="https://43.226.47.133/drive.html" class="top-btn" title="鐧戒簯鐩?>鈽侊笍</a>
-      <a href="https://43.226.47.133/notices.html" class="top-btn" title="閫氱煡">馃摙</a>
+      <a href="https://43.226.47.133/drive.html" class="top-btn" title="白云盘">☁️</a>
+      <a href="https://43.226.47.133/notices.html" class="top-btn" title="通知">📢</a>
     </div>
   </div>
   <div class="content-area" id="content-area">
     <div class="cat-header">
-      <h1 id="cat-title">鐢佃剳宸ュ叿</h1>
+      <h1 id="cat-title">电脑工具</h1>
       <p id="cat-desc"></p>
       <div class="cat-stats" id="cat-stats"></div>
     </div>
     <div class="card-grid" id="card-grid"></div>
     <div class="empty-state" id="empty-state" style="display:none">
-      <div class="empty-icon">馃攳</div>
-      <p>娌℃湁鎵惧埌鍖归厤鐨勫唴瀹癸紝鎹釜鍏抽敭璇嶈瘯璇曪紵</p>
+      <div class="empty-icon">🔍</div>
+      <p>没有找到匹配的内容，换个关键词试试？</p>
     </div>
   </div>
-  <div class="footer">鐧戒簯宸ュ叿鐩?路 鎵€鏈夎蒋浠朵粎渚涘涔犱氦娴侊紝璇蜂簬涓嬭浇鍚?4灏忔椂鍐呭垹闄?路 鏁版嵁鏉ユ簮浜庡仴璋堢殑鐧戒簯</div>
+  <div class="footer">白云工具盒 · 所有软件仅供学习交流，请于下载后24小时内删除 · 数据来源于健谈的白云</div>
 </div>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">鉁?/button>
+    <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-header">
       <span id="modal-icon-wrap"></span>
       <div class="modal-title" id="modal-title"></div>
@@ -279,87 +279,87 @@ body{
 <script>
 // ========== DATA ==========
 const TOOLS = [
-  {id:1,cat:"鐢佃剳宸ュ叿",name:"NDM 涓嬭浇鍣?,icon:"images/ndm.webp",desc:"鏈€寮哄厤璐瑰绾夸笅杞藉伐鍏凤紝鏀寔澶氱嚎绋嬩笅杞姐€佹祻瑙堝櫒鎻掍欢闆嗘垚锛屾浛浠DM鐨勫厤璐归€夋嫨銆?,url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
-  {id:2,cat:"鐢佃剳宸ュ叿",name:"OpenClaw AI Agent 绁炲櫒",icon:"images/openclaw.webp",desc:"鍛婂埆澶嶆潅鎿嶄綔锛屽皬鐧戒篃鑳借交鏉惧畨瑁呯殑AI Agent绁炲櫒锛屽紑婧愮函鍑€鑷畾涔夋帴鍙ｏ紝鏀寔DeepSeek鍜孠imi銆?,url:"https://bilibilibaiyun.lanzouq.com/b009i6mndi",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1GeKn6AEYs",type:"tool"},
-  {id:3,cat:"鐢佃剳宸ュ叿",name:"娲涢洩闊充箰",icon:"images/music.webp",desc:"寮€婧愬厤璐归煶涔愭挱鏀惧櫒锛屾敮鎸佸骞冲彴锛屽彲瀹夎闊虫簮鎻掍欢鐣呭惉鍏ㄧ綉闊充箰锛屾敮鎸佹棤鎹熶笅杞姐€?,url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
-  {id:4,cat:"鐢佃剳宸ュ叿",name:"BandiScreen 褰曞睆",icon:"images/bandicam.webp",desc:"Bandi褰曞睆婊¤鐗堬紝绠€鍗曞ソ鐢ㄧ殑鐢佃剳褰曞睆宸ュ叿锛屾敮鎸侀珮娓呭綍鍒讹紝寤鸿浜烘墜涓€涓€?,url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
-  {id:5,cat:"鐢佃剳宸ュ叿",name:"WinRAR",icon:"images/winrar.webp",desc:"缁忓吀鍘嬬缉瑙ｅ帇宸ュ叿锛屾敮鎸丷AR/ZIP绛夊绉嶆牸寮忥紝绾噣鐗堝厤骞垮憡鍏嶆縺娲汇€?,url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
-  {id:6,cat:"鍏朵粬宸ュ叿",name:"鏂版満绯荤粺浼樺寲",icon:"images/optimize.webp",desc:"瓒呰缁嗙殑鏂版満绯荤粺浼樺寲鏀荤暐锛屽惈绯荤粺璁剧疆銆佽蒋浠跺畨瑁呫€佹€ц兘浼樺寲绛夊叏鏂逛綅鎸囧崡銆?,url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"},
-  {id:7,cat:"鐢佃剳宸ュ叿",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"鍔ㄦ€佸绾歌蒋浠舵墦鍖呯増锛屽厤璐圭函鍑€濂界敤锛屾棤闇€浠樿垂鍗冲彲浣撻獙娴烽噺鍔ㄦ€佸绾搞€?,url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"},
-  {id:8,cat:"鐢佃剳宸ュ叿",name:"LocalSend 灞€鍩熺綉浼犺緭",icon:"images/localsend.webp",desc:"寮€婧愬眬鍩熺綉鏂囦欢浼犺緭宸ュ叿锛岄€熷害鍙揪999MB/S鈿★笍锛屾敮鎸佺數鑴?鎵嬫満鍏ㄥ钩鍙颁簰浼狅紝鏃犳崯涓嶉檺閫熸棤闇€鑱旂綉銆?,url:"https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1EaKP6bEwo",type:"tool"}
+  {id:1,cat:"电脑工具",name:"NDM 下载器",icon:"images/ndm.webp",desc:"最强免费多线下载工具，支持多线程下载、浏览器插件集成，替代IDM的免费选择。",url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
+  {id:2,cat:"电脑工具",name:"OpenClaw AI Agent 神器",icon:"images/openclaw.webp",desc:"告别复杂操作，小白也能轻松安装的AI Agent神器，开源纯净自定义接口，支持DeepSeek和Kimi。",url:"https://bilibilibaiyun.lanzouq.com/b009i6mndi",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1GeKn6AEYs",type:"tool"},
+  {id:3,cat:"电脑工具",name:"洛雪音乐",icon:"images/music.webp",desc:"开源免费音乐播放器，支持多平台，可安装音源插件畅听全网音乐，支持无损下载。",url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
+  {id:4,cat:"电脑工具",name:"BandiScreen 录屏",icon:"images/bandicam.webp",desc:"Bandi录屏满血版，简单好用的电脑录屏工具，支持高清录制，建议人手一个。",url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
+  {id:5,cat:"电脑工具",name:"WinRAR",icon:"images/winrar.webp",desc:"经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。",url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
+  {id:6,cat:"其他工具",name:"新机系统优化",icon:"images/optimize.webp",desc:"超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。",url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"},
+  {id:7,cat:"电脑工具",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"动态壁纸软件打包版，免费纯净好用，无需付费即可体验海量动态壁纸。",url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"},
+  {id:8,cat:"电脑工具",name:"LocalSend 局域网传输",icon:"images/localsend.webp",desc:"开源局域网文件传输工具，速度可达999MB/S⚡️，支持电脑/手机全平台互传，无损不限速无需联网。",url:"https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1EaKP6bEwo",type:"tool"}
 ];
 
 const WEBSITES = [
-  // ===== AI 宸ュ叿 =====
-  {id:"w1",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"DeepSeek",icon:"馃",desc:"鍥戒骇椤剁骇澶фā鍨嬶紝鍏嶈垂浣跨敤锛屾敮鎸佹繁搴︽€濊€冨拰鑱旂綉鎼滅储銆?,url:"https://www.deepseek.com/",type:"web"},
-  {id:"w2",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"ChatGPT",icon:"馃挰",desc:"OpenAI 鏃椾笅浜哄伐鏅鸿兘鑱婂ぉ鏈哄櫒浜猴紝鍏ㄧ悆鏈€娴佽鐨凙I鍔╂墜銆?,url:"https://chatgpt.com/",type:"web"},
-  {id:"w3",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"鍙伒 AI",icon:"馃幀",desc:"蹇墜鏃椾笅AI鍒涙剰骞冲彴锛屾敮鎸佹枃鐢熷浘銆佸浘鐢熻棰戠瓑寮哄ぇ鍔熻兘銆?,url:"https://klingai.kuaishou.com/",type:"web"},
-  {id:"w4",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"鍗虫ⅵAI",icon:"鉁?,desc:"鍓槧鏃椾笅AI鍒涗綔骞冲彴锛屼竴绔欏紡瑙嗛/鍥剧墖鐢熸垚宸ュ叿銆?,url:"https://jimeng.jianying.com/",type:"web"},
-  {id:"w5",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"閫氫箟涓囩浉",icon:"馃帹",desc:"闃块噷浜慉I鍒涙剰浣滅敾骞冲彴锛屾敮鎸佹枃鐢熷浘銆佽棰戝垱浣滅瓑銆?,url:"https://tongyi.aliyun.com/wanxiang/videoCreation",type:"web"},
-  {id:"w6",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"Gomoon",icon:"馃寵",desc:"妗岄潰绔ぇ妯″瀷鏁堢巼宸ュ叿锛岄泦鎴愬绉岮I鑳藉姏鎻愬崌宸ヤ綔鏁堢巼銆?,url:"https://gomoon.top/",type:"web"},
-  {id:"w7",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"Tavily AI",icon:"馃攷",desc:"AI椹卞姩鐨勬悳绱㈠紩鎿庯紝涓撲负AI浠ｇ悊鍜岀爺绌跺満鏅璁°€?,url:"https://app.tavily.com/home",type:"web"},
-  {id:"w8",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"鏅鸿氨娓呰█",icon:"馃",desc:"鏅鸿氨AI鏃椾笅澶фā鍨嬩骇鍝侊紝鏀寔瑙嗛鐢熸垚绛夐珮绾у姛鑳姐€?,url:"https://chatglm.cn/video",type:"web"},
-  {id:"w9",cat:"瀹炵敤缃戠珯",sub:"AI宸ュ叿",name:"AI浠锋牸闆疯揪",icon:"馃摗",desc:"鍏ㄧ悆AI宸ュ叿浠锋牸銆佹ā鍨嬭兘鍔涘拰鍏嶈垂棰濆害姣忔棩杩借釜銆?,url:"https://yangmao.ai/zh/",type:"web"},
-  // ===== 璁捐绱犳潗 =====
-  {id:"w10",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"Pexels",icon:"馃摳",desc:"鍏ㄧ悆鏈€澶х殑鍏嶈垂绱犳潗骞冲彴涔嬩竴锛屾捣閲忛珮璐ㄩ噺鍥剧墖鍜岃棰戙€?,url:"https://www.pexels.com/zh-cn/",type:"web"},
-  {id:"w11",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"Pixabay",icon:"馃柤锔?,desc:"鍏嶈垂姝ｇ増楂樻竻鍥剧墖銆佽棰戝拰闊抽绱犳潗搴擄紝CC0鍗忚銆?,url:"https://pixabay.com/",type:"web"},
-  {id:"w12",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"iconfont",icon:"馃敚",desc:"闃块噷宸村反鐭㈤噺鍥炬爣搴擄紝娴烽噺鍏嶈垂鍥炬爣锛屾敮鎸丼VG/PNG涓嬭浇銆?,url:"https://www.iconfont.cn/",type:"web"},
-  {id:"w13",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"Canva 璁捐",icon:"馃幆",desc:"鍦ㄧ嚎骞抽潰璁捐骞冲彴锛屾捣閲忔ā鏉匡紝杞绘澗鍒朵綔娴锋姤銆丳PT銆丩ogo銆?,url:"https://www.canva.cn/",type:"web"},
-  {id:"w14",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"鏋佺畝澹佺焊",icon:"馃枼锔?,desc:"娴烽噺楂樻竻鐢佃剳澹佺焊锛屾敮鎸佸绉嶅垎杈ㄧ巼锛岀畝绾﹂鏍笺€?,url:"https://bz.zzzmh.cn/",type:"web"},
-  {id:"w15",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"wallhaven",icon:"馃彏锔?,desc:"瓒呴珮璐ㄩ噺澹佺焊缃戠珯锛屽垎绫讳赴瀵岋紝鏀寔鍏抽敭璇嶆悳绱€?,url:"https://wallhaven.cc/",type:"web"},
-  {id:"w16",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"娓呮磥PNG",icon:"鉁傦笍",desc:"鍏嶈垂楂樻竻閫忔槑PNG鍥剧墖涓嬭浇锛屾棤闇€鎶犲浘鐩存帴浣跨敤銆?,url:"https://www.cleanpng.com/",type:"web"},
-  {id:"w17",cat:"瀹炵敤缃戠珯",sub:"璁捐绱犳潗",name:"鐭㈤噺鍥炬爣",icon:"馃敺",desc:"鍏嶈垂鐭㈤噺鍥炬爣涓嬭浇锛岃秴杩?14涓嘢VG鍜孭NG鍥炬爣銆?,url:"https://igoutu.cn/icons",type:"web"},
-  // ===== 鍦ㄧ嚎宸ュ叿 =====
-  {id:"w18",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"iLovePDF",icon:"馃搫",desc:"鍏ㄨ兘PDF鍦ㄧ嚎澶勭悊宸ュ叿锛屽悎骞躲€佹媶鍒嗐€佸帇缂┿€佽浆鎹竴绔欏紡銆?,url:"https://www.ilovepdf.com/",type:"web"},
-  {id:"w19",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"涓€涓湪鍑?,icon:"馃О",desc:"澶氬姛鑳藉湪绾垮伐鍏风锛屽浘鐗囧鐞嗐€佹枃瀛楄浆鎹€佸姞瀵嗙瓑搴旀湁灏芥湁銆?,url:"https://ol.woobx.cn/",type:"web"},
-  {id:"w20",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"Photopea",icon:"馃枌锔?,desc:"鍦ㄧ嚎鐗圥hotoshop锛屾棤闇€瀹夎锛屾敮鎸丳SD鏂囦欢缂栬緫銆?,url:"https://www.photopea.com/",type:"web"},
-  {id:"w21",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"鍗虫椂宸ュ叿",icon:"鈿?,desc:"鏁扮櫨绉嶅湪绾垮伐鍏峰悎闆嗭紝瑙嗛銆侀煶棰戙€佸浘鐗囥€佹枃妗ｅ鐞嗐€?,url:"https://www.67tool.com/",type:"web"},
-  {id:"w22",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"TTSMaker",icon:"馃攰",desc:"鍏嶈垂鏂囧瓧杞闊冲伐鍏凤紝鏀寔澶氱璇█鍜屽０闊抽鏍笺€?,url:"https://ttsmaker.cn/",type:"web"},
-  {id:"w23",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"LALAL.AI",icon:"馃幍",desc:"AI闊宠建鍒嗙宸ュ叿锛屼粠闊抽涓彁鍙栦汉澹版垨浼村銆?,url:"https://www.lalal.ai/zh-hans/",type:"web"},
-  {id:"w24",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"VirusTotal",icon:"馃洝锔?,desc:"鍦ㄧ嚎鐥呮瘨妫€娴嬪伐鍏凤紝澶氬紩鎿庢壂鎻忔枃浠跺畨鍏ㄦ€с€?,url:"https://www.virustotal.com/",type:"web"},
-  {id:"w25",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"鏀瑰浘楦?,icon:"馃",desc:"鍦ㄧ嚎鍥剧墖缂栬緫澶勭悊宸ュ叿锛屽帇缂┿€佽鍓€佹牸寮忚浆鎹㈢瓑銆?,url:"https://www.gaituya.com/",type:"web"},
-  {id:"w26",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"Bfsub 鎶犲浘",icon:"馃敳",desc:"鍏嶈垂AI鍦ㄧ嚎鎶犲浘宸ュ叿锛屼竴閿幓闄ゅ浘鐗囪儗鏅€?,url:"https://bgsub.cn/webapp/",type:"web"},
-  {id:"w27",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"缃戦€熸祴璇?,icon:"馃摱",desc:"蹇€熸祴璇曞綋鍓嶇綉缁滈€熷害锛岀畝娲佹棤骞垮憡銆?,url:"https://fast.com/",type:"web"},
-  {id:"w28",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"docsmall",icon:"馃摝",desc:"鍏嶈垂鍦ㄧ嚎鍥剧墖/GIF/PDF鍘嬬缉宸ュ叿锛岃交閲忛珮鏁堛€?,url:"https://docsmall.com/",type:"web"},
-  {id:"w29",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"鏂囦欢浼犺緭",icon:"馃摛",desc:"鍦ㄧ嚎鏂囦欢浼犺緭宸ュ叿锛屾棤闇€鐧诲綍鍗冲彲蹇€熷垎浜枃浠躲€?,url:"https://send.terase.cn/#/send",type:"web"},
-  {id:"w30",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"Splitter.ai",icon:"馃帶",desc:"AI闊抽澶勭悊宸ュ叿锛屽垎绂婚煶杞ㄣ€佹彁鍙栦箰鍣ㄥ０閮ㄣ€?,url:"https://splitter.ai/",type:"web"},
-  {id:"w31",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"鍦ㄧ嚎鍗扮珷璁捐",icon:"馃敶",desc:"鍦ㄧ嚎涓€у寲鍗扮珷璁捐宸ュ叿锛屽绉嶅舰鐘朵笌鍙ら瀛椾綋銆?,url:"https://www.butterpig.top/personalseal",type:"web"},
-  {id:"w32",cat:"瀹炵敤缃戠珯",sub:"鍦ㄧ嚎宸ュ叿",name:"SnapWC",icon:"猬囷笍",desc:"鍏嶈垂瑙嗛涓嬭浇瑙ｆ瀽宸ュ叿锛屾敮鎸佸骞冲彴瑙嗛闊抽鎻愬彇銆?,url:"https://snapwc.com/zh",type:"web"},
-  // ===== 璧勬簮鑾峰彇 =====
-  {id:"w33",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"鏋滄牳鍓ュ３",icon:"馃",desc:"浜掕仈缃戝噣鍦燂紝鍒嗕韩绾噣杞欢鍜屽疄鐢ㄥ伐鍏枫€?,url:"https://www.ghxi.com/",type:"web"},
-  {id:"w34",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"濂囪抗绉€宸ュ叿绠?,icon:"馃О",desc:"璁捐甯堢殑鐧惧疂绠憋紝鍚勭被璁捐璧勬簮涓庡伐鍏峰悎闆嗐€?,url:"https://www.qijishow.com/",type:"web"},
-  {id:"w35",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"涓嶆楦?,icon:"馃惁",desc:"鍒嗕韩涓虹帇锛屽厤璐瑰疄鐢ㄦ湁瓒ｇ殑璧勬簮瀵艰埅绔欍€?,url:"https://iui.su/",type:"web"},
-  {id:"w36",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"闃胯櫄鍚屽鐨勫偍鐗╅棿",icon:"馃摝",desc:"闃胯櫄鐨勮蒋浠跺拰璧勬簮鏀惰棌锛屽垎绫绘竻鏅拌祫婧愪赴瀵屻€?,url:"https://www.axutongxue.com/",type:"web"},
-  {id:"w37",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"灏忎紬鎶€鏈伐鍏峰簱",icon:"馃敡",desc:"涓撴敞鍒嗕韩瀹炵敤杞欢鍜岀簿鍝佺綉绔欑殑鍚堥泦銆?,url:"https://www.xiaozhongjishu.com/",type:"web"},
-  {id:"w38",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"杞粨",icon:"馃摎",desc:"杞欢璧勬簮瀵艰埅锛屾敹闆嗗悇绫讳紭璐ㄨ蒋浠跺拰绱犳潗銆?,url:"https://www.ruancang.net/",type:"web"},
-  {id:"w39",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"鏋煶搴旂敤",icon:"馃崄",desc:"涓撴敞鍒嗕韩鍏嶈垂缁胯壊鏃犳瘨鏃犲箍鐨勫疄鐢ㄨ蒋浠躲€?,url:"https://www.fy6b.com/",type:"web"},
-  {id:"w40",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"寮€婧愮簿閫?,icon:"馃拵",desc:"鎺㈢储鍏嶈垂浼樿川鐨勫紑婧愬伐鍏凤紝灏戒韩鏁板瓧鑷敱銆?,url:"https://www.ossnav.com/",type:"web"},
-  {id:"w41",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"Jiumo 鎼滀功",icon:"馃摉",desc:"鐢靛瓙涔︽悳绱㈠紩鎿庯紝甯姪鎵惧埌鍚勭被鐢靛瓙涔﹁祫婧愩€?,url:"https://www.jiumosearch.com/",type:"web"},
-  {id:"w42",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"绱犳潗璧勬簮缃?,icon:"馃幁",desc:"鍏嶈垂楂樿川閲忚璁＄礌鏉愬垎浜珯锛岀绫婚綈鍏ㄣ€?,url:"https://www.sucaizy.com/",type:"web"},
-  {id:"w43",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"鑰冩媺鏂板獟浣撳鑸?,icon:"馃惃",desc:"鏂板獟浣撹繍钀ュ繀澶囧鑸紝鏀跺綍澶ч噺杩愯惀宸ュ叿銆?,url:"https://www.kaolamedia.com/",type:"web"},
-  {id:"w44",cat:"瀹炵敤缃戠珯",sub:"璧勬簮鑾峰彇",name:"LX Music",icon:"馃幎",desc:"寮€婧愬厤璐归煶涔愭煡鎵惧伐鍏凤紝鑱氬悎鍏ㄧ綉闊充箰璧勬簮銆?,url:"https://lxmusic.toside.cn/",type:"web"},
-  // ===== 瀛︿範鐭ヨ瘑 =====
-  {id:"w45",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"瀛﹀惂瀵艰埅",icon:"馃帗",desc:"瀛︿範璧勬簮澶у叏锛岃仛鍚堝悇绫讳紭璐ㄥ涔犵綉绔欍€?,url:"https://www.xue8nav.com/",type:"web"},
-  {id:"w46",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"涔︿韩瀹?,icon:"馃摎",desc:"鐢靛瓙涔﹁祫婧愬鑸紝鎵句功鐪嬩功鐨勭粷浣冲叆鍙ｃ€?,url:"http://shuxiangjia.cn/",type:"web"},
-  {id:"w47",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"wikiHow",icon:"馃摑",desc:"浣犲彲浠ヤ俊璧栫殑涓囦簨鎸囧崡锛屾兜鐩栫敓娲绘柟鏂归潰闈€?,url:"https://zh.wikihow.com/",type:"web"},
-  {id:"w48",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"鍏ㄥ巻鍙?,icon:"馃彌锔?,desc:"浠ユ椂绌哄叧绯诲憟鐜扮殑鍘嗗彶鐭ヨ瘑骞冲彴锛屽彲瑙嗗寲鍘嗗彶銆?,url:"https://www.allhistory.com/",type:"web"},
-  {id:"w49",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"涔︽牸",icon:"馃摐",desc:"鍦ㄧ嚎鍙ょ睄鍥句功棣嗭紝鍒嗕韩楂樿川閲忕殑鍏叡鐗堟潈涔︾睄銆?,url:"https://new.shuge.org/",type:"web"},
-  {id:"w50",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"鍥藉缃戠珯澶у叏",icon:"馃實",desc:"涓栫晫鍚勫浗缃戝潃澶у叏锛屾帰绱㈠叏鐞冧簰鑱旂綉銆?,url:"http://www.world68.com/",type:"web"},
-  {id:"w51",cat:"瀹炵敤缃戠珯",sub:"瀛︿範鐭ヨ瘑",name:"GitHub 鎺㈢储",icon:"馃悪",desc:"鍏ㄧ悆鏈€澶х殑寮€婧愮ぞ鍖猴紝鍙戠幇鏈夎叮鐨勫紑婧愰」鐩€?,url:"https://github.com/explore",type:"web"},
-  // ===== 浼戦棽濞变箰 =====
-  {id:"w52",cat:"瀹炵敤缃戠珯",sub:"浼戦棽濞变箰",name:"鑼舵澂鐙?,icon:"馃",desc:"鍦ㄧ嚎褰辫鎼滅储鑱氬悎锛屽厤璐硅拷鍓х湅鐢靛奖銆?,url:"https://cupfox.app/",type:"web"},
-  {id:"w53",cat:"瀹炵敤缃戠珯",sub:"浼戦棽濞变箰",name:"妯℃嫙閽㈢惔",icon:"馃幑",desc:"鍦ㄧ嚎铏氭嫙閽㈢惔锛屾棤闇€涓嬭浇鍗冲彲寮瑰銆?,url:"https://www.autopiano.cn/",type:"web"},
-  {id:"w54",cat:"瀹炵敤缃戠珯",sub:"浼戦棽濞变箰",name:"铏氭嫙娴锋磱",icon:"馃寠",desc:"鍦ㄧ嚎3D铏氭嫙娴锋磱浣撻獙锛屾斁鏉捐韩蹇冦€?,url:"https://virtocean.com/",type:"web"},
-  {id:"w55",cat:"瀹炵敤缃戠珯",sub:"浼戦棽濞变箰",name:"鍗冧嚎鍍忕礌鐪嬩腑鍥?,icon:"馃彊锔?,desc:"瓒呴珮娓呭煄甯傚叏鏅収鐗囷紝鎺㈢储涓浗鐨勬瘡涓钀姐€?,url:"http://pf.bigpixel.cn/zh-CN.html",type:"web"},
-  {id:"w56",cat:"瀹炵敤缃戠珯",sub:"浼戦棽濞变箰",name:"4399灏忔父鎴?,icon:"馃幃",desc:"缁忓吀鍦ㄧ嚎灏忔父鎴忓钩鍙帮紝娴烽噺鍏嶈垂娓告垙銆?,url:"https://www.4399.com/",type:"web"},
-  // ===== 闊抽绱犳潗 =====
-  {id:"w57",cat:"瀹炵敤缃戠珯",sub:"闊抽绱犳潗",name:"娣樺０缃?,icon:"馃幖",desc:"缁煎悎闊虫晥绱犳潗鎼滅储骞冲彴锛屾壘闊虫晥灏变笂娣樺０銆?,url:"https://www.tosound.com/",type:"web"},
-  {id:"w58",cat:"瀹炵敤缃戠珯",sub:"闊抽绱犳潗",name:"1Music.cc",icon:"馃幍",desc:"鍏嶈垂楂樺搧璐ㄩ煶涔愪笅杞斤紝鏀寔FLAC/MP3鏍煎紡銆?,url:"https://1music.cc/",type:"web"},
-  {id:"w59",cat:"瀹炵敤缃戠珯",sub:"闊抽绱犳潗",name:"BGM鐚?,icon:"馃惐",desc:"AI瀹氬埗鑳屾櫙闊充箰涓嬭浇骞冲彴锛屽厤鐗堟潈銆?,url:"http://bgmcat.com/",type:"web"},
-  // ===== 缃戠洏浼犺緭 =====
-  {id:"w60",cat:"瀹炵敤缃戠珯",sub:"缃戠洏浼犺緭",name:"灏忛鏈虹綉鐩?,icon:"鉁堬笍",desc:"鍏嶈垂缃戠洏锛屼笂浼犱笅杞戒笉闄愰€燂紝鍒嗕韩鏂逛究銆?,url:"https://www.feijipan.com/",type:"web"},
-  {id:"w61",cat:"瀹炵敤缃戠珯",sub:"缃戠洏浼犺緭",name:"AirPortal",icon:"馃摗",desc:"绌烘姇蹇紶锛岃澶囬棿蹇€熶紶杈撴枃浠躲€?,url:"https://airportal.cn/",type:"web"},
-  {id:"w62",cat:"瀹炵敤缃戠珯",sub:"缃戠洏浼犺緭",name:"閽涚洏",icon:"馃捒",desc:"涓存椂澶ф枃浠剁綉鐩橈紝鏃犻渶娉ㄥ唽鍗冲彲鍒嗕韩銆?,url:"https://tmp.link/",type:"web"}
+  // ===== AI 工具 =====
+  {id:"w1",cat:"实用网站",sub:"AI工具",name:"DeepSeek",icon:"🤖",desc:"国产顶级大模型，免费使用，支持深度思考和联网搜索。",url:"https://www.deepseek.com/",type:"web"},
+  {id:"w2",cat:"实用网站",sub:"AI工具",name:"ChatGPT",icon:"💬",desc:"OpenAI 旗下人工智能聊天机器人，全球最流行的AI助手。",url:"https://chatgpt.com/",type:"web"},
+  {id:"w3",cat:"实用网站",sub:"AI工具",name:"可灵 AI",icon:"🎬",desc:"快手旗下AI创意平台，支持文生图、图生视频等强大功能。",url:"https://klingai.kuaishou.com/",type:"web"},
+  {id:"w4",cat:"实用网站",sub:"AI工具",name:"即梦AI",icon:"✨",desc:"剪映旗下AI创作平台，一站式视频/图片生成工具。",url:"https://jimeng.jianying.com/",type:"web"},
+  {id:"w5",cat:"实用网站",sub:"AI工具",name:"通义万相",icon:"🎨",desc:"阿里云AI创意作画平台，支持文生图、视频创作等。",url:"https://tongyi.aliyun.com/wanxiang/videoCreation",type:"web"},
+  {id:"w6",cat:"实用网站",sub:"AI工具",name:"Gomoon",icon:"🌙",desc:"桌面端大模型效率工具，集成多种AI能力提升工作效率。",url:"https://gomoon.top/",type:"web"},
+  {id:"w7",cat:"实用网站",sub:"AI工具",name:"Tavily AI",icon:"🔎",desc:"AI驱动的搜索引擎，专为AI代理和研究场景设计。",url:"https://app.tavily.com/home",type:"web"},
+  {id:"w8",cat:"实用网站",sub:"AI工具",name:"智谱清言",icon:"🧠",desc:"智谱AI旗下大模型产品，支持视频生成等高级功能。",url:"https://chatglm.cn/video",type:"web"},
+  {id:"w9",cat:"实用网站",sub:"AI工具",name:"AI价格雷达",icon:"📡",desc:"全球AI工具价格、模型能力和免费额度每日追踪。",url:"https://yangmao.ai/zh/",type:"web"},
+  // ===== 设计素材 =====
+  {id:"w10",cat:"实用网站",sub:"设计素材",name:"Pexels",icon:"📸",desc:"全球最大的免费素材平台之一，海量高质量图片和视频。",url:"https://www.pexels.com/zh-cn/",type:"web"},
+  {id:"w11",cat:"实用网站",sub:"设计素材",name:"Pixabay",icon:"🖼️",desc:"免费正版高清图片、视频和音频素材库，CC0协议。",url:"https://pixabay.com/",type:"web"},
+  {id:"w12",cat:"实用网站",sub:"设计素材",name:"iconfont",icon:"🔣",desc:"阿里巴巴矢量图标库，海量免费图标，支持SVG/PNG下载。",url:"https://www.iconfont.cn/",type:"web"},
+  {id:"w13",cat:"实用网站",sub:"设计素材",name:"Canva 设计",icon:"🎯",desc:"在线平面设计平台，海量模板，轻松制作海报、PPT、Logo。",url:"https://www.canva.cn/",type:"web"},
+  {id:"w14",cat:"实用网站",sub:"设计素材",name:"极简壁纸",icon:"🖥️",desc:"海量高清电脑壁纸，支持多种分辨率，简约风格。",url:"https://bz.zzzmh.cn/",type:"web"},
+  {id:"w15",cat:"实用网站",sub:"设计素材",name:"wallhaven",icon:"🏞️",desc:"超高质量壁纸网站，分类丰富，支持关键词搜索。",url:"https://wallhaven.cc/",type:"web"},
+  {id:"w16",cat:"实用网站",sub:"设计素材",name:"清洁PNG",icon:"✂️",desc:"免费高清透明PNG图片下载，无需抠图直接使用。",url:"https://www.cleanpng.com/",type:"web"},
+  {id:"w17",cat:"实用网站",sub:"设计素材",name:"矢量图标",icon:"🔷",desc:"免费矢量图标下载，超过114万SVG和PNG图标。",url:"https://igoutu.cn/icons",type:"web"},
+  // ===== 在线工具 =====
+  {id:"w18",cat:"实用网站",sub:"在线工具",name:"iLovePDF",icon:"📄",desc:"全能PDF在线处理工具，合并、拆分、压缩、转换一站式。",url:"https://www.ilovepdf.com/",type:"web"},
+  {id:"w19",cat:"实用网站",sub:"在线工具",name:"一个木函",icon:"🧰",desc:"多功能在线工具箱，图片处理、文字转换、加密等应有尽有。",url:"https://ol.woobx.cn/",type:"web"},
+  {id:"w20",cat:"实用网站",sub:"在线工具",name:"Photopea",icon:"🖌️",desc:"在线版Photoshop，无需安装，支持PSD文件编辑。",url:"https://www.photopea.com/",type:"web"},
+  {id:"w21",cat:"实用网站",sub:"在线工具",name:"即时工具",icon:"⚡",desc:"数百种在线工具合集，视频、音频、图片、文档处理。",url:"https://www.67tool.com/",type:"web"},
+  {id:"w22",cat:"实用网站",sub:"在线工具",name:"TTSMaker",icon:"🔊",desc:"免费文字转语音工具，支持多种语言和声音风格。",url:"https://ttsmaker.cn/",type:"web"},
+  {id:"w23",cat:"实用网站",sub:"在线工具",name:"LALAL.AI",icon:"🎵",desc:"AI音轨分离工具，从音频中提取人声或伴奏。",url:"https://www.lalal.ai/zh-hans/",type:"web"},
+  {id:"w24",cat:"实用网站",sub:"在线工具",name:"VirusTotal",icon:"🛡️",desc:"在线病毒检测工具，多引擎扫描文件安全性。",url:"https://www.virustotal.com/",type:"web"},
+  {id:"w25",cat:"实用网站",sub:"在线工具",name:"改图鸭",icon:"🦆",desc:"在线图片编辑处理工具，压缩、裁剪、格式转换等。",url:"https://www.gaituya.com/",type:"web"},
+  {id:"w26",cat:"实用网站",sub:"在线工具",name:"Bfsub 抠图",icon:"🔲",desc:"免费AI在线抠图工具，一键去除图片背景。",url:"https://bgsub.cn/webapp/",type:"web"},
+  {id:"w27",cat:"实用网站",sub:"在线工具",name:"网速测试",icon:"📶",desc:"快速测试当前网络速度，简洁无广告。",url:"https://fast.com/",type:"web"},
+  {id:"w28",cat:"实用网站",sub:"在线工具",name:"docsmall",icon:"📦",desc:"免费在线图片/GIF/PDF压缩工具，轻量高效。",url:"https://docsmall.com/",type:"web"},
+  {id:"w29",cat:"实用网站",sub:"在线工具",name:"文件传输",icon:"📤",desc:"在线文件传输工具，无需登录即可快速分享文件。",url:"https://send.terase.cn/#/send",type:"web"},
+  {id:"w30",cat:"实用网站",sub:"在线工具",name:"Splitter.ai",icon:"🎧",desc:"AI音频处理工具，分离音轨、提取乐器声部。",url:"https://splitter.ai/",type:"web"},
+  {id:"w31",cat:"实用网站",sub:"在线工具",name:"在线印章设计",icon:"🔴",desc:"在线个性化印章设计工具，多种形状与古风字体。",url:"https://www.butterpig.top/personalseal",type:"web"},
+  {id:"w32",cat:"实用网站",sub:"在线工具",name:"SnapWC",icon:"⬇️",desc:"免费视频下载解析工具，支持多平台视频音频提取。",url:"https://snapwc.com/zh",type:"web"},
+  // ===== 资源获取 =====
+  {id:"w33",cat:"实用网站",sub:"资源获取",name:"果核剥壳",icon:"🥜",desc:"互联网净土，分享纯净软件和实用工具。",url:"https://www.ghxi.com/",type:"web"},
+  {id:"w34",cat:"实用网站",sub:"资源获取",name:"奇迹秀工具箱",icon:"🧰",desc:"设计师的百宝箱，各类设计资源与工具合集。",url:"https://www.qijishow.com/",type:"web"},
+  {id:"w35",cat:"实用网站",sub:"资源获取",name:"不死鸟",icon:"🐦",desc:"分享为王，免费实用有趣的资源导航站。",url:"https://iui.su/",type:"web"},
+  {id:"w36",cat:"实用网站",sub:"资源获取",name:"阿虚同学的储物间",icon:"📦",desc:"阿虚的软件和资源收藏，分类清晰资源丰富。",url:"https://www.axutongxue.com/",type:"web"},
+  {id:"w37",cat:"实用网站",sub:"资源获取",name:"小众技术工具库",icon:"🔧",desc:"专注分享实用软件和精品网站的合集。",url:"https://www.xiaozhongjishu.com/",type:"web"},
+  {id:"w38",cat:"实用网站",sub:"资源获取",name:"软仓",icon:"📚",desc:"软件资源导航，收集各类优质软件和素材。",url:"https://www.ruancang.net/",type:"web"},
+  {id:"w39",cat:"实用网站",sub:"资源获取",name:"枫音应用",icon:"🍁",desc:"专注分享免费绿色无毒无广的实用软件。",url:"https://www.fy6b.com/",type:"web"},
+  {id:"w40",cat:"实用网站",sub:"资源获取",name:"开源精选",icon:"💎",desc:"探索免费优质的开源工具，尽享数字自由。",url:"https://www.ossnav.com/",type:"web"},
+  {id:"w41",cat:"实用网站",sub:"资源获取",name:"Jiumo 搜书",icon:"📖",desc:"电子书搜索引擎，帮助找到各类电子书资源。",url:"https://www.jiumosearch.com/",type:"web"},
+  {id:"w42",cat:"实用网站",sub:"资源获取",name:"素材资源网",icon:"🎭",desc:"免费高质量设计素材分享站，种类齐全。",url:"https://www.sucaizy.com/",type:"web"},
+  {id:"w43",cat:"实用网站",sub:"资源获取",name:"考拉新媒体导航",icon:"🐨",desc:"新媒体运营必备导航，收录大量运营工具。",url:"https://www.kaolamedia.com/",type:"web"},
+  {id:"w44",cat:"实用网站",sub:"资源获取",name:"LX Music",icon:"🎶",desc:"开源免费音乐查找工具，聚合全网音乐资源。",url:"https://lxmusic.toside.cn/",type:"web"},
+  // ===== 学习知识 =====
+  {id:"w45",cat:"实用网站",sub:"学习知识",name:"学吧导航",icon:"🎓",desc:"学习资源大全，聚合各类优质学习网站。",url:"https://www.xue8nav.com/",type:"web"},
+  {id:"w46",cat:"实用网站",sub:"学习知识",name:"书享家",icon:"📚",desc:"电子书资源导航，找书看书的绝佳入口。",url:"http://shuxiangjia.cn/",type:"web"},
+  {id:"w47",cat:"实用网站",sub:"学习知识",name:"wikiHow",icon:"📝",desc:"你可以信赖的万事指南，涵盖生活方方面面。",url:"https://zh.wikihow.com/",type:"web"},
+  {id:"w48",cat:"实用网站",sub:"学习知识",name:"全历史",icon:"🏛️",desc:"以时空关系呈现的历史知识平台，可视化历史。",url:"https://www.allhistory.com/",type:"web"},
+  {id:"w49",cat:"实用网站",sub:"学习知识",name:"书格",icon:"📜",desc:"在线古籍图书馆，分享高质量的公共版权书籍。",url:"https://new.shuge.org/",type:"web"},
+  {id:"w50",cat:"实用网站",sub:"学习知识",name:"国外网站大全",icon:"🌍",desc:"世界各国网址大全，探索全球互联网。",url:"http://www.world68.com/",type:"web"},
+  {id:"w51",cat:"实用网站",sub:"学习知识",name:"GitHub 探索",icon:"🐙",desc:"全球最大的开源社区，发现有趣的开源项目。",url:"https://github.com/explore",type:"web"},
+  // ===== 休闲娱乐 =====
+  {id:"w52",cat:"实用网站",sub:"休闲娱乐",name:"茶杯狐",icon:"🦊",desc:"在线影视搜索聚合，免费追剧看电影。",url:"https://cupfox.app/",type:"web"},
+  {id:"w53",cat:"实用网站",sub:"休闲娱乐",name:"模拟钢琴",icon:"🎹",desc:"在线虚拟钢琴，无需下载即可弹奏。",url:"https://www.autopiano.cn/",type:"web"},
+  {id:"w54",cat:"实用网站",sub:"休闲娱乐",name:"虚拟海洋",icon:"🌊",desc:"在线3D虚拟海洋体验，放松身心。",url:"https://virtocean.com/",type:"web"},
+  {id:"w55",cat:"实用网站",sub:"休闲娱乐",name:"千亿像素看中国",icon:"🏙️",desc:"超高清城市全景照片，探索中国的每个角落。",url:"http://pf.bigpixel.cn/zh-CN.html",type:"web"},
+  {id:"w56",cat:"实用网站",sub:"休闲娱乐",name:"4399小游戏",icon:"🎮",desc:"经典在线小游戏平台，海量免费游戏。",url:"https://www.4399.com/",type:"web"},
+  // ===== 音频素材 =====
+  {id:"w57",cat:"实用网站",sub:"音频素材",name:"淘声网",icon:"🎼",desc:"综合音效素材搜索平台，找音效就上淘声。",url:"https://www.tosound.com/",type:"web"},
+  {id:"w58",cat:"实用网站",sub:"音频素材",name:"1Music.cc",icon:"🎵",desc:"免费高品质音乐下载，支持FLAC/MP3格式。",url:"https://1music.cc/",type:"web"},
+  {id:"w59",cat:"实用网站",sub:"音频素材",name:"BGM猫",icon:"🐱",desc:"AI定制背景音乐下载平台，免版权。",url:"http://bgmcat.com/",type:"web"},
+  // ===== 网盘传输 =====
+  {id:"w60",cat:"实用网站",sub:"网盘传输",name:"小飞机网盘",icon:"✈️",desc:"免费网盘，上传下载不限速，分享方便。",url:"https://www.feijipan.com/",type:"web"},
+  {id:"w61",cat:"实用网站",sub:"网盘传输",name:"AirPortal",icon:"📡",desc:"空投快传，设备间快速传输文件。",url:"https://airportal.cn/",type:"web"},
+  {id:"w62",cat:"实用网站",sub:"网盘传输",name:"钛盘",icon:"💿",desc:"临时大文件网盘，无需注册即可分享。",url:"https://tmp.link/",type:"web"}
 ];
 
 // Build category tree
@@ -396,15 +396,15 @@ function init(){
 function renderSidebar(){
   const tree = getCatTree();
   const nav = document.getElementById('sidebar-nav');
-  const icons = {'鐢佃剳宸ュ叿':'馃捇','鎵嬫満宸ュ叿':'馃摫','鍏朵粬宸ュ叿':'馃搨','瀹炵敤缃戠珯':'馃寪'};
+  const icons = {'电脑工具':'💻','手机工具':'📱','其他工具':'📂','实用网站':'🌐'};
   let html = '';
   for(const [cat, data] of Object.entries(tree)){
     const isWeb = data.type === 'web';
     const subKeys = Object.keys(data.subs);
     html += '<div class="nav-section" id="nav-section-'+cat.replace(/\s/g,'')+'">';
-    html += '<div class="nav-section-title" onclick="toggleSection(\''+cat.replace(/\s/g,'')+'\')">'+(icons[cat]||'馃搵')+' '+cat+'</div>';
+    html += '<div class="nav-section-title" onclick="toggleSection(\''+cat.replace(/\s/g,'')+'\')">'+(icons[cat]||'📋')+' '+cat+'</div>';
     html += '<div class="nav-items">';
-    html += '<div class="nav-item" data-cat="'+cat+'" onclick="selectCategory(\''+cat+'\')">馃搵 鍏ㄩ儴<span class="badge">'+data.items.length+'</span></div>';
+    html += '<div class="nav-item" data-cat="'+cat+'" onclick="selectCategory(\''+cat+'\')">📋 全部<span class="badge">'+data.items.length+'</span></div>';
     for(const sub of subKeys){
       html += '<div class="nav-item" data-cat="'+cat+'" data-sub="'+sub+'" onclick="selectSubCategory(\''+cat+'\',\''+sub+'\')">'+sub+'<span class="badge">'+data.subs[sub].length+'</span></div>';
     }
@@ -436,7 +436,7 @@ function updateActiveNav(){
 
 function getFilteredItems(cat, sub){
   let items;
-  if(cat === '瀹炵敤缃戠珯'){
+  if(cat === '实用网站'){
     items = sub ? WEBSITES.filter(w => w.sub === sub) : WEBSITES;
   } else {
     items = sub ? [] : TOOLS.filter(t => t.cat === cat);
@@ -455,9 +455,9 @@ function getFilteredItems(cat, sub){
 function renderContent(cat, sub){
   const items = getFilteredItems(cat, sub);
   document.getElementById('cat-title').textContent = sub || cat;
-  const isWeb = cat === '瀹炵敤缃戠珯';
-  document.getElementById('cat-desc').textContent = isWeb ? '绮鹃€夊疄鐢ㄧ綉绔欙紝鎸夊垎绫绘暣鐞? : '绮鹃€夊厤璐瑰伐鍏凤紝甯︽暀绋嬪拰涓嬭浇';
-  document.getElementById('cat-stats').innerHTML = '<span class="cat-stat">鍏?<b>'+items.length+'</b> 涓?+(isWeb?'缃戠珯':'宸ュ叿')+'</span>';
+  const isWeb = cat === '实用网站';
+  document.getElementById('cat-desc').textContent = isWeb ? '精选实用网站，按分类整理' : '精选免费工具，带教程和下载';
+  document.getElementById('cat-stats').innerHTML = '<span class="cat-stat">共 <b>'+items.length+'</b> 个'+(isWeb?'网站':'工具')+'</span>';
 
   const grid = document.getElementById('card-grid');
   const empty = document.getElementById('empty-state');
@@ -472,14 +472,14 @@ function renderContent(cat, sub){
     const isWeb = item.type === 'web';
     const isImgPath = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'));
     const iconHtml = isImgPath
-      ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=none;this.parentElement.textContent=this.alt.charAt(0)||\'馃搵\'">'
-      : (item.icon || '馃搵');
+      ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=none;this.parentElement.textContent=this.alt.charAt(0)||\'📋\'">'
+      : (item.icon || '📋');
     return '<div class="card'+(isWeb?' website':'')+'" onclick="openItem(\''+(isWeb?'w':'t')+'_'+item.id+'\')">'+
-      '<span class="card-link-icon">'+(isWeb?'馃敆':'猬囷笍')+'</span>'+
+      '<span class="card-link-icon">'+(isWeb?'🔗':'⬇️')+'</span>'+
       '<div class="card-icon">'+iconHtml+'</div>'+
       '<div class="card-name">'+item.name+'</div>'+
       '<div class="card-desc">'+item.desc+'</div>'+
-      '<span class="card-tag">'+(isWeb?(item.sub||'缃戠珯'):'宸ュ叿')+'</span>'+
+      '<span class="card-tag">'+(isWeb?(item.sub||'网站'):'工具')+'</span>'+
     '</div>';
   }).join('');
 }
@@ -498,8 +498,8 @@ function openItem(key){
 
   const isImgPath = item.icon && (item.icon.startsWith('images/') || item.icon.startsWith('http'));
   document.getElementById('modal-icon-wrap').innerHTML = isImgPath
-    ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=none;this.parentElement.innerHTML=\'<div class=modal-icon-placeholder>馃搵</div>\'">'
-    : '<div class="modal-icon-placeholder">'+(item.icon||'馃搵')+'</div>';
+    ? '<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=none;this.parentElement.innerHTML=\'<div class=modal-icon-placeholder>📋</div>\'">'
+    : '<div class="modal-icon-placeholder">'+(item.icon||'📋')+'</div>';
   document.getElementById('modal-title').textContent = item.name;
   document.getElementById('modal-desc').textContent = item.desc;
 
@@ -507,19 +507,19 @@ function openItem(key){
   const pwd = document.getElementById('modal-pwd-hint');
 
   if(isWeb){
-    btns.innerHTML = '<a class="modal-btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener">馃敆 鎵撳紑缃戠珯</a>';
+    btns.innerHTML = '<a class="modal-btn btn-primary" href="'+item.url+'" target="_blank" rel="noopener">🔗 打开网站</a>';
     pwd.innerHTML = '';
   } else {
     let btnHtml = '';
     if(item.url){
       const sep = item.url.includes('?')?'&':'?';
-      btnHtml += '<a class="modal-btn btn-primary" href="'+item.url+sep+'pwd='+item.pwd+'" target="_blank" rel="noopener" onclick="navigator.clipboard.writeText(\''+item.pwd+'\').catch(()=>{})">猬囷笍 涓嬭浇 路 瀵嗙爜: '+item.pwd+'</a>';
+      btnHtml += '<a class="modal-btn btn-primary" href="'+item.url+sep+'pwd='+item.pwd+'" target="_blank" rel="noopener" onclick="navigator.clipboard.writeText(\''+item.pwd+'\').catch(()=>{})">⬇️ 下载 · 密码: '+item.pwd+'</a>';
     }
     if(item.tutorial){
-      btnHtml += '<a class="modal-btn btn-secondary" href="'+item.tutorial+'" target="_blank" rel="noopener">馃摵 瑙傜湅鏁欑▼</a>';
+      btnHtml += '<a class="modal-btn btn-secondary" href="'+item.tutorial+'" target="_blank" rel="noopener">📺 观看教程</a>';
     }
     btns.innerHTML = btnHtml;
-    pwd.innerHTML = item.pwd ? '馃挕 鎻愬彇鐮侊細<b>'+item.pwd+'</b>锛堢偣鍑讳笅杞借嚜鍔ㄥ鍒讹級' : '';
+    pwd.innerHTML = item.pwd ? '💡 提取码：<b>'+item.pwd+'</b>（点击下载自动复制）' : '';
   }
 
   modal.classList.add('active');
