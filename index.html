@@ -1,87 +1,367 @@
-const TOOLS = [
-  {id:1,cat:"\u7535\u8111\u5de5\u5177",name:"NDM \u4e0b\u8f7d\u5668",icon:"images/ndm.webp",desc:"\u6700\u5f3a\u514d\u8d39\u591a\u7ebf\u4e0b\u8f7d\u5de5\u5177\uff0c\u652f\u6301\u591a\u7ebf\u7a0b\u4e0b\u8f7d\u3001\u6d4f\u89c8\u5668\u63d2\u4ef6\u96c6\u6210\uff0c\u66ff\u4ee3IDM\u7684\u514d\u8d39\u9009\u62e9\u3002",url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
-  {id:2,cat:"\u7535\u8111\u5de5\u5177",name:"OpenClaw AI Agent \u795e\u5668",icon:"images/openclaw.webp",desc:"\u544a\u522b\u590d\u6742\u64cd\u4f5c\uff0c\u5c0f\u767d\u4e5f\u80fd\u8f7b\u677e\u5b89\u88c5\u7684AI Agent\u795e\u5668\uff0c\u5f00\u6e90\u7eaf\u51c0\u81ea\u5b9a\u4e49\u63a5\u53e3\uff0c\u652f\u6301DeepSeek\u548cKimi\u3002",url:"https://bilibilibaiyun.lanzouq.com/b009i6mndi",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1GeKn6AEYs",type:"tool"},
-  {id:3,cat:"\u7535\u8111\u5de5\u5177",name:"\u6d1b\u96ea\u97f3\u4e50",icon:"images/music.webp",desc:"\u5f00\u6e90\u514d\u8d39\u97f3\u4e50\u64ad\u653e\u5668\uff0c\u652f\u6301\u591a\u5e73\u53f0\uff0c\u53ef\u5b89\u88c5\u97f3\u6e90\u63d2\u4ef6\u7545\u542c\u5168\u7f51\u97f3\u4e50\uff0c\u652f\u6301\u65e0\u635f\u4e0b\u8f7d\u3002",url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
-  {id:4,cat:"\u7535\u8111\u5de5\u5177",name:"BandiScreen \u5f55\u5c4f",icon:"images/bandicam.webp",desc:"Bandi\u5f55\u5c4f\u6ee1\u8840\u7248\uff0c\u7b80\u5355\u597d\u7528\u7684\u7535\u8111\u5f55\u5c4f\u5de5\u5177\uff0c\u652f\u6301\u9ad8\u6e05\u5f55\u5236\uff0c\u5efa\u8bae\u4eba\u624b\u4e00\u4e2a\u3002",url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
-  {id:5,cat:"\u7535\u8111\u5de5\u5177",name:"WinRAR",icon:"images/winrar.webp",desc:"\u7ecf\u5178\u538b\u7f29\u89e3\u538b\u5de5\u5177\uff0c\u652f\u6301RAR/ZIP\u7b49\u591a\u79cd\u683c\u5f0f\uff0c\u7eaf\u51c0\u7248\u514d\u5e7f\u544a\u514d\u6fc0\u6d3b\u3002",url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
-  {id:6,cat:"\u5176\u4ed6\u5de5\u5177",name:"\u65b0\u673a\u7cfb\u7edf\u4f18\u5316",icon:"images/optimize.webp",desc:"\u8d85\u8be6\u7ec6\u7684\u65b0\u673a\u7cfb\u7edf\u4f18\u5316\u653b\u7565\uff0c\u542b\u7cfb\u7edf\u8bbe\u7f6e\u3001\u8f6f\u4ef6\u5b89\u88c5\u3001\u6027\u80fd\u4f18\u5316\u7b49\u5168\u65b9\u4f4d\u6307\u5357\u3002",url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"},
-  {id:7,cat:"\u7535\u8111\u5de5\u5177",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"\u52a8\u6001\u58c1\u7eb8\u8f6f\u4ef6\u6253\u5305\u7248\uff0c\u514d\u8d39\u7eaf\u51c0\u597d\u7528\uff0c\u65e0\u9700\u4ed8\u8d39\u5373\u53ef\u4f53\u9a8c\u6d77\u91cf\u52a8\u6001\u58c1\u7eb8\u3002",url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白云工具盒 - 精选实用工具与网站</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d1a;
+  --sidebar-bg:#111128;
+  --surface:#1a1a35;
+  --surface2:#1e1e3a;
+  --border:rgba(255,255,255,.06);
+  --primary:#7c6ff7;
+  --primary-glow:rgba(124,111,247,.35);
+  --accent:#f04e6e;
+  --text:#e8e8f0;
+  --text2:#8888a8;
+  --text3:#666688;
+  --radius:14px;
+  --radius-sm:10px;
+  --sidebar-w:260px;
+}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  background:var(--bg);color:var(--text);
+  display:flex;-webkit-font-smoothing:antialiased;
+}
 
-  {id:8,cat:"\u7535\u8111\u5de5\u5177",name:"LocalSend \u5c40\u57df\u7f51\u4f20\u8f93",icon:"images/localesend.webp",desc:"\u5f00\u6e90\u5c40\u57df\u7f51\u6587\u4ef6\u4f20\u8f93\u5de5\u5177\uff0c\u901f\u5ea6\u53ef\u8fbe999MB/S\u26a1\ufe0f\uff0c\u652f\u6301\u7535\u8111/\u624b\u673a\u5168\u5e73\u53f0\u4e92\u4f20\uff0c\u65e0\u635f\u4e0d\u9650\u901f\u65e0\u9700\u8054\u7f51\u3002",url:"https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1EaKP6bEwo",type:"tool"},
-  {id:9,cat:"\u624b\u673a\u5de5\u5177",name:"\u5f00\u6e90\u9605\u8bfb",icon:"images/reading.webp",desc:"GitHub 46k Stars\u5f00\u6e90\u9605\u8bfb\u795e\u5668\uff0c\u96448000+\u4e66\u6e90\uff0c\u5168\u7f51\u5c0f\u8bf4\u514d\u8d39\u770b\u3002",url:"https://bilibilibaiyun.lanzouq.com/il8lv3xb3ggd",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1huKB6GEKU",type:"tool"}
+/* ===== Sidebar ===== */
+.sidebar{
+  width:var(--sidebar-w);min-width:var(--sidebar-w);
+  height:100vh;background:var(--sidebar-bg);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;
+  z-index:100;transition:transform .3s ease;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+.sidebar-logo{
+  padding:24px 20px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.sidebar-logo img{width:42px;height:42px;border-radius:50%;border:2px solid var(--primary)}
+.sidebar-logo-text h2{font-size:18px;font-weight:700;background:linear-gradient(135deg,#7c6ff7,#f04e6e);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar-logo-text span{font-size:11px;color:var(--text3);display:block}
+.sidebar-nav{padding:12px 0;flex:1}
+.nav-section{margin-bottom:4px}
+.nav-section-title{
+  padding:8px 20px;font-size:11px;font-weight:600;
+  color:var(--text3);text-transform:uppercase;
+  letter-spacing:1px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  user-select:none;transition:color .2s;
+}
+.nav-section-title:hover{color:var(--text2)}
+.nav-section-title::after{content:'▾';font-size:10px;margin-left:auto;transition:transform .2s}
+.nav-section.collapsed .nav-section-title::after{transform:rotate(-90deg)}
+.nav-section.collapsed .nav-items{display:none}
+.nav-items{display:flex;flex-direction:column}
+.nav-item{
+  padding:9px 20px 9px 28px;font-size:13px;color:var(--text2);
+  cursor:pointer;transition:all .15s;border-left:2px solid transparent;
+  display:flex;align-items:center;gap:8px;text-decoration:none;
+}
+.nav-item:hover{color:var(--text);background:rgba(124,111,247,.08)}
+.nav-item.active{color:var(--primary);background:rgba(124,111,247,.12);border-left-color:var(--primary)}
+.nav-item .badge{font-size:10px;background:rgba(124,111,247,.2);color:var(--primary);padding:1px 7px;border-radius:8px;margin-left:auto}
+.sidebar-footer{
+  padding:16px 20px;border-top:1px solid var(--border);
+  font-size:11px;color:var(--text3)
+}
+.sidebar-footer a{color:var(--primary);text-decoration:none}
+
+/* ===== Main Content ===== */
+.main-content{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.top-bar{
+  padding:16px 28px;display:flex;align-items:center;gap:16px;
+  border-bottom:1px solid var(--border);background:rgba(13,13,26,.8);
+  backdrop-filter:blur(12px);z-index:50
+}
+.search-wrap{flex:1;max-width:500px;position:relative}
+.search-wrap input{
+  width:100%;padding:10px 16px 10px 40px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;color:var(--text);font-size:14px;
+  outline:none;transition:all .2s
+}
+.search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,111,247,.1)}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
+.top-bar-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.top-btn{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text2);font-size:16px;cursor:pointer;
+  transition:all .2s;text-decoration:none
+}
+.top-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 0 16px var(--primary-glow)}
+.menu-toggle{display:none}
+
+.content-area{flex:1;overflow-y:auto;padding:24px 28px 40px}
+.content-area::-webkit-scrollbar{width:6px}
+.content-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+
+/* ===== Category Header ===== */
+.cat-header{margin-bottom:24px}
+.cat-header h1{font-size:26px;font-weight:700;margin-bottom:6px}
+.cat-header p{color:var(--text2);font-size:14px}
+.cat-stats{display:flex;gap:16px;margin-top:12px}
+.cat-stat{font-size:12px;color:var(--text3)}
+.cat-stat b{color:var(--primary)}
+
+/* ===== Cards Grid ===== */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;cursor:pointer;
+  transition:all .25s ease;display:flex;flex-direction:column;
+  position:relative;overflow:hidden
+}
+.card:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.card:hover::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,var(--primary-glow),transparent 60%);
+  opacity:.6;pointer-events:none
+}
+.card-icon{
+  width:48px;height:48px;border-radius:12px;
+  margin-bottom:12px;object-fit:cover;
+  background:var(--surface2);display:flex;
+  align-items:center;justify-content:center;
+  font-size:24px;position:relative;z-index:1
+}
+.card-icon img{width:100%;height:100%;border-radius:12px;object-fit:cover}
+.card-name{font-size:15px;font-weight:600;margin-bottom:6px;position:relative;z-index:1}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.5;flex:1;position:relative;z-index:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-tag{font-size:10px;color:var(--primary);margin-top:10px;position:relative;z-index:1;background:rgba(124,111,247,.1);display:inline-block;padding:2px 8px;border-radius:6px;align-self:flex-start}
+.card-link-icon{position:absolute;top:12px;right:14px;color:var(--text3);font-size:14px;opacity:0;transition:opacity .2s;z-index:1}
+.card:hover .card-link-icon{opacity:1}
+
+/* ===== Website Card (slightly different) ===== */
+.card.website .card-icon{background:rgba(124,111,247,.1)}
+.card.website .card-tag{background:rgba(240,78,110,.1);color:var(--accent)}
+
+/* ===== Empty State ===== */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-state .empty-icon{font-size:56px;margin-bottom:16px}
+.empty-state p{font-size:14px}
+
+/* ===== Modal ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  backdrop-filter:blur(8px);z-index:10000;
+  display:none;align-items:center;justify-content:center;padding:20px
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--surface);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius);max-width:460px;width:100%;
+  padding:32px 28px 24px;position:relative;animation:modalIn .25s ease
+}
+@keyframes modalIn{from{transform:scale(.92) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-close{
+  position:absolute;top:12px;right:12px;
+  width:32px;height:32px;border-radius:50%;
+  border:none;background:rgba(255,255,255,.08);color:var(--text2);font-size:16px;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center
+}
+.modal-close:hover{background:var(--accent);color:#fff}
+.modal-header{text-align:center;margin-bottom:16px}
+.modal-header img,.modal-header .modal-icon-placeholder{width:72px;height:72px;border-radius:16px;margin:0 auto 12px;object-fit:cover;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:36px}
+.modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
+.modal-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:24px;text-align:center}
+.modal-btns{display:flex;gap:10px;flex-direction:column}
+.modal-btn{
+  padding:14px 20px;border-radius:var(--radius-sm);border:none;
+  font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;
+  text-decoration:none;text-align:center;display:block
+}
+.btn-primary{background:linear-gradient(135deg,var(--primary),#9b8fff);color:#fff}
+.btn-primary:hover{box-shadow:0 4px 24px var(--primary-glow)}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid rgba(255,255,255,.1)}
+.btn-secondary:hover{background:var(--primary);border-color:var(--primary);color:#fff}
+.modal-password{text-align:center;color:var(--text3);font-size:12px;margin-top:14px}
+.modal-password b{color:var(--primary)}
+
+/* ===== Footer ===== */
+.footer{
+  text-align:center;padding:12px 20px;font-size:11px;
+  color:rgba(255,255,255,.2);border-top:1px solid var(--border);
+  background:var(--bg)
+}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .menu-toggle{display:flex}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .card{padding:14px}
+  .top-bar{padding:12px 16px}
+  .content-area{padding:16px}
+  .cat-header h1{font-size:20px}
+}
+@media(max-width:480px){
+  .card-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .card-name{font-size:13px}
+  .card-desc{font-size:11px}
+}
+
+/* ===== Loading ===== */
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <img src="images/avatar.png" alt="白云" onerror="this.style.display='none'">
+    <div class="sidebar-logo-text">
+      <h2>☁️ 白云工具盒</h2>
+      <span>精选工具 · 实用网站</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav" id="sidebar-nav"></nav>
+  <div class="sidebar-footer">
+    🎬 <a href="https://space.bilibili.com/3546697630222922" target="_blank">健谈的白云</a> · 出品
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main-content">
+  <div class="top-bar">
+    <button class="top-btn menu-toggle" onclick="toggleSidebar()" title="菜单">☰</button>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="搜索工具或网站..." oninput="doSearch()">
+    </div>
+    <div class="top-bar-actions">
+      <a href="https://43.226.47.133/drive.html" class="top-btn" title="白云盘">☁️</a>
+      <a href="https://43.226.47.133/notices.html" class="top-btn" title="通知">📢</a>
+    </div>
+  </div>
+  <div class="content-area" id="content-area">
+    <div class="cat-header">
+      <h1 id="cat-title">电脑工具</h1>
+      <p id="cat-desc"></p>
+      <div class="cat-stats" id="cat-stats"></div>
+    </div>
+    <div class="card-grid" id="card-grid"></div>
+    <div class="empty-state" id="empty-state" style="display:none">
+      <div class="empty-icon">🔍</div>
+      <p>没有找到匹配的内容，换个关键词试试？</p>
+    </div>
+  </div>
+  <div class="footer">白云工具盒 · 所有软件仅供学习交流，请于下载后24小时内删除 · 数据来源于健谈的白云</div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <span id="modal-icon-wrap"></span>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+    </div>
+    <div class="modal-btns" id="modal-btns"></div>
+    <div class="modal-password" id="modal-pwd-hint"></div>
+  </div>
+</div>
+
+<script>
+// ========== DATA ==========
+const TOOLS = [
+  {id:1,cat:"电脑工具",name:"NDM 下载器",icon:"images/ndm.webp",desc:"最强免费多线下载工具，支持多线程下载、浏览器插件集成，替代IDM的免费选择。",url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
+  {id:2,cat:"电脑工具",name:"OpenClaw AI Agent 神器",icon:"images/openclaw.webp",desc:"告别复杂操作，小白也能轻松安装的AI Agent神器，开源纯净自定义接口，支持DeepSeek和Kimi。",url:"https://bilibilibaiyun.lanzouq.com/b009i6mndi",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1GeKn6AEYs",type:"tool"},
+  {id:3,cat:"电脑工具",name:"洛雪音乐",icon:"images/music.webp",desc:"开源免费音乐播放器，支持多平台，可安装音源插件畅听全网音乐，支持无损下载。",url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
+  {id:4,cat:"电脑工具",name:"BandiScreen 录屏",icon:"images/bandicam.webp",desc:"Bandi录屏满血版，简单好用的电脑录屏工具，支持高清录制，建议人手一个。",url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
+  {id:5,cat:"电脑工具",name:"WinRAR",icon:"images/winrar.webp",desc:"经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。",url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
+  {id:6,cat:"其他工具",name:"新机系统优化",icon:"images/optimize.webp",desc:"超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。",url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"},
+  {id:7,cat:"电脑工具",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"动态壁纸软件打包版，免费纯净好用，无需付费即可体验海量动态壁纸。",url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"}
+
+  {id:8,cat:"电脑工具",name:"LocalSend 局域网传输",icon:"images/localesend.webp",desc:"开源局域网文件传输工具，速度可达999MB/S⚡️，支持电脑/手机全平台互传，无损不限速无需联网。",url:"https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1EaKP6bEwo",type:"tool"},
+  {id:9,cat:"手机工具",name:"开源阅读",icon:"images/reading.webp",desc:"GitHub 46k Stars开源阅读神器，附8000+书源，全网小说免费看。",url:"https://bilibilibaiyun.lanzouq.com/il8lv3xb3ggd",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1huKB6GEKU",type:"tool"}
 ];
 
 const WEBSITES = [
-  // ===== AI \u5de5\u5177 =====
-  {id:"w1",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"DeepSeek",icon:"\u1f916",desc:"\u56fd\u4ea7\u9876\u7ea7\u5927\u6a21\u578b\uff0c\u514d\u8d39\u4f7f\u7528\uff0c\u652f\u6301\u6df1\u5ea6\u601d\u8003\u548c\u8054\u7f51\u641c\u7d22\u3002",url:"https://www.deepseek.com/",type:"web"},
-  {id:"w2",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"ChatGPT",icon:"\u1f4ac",desc:"OpenAI \u65d7\u4e0b\u4eba\u5de5\u667a\u80fd\u804a\u5929\u673a\u5668\u4eba\uff0c\u5168\u7403\u6700\u6d41\u884c\u7684AI\u52a9\u624b\u3002",url:"https://chatgpt.com/",type:"web"},
-  {id:"w3",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"\u53ef\u7075 AI",icon:"\u1f3ac",desc:"\u5feb\u624b\u65d7\u4e0bAI\u521b\u610f\u5e73\u53f0\uff0c\u652f\u6301\u6587\u751f\u56fe\u3001\u56fe\u751f\u89c6\u9891\u7b49\u5f3a\u5927\u529f\u80fd\u3002",url:"https://klingai.kuaishou.com/",type:"web"},
-  {id:"w4",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"\u5373\u68a6AI",icon:"\u2728",desc:"\u526a\u6620\u65d7\u4e0bAI\u521b\u4f5c\u5e73\u53f0\uff0c\u4e00\u7ad9\u5f0f\u89c6\u9891/\u56fe\u7247\u751f\u6210\u5de5\u5177\u3002",url:"https://jimeng.jianying.com/",type:"web"},
-  {id:"w5",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"\u901a\u4e49\u4e07\u76f8",icon:"\u1f3a8",desc:"\u963f\u91cc\u4e91AI\u521b\u610f\u4f5c\u753b\u5e73\u53f0\uff0c\u652f\u6301\u6587\u751f\u56fe\u3001\u89c6\u9891\u521b\u4f5c\u7b49\u3002",url:"https://tongyi.aliyun.com/wanxiang/videoCreation",type:"web"},
-  {id:"w6",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"Gomoon",icon:"\u1f319",desc:"\u684c\u9762\u7aef\u5927\u6a21\u578b\u6548\u7387\u5de5\u5177\uff0c\u96c6\u6210\u591a\u79cdAI\u80fd\u529b\u63d0\u5347\u5de5\u4f5c\u6548\u7387\u3002",url:"https://gomoon.top/",type:"web"},
-  {id:"w7",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"Tavily AI",icon:"\u1f50e",desc:"AI\u9a71\u52a8\u7684\u641c\u7d22\u5f15\u64ce\uff0c\u4e13\u4e3aAI\u4ee3\u7406\u548c\u7814\u7a76\u573a\u666f\u8bbe\u8ba1\u3002",url:"https://app.tavily.com/home",type:"web"},
-  {id:"w8",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"\u667a\u8c31\u6e05\u8a00",icon:"\u1f9e0",desc:"\u667a\u8c31AI\u65d7\u4e0b\u5927\u6a21\u578b\u4ea7\u54c1\uff0c\u652f\u6301\u89c6\u9891\u751f\u6210\u7b49\u9ad8\u7ea7\u529f\u80fd\u3002",url:"https://chatglm.cn/video",type:"web"},
-  {id:"w9",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"AI\u5de5\u5177",name:"AI\u4ef7\u683c\u96f7\u8fbe",icon:"\u1f4e1",desc:"\u5168\u7403AI\u5de5\u5177\u4ef7\u683c\u3001\u6a21\u578b\u80fd\u529b\u548c\u514d\u8d39\u989d\u5ea6\u6bcf\u65e5\u8ffd\u8e2a\u3002",url:"https://yangmao.ai/zh/",type:"web"},
-  // ===== \u8bbe\u8ba1\u7d20\u6750 =====
-  {id:"w10",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"Pexels",icon:"\u1f4f8",desc:"\u5168\u7403\u6700\u5927\u7684\u514d\u8d39\u7d20\u6750\u5e73\u53f0\u4e4b\u4e00\uff0c\u6d77\u91cf\u9ad8\u8d28\u91cf\u56fe\u7247\u548c\u89c6\u9891\u3002",url:"https://www.pexels.com/zh-cn/",type:"web"},
-  {id:"w11",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"Pixabay",icon:"\u1f5bc\ufe0f",desc:"\u514d\u8d39\u6b63\u7248\u9ad8\u6e05\u56fe\u7247\u3001\u89c6\u9891\u548c\u97f3\u9891\u7d20\u6750\u5e93\uff0cCC0\u534f\u8bae\u3002",url:"https://pixabay.com/",type:"web"},
-  {id:"w12",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"iconfont",icon:"\u1f523",desc:"\u963f\u91cc\u5df4\u5df4\u77e2\u91cf\u56fe\u6807\u5e93\uff0c\u6d77\u91cf\u514d\u8d39\u56fe\u6807\uff0c\u652f\u6301SVG/PNG\u4e0b\u8f7d\u3002",url:"https://www.iconfont.cn/",type:"web"},
-  {id:"w13",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"Canva \u8bbe\u8ba1",icon:"\u1f3af",desc:"\u5728\u7ebf\u5e73\u9762\u8bbe\u8ba1\u5e73\u53f0\uff0c\u6d77\u91cf\u6a21\u677f\uff0c\u8f7b\u677e\u5236\u4f5c\u6d77\u62a5\u3001PPT\u3001Logo\u3002",url:"https://www.canva.cn/",type:"web"},
-  {id:"w14",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"\u6781\u7b80\u58c1\u7eb8",icon:"\u1f5a5\ufe0f",desc:"\u6d77\u91cf\u9ad8\u6e05\u7535\u8111\u58c1\u7eb8\uff0c\u652f\u6301\u591a\u79cd\u5206\u8fa8\u7387\uff0c\u7b80\u7ea6\u98ce\u683c\u3002",url:"https://bz.zzzmh.cn/",type:"web"},
-  {id:"w15",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"wallhaven",icon:"\u1f3de\ufe0f",desc:"\u8d85\u9ad8\u8d28\u91cf\u58c1\u7eb8\u7f51\u7ad9\uff0c\u5206\u7c7b\u4e30\u5bcc\uff0c\u652f\u6301\u5173\u952e\u8bcd\u641c\u7d22\u3002",url:"https://wallhaven.cc/",type:"web"},
-  {id:"w16",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"\u6e05\u6d01PNG",icon:"\u2702\ufe0f",desc:"\u514d\u8d39\u9ad8\u6e05\u900f\u660ePNG\u56fe\u7247\u4e0b\u8f7d\uff0c\u65e0\u9700\u62a0\u56fe\u76f4\u63a5\u4f7f\u7528\u3002",url:"https://www.cleanpng.com/",type:"web"},
-  {id:"w17",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8bbe\u8ba1\u7d20\u6750",name:"\u77e2\u91cf\u56fe\u6807",icon:"\u1f537",desc:"\u514d\u8d39\u77e2\u91cf\u56fe\u6807\u4e0b\u8f7d\uff0c\u8d85\u8fc7114\u4e07SVG\u548cPNG\u56fe\u6807\u3002",url:"https://igoutu.cn/icons",type:"web"},
-  // ===== \u5728\u7ebf\u5de5\u5177 =====
-  {id:"w18",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"iLovePDF",icon:"\u1f4c4",desc:"\u5168\u80fdPDF\u5728\u7ebf\u5904\u7406\u5de5\u5177\uff0c\u5408\u5e76\u3001\u62c6\u5206\u3001\u538b\u7f29\u3001\u8f6c\u6362\u4e00\u7ad9\u5f0f\u3002",url:"https://www.ilovepdf.com/",type:"web"},
-  {id:"w19",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"\u4e00\u4e2a\u6728\u51fd",icon:"\u1f9f0",desc:"\u591a\u529f\u80fd\u5728\u7ebf\u5de5\u5177\u7bb1\uff0c\u56fe\u7247\u5904\u7406\u3001\u6587\u5b57\u8f6c\u6362\u3001\u52a0\u5bc6\u7b49\u5e94\u6709\u5c3d\u6709\u3002",url:"https://ol.woobx.cn/",type:"web"},
-  {id:"w20",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"Photopea",icon:"\u1f58c\ufe0f",desc:"\u5728\u7ebf\u7248Photoshop\uff0c\u65e0\u9700\u5b89\u88c5\uff0c\u652f\u6301PSD\u6587\u4ef6\u7f16\u8f91\u3002",url:"https://www.photopea.com/",type:"web"},
-  {id:"w21",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"\u5373\u65f6\u5de5\u5177",icon:"\u26a1",desc:"\u6570\u767e\u79cd\u5728\u7ebf\u5de5\u5177\u5408\u96c6\uff0c\u89c6\u9891\u3001\u97f3\u9891\u3001\u56fe\u7247\u3001\u6587\u6863\u5904\u7406\u3002",url:"https://www.67tool.com/",type:"web"},
-  {id:"w22",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"TTSMaker",icon:"\u1f50a",desc:"\u514d\u8d39\u6587\u5b57\u8f6c\u8bed\u97f3\u5de5\u5177\uff0c\u652f\u6301\u591a\u79cd\u8bed\u8a00\u548c\u58f0\u97f3\u98ce\u683c\u3002",url:"https://ttsmaker.cn/",type:"web"},
-  {id:"w23",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"LALAL.AI",icon:"\u1f3b5",desc:"AI\u97f3\u8f68\u5206\u79bb\u5de5\u5177\uff0c\u4ece\u97f3\u9891\u4e2d\u63d0\u53d6\u4eba\u58f0\u6216\u4f34\u594f\u3002",url:"https://www.lalal.ai/zh-hans/",type:"web"},
-  {id:"w24",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"VirusTotal",icon:"\u1f6e1\ufe0f",desc:"\u5728\u7ebf\u75c5\u6bd2\u68c0\u6d4b\u5de5\u5177\uff0c\u591a\u5f15\u64ce\u626b\u63cf\u6587\u4ef6\u5b89\u5168\u6027\u3002",url:"https://www.virustotal.com/",type:"web"},
-  {id:"w25",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"\u6539\u56fe\u9e2d",icon:"\u1f986",desc:"\u5728\u7ebf\u56fe\u7247\u7f16\u8f91\u5904\u7406\u5de5\u5177\uff0c\u538b\u7f29\u3001\u88c1\u526a\u3001\u683c\u5f0f\u8f6c\u6362\u7b49\u3002",url:"https://www.gaituya.com/",type:"web"},
-  {id:"w26",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"Bfsub \u62a0\u56fe",icon:"\u1f532",desc:"\u514d\u8d39AI\u5728\u7ebf\u62a0\u56fe\u5de5\u5177\uff0c\u4e00\u952e\u53bb\u9664\u56fe\u7247\u80cc\u666f\u3002",url:"https://bgsub.cn/webapp/",type:"web"},
-  {id:"w27",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"\u7f51\u901f\u6d4b\u8bd5",icon:"\u1f4f6",desc:"\u5feb\u901f\u6d4b\u8bd5\u5f53\u524d\u7f51\u7edc\u901f\u5ea6\uff0c\u7b80\u6d01\u65e0\u5e7f\u544a\u3002",url:"https://fast.com/",type:"web"},
-  {id:"w28",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"docsmall",icon:"\u1f4e6",desc:"\u514d\u8d39\u5728\u7ebf\u56fe\u7247/GIF/PDF\u538b\u7f29\u5de5\u5177\uff0c\u8f7b\u91cf\u9ad8\u6548\u3002",url:"https://docsmall.com/",type:"web"},
-  {id:"w29",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"\u6587\u4ef6\u4f20\u8f93",icon:"\u1f4e4",desc:"\u5728\u7ebf\u6587\u4ef6\u4f20\u8f93\u5de5\u5177\uff0c\u65e0\u9700\u767b\u5f55\u5373\u53ef\u5feb\u901f\u5206\u4eab\u6587\u4ef6\u3002",url:"https://send.terase.cn/#/send",type:"web"},
-  {id:"w30",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"Splitter.ai",icon:"\u1f3a7",desc:"AI\u97f3\u9891\u5904\u7406\u5de5\u5177\uff0c\u5206\u79bb\u97f3\u8f68\u3001\u63d0\u53d6\u4e50\u5668\u58f0\u90e8\u3002",url:"https://splitter.ai/",type:"web"},
-  {id:"w31",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"\u5728\u7ebf\u5370\u7ae0\u8bbe\u8ba1",icon:"\u1f534",desc:"\u5728\u7ebf\u4e2a\u6027\u5316\u5370\u7ae0\u8bbe\u8ba1\u5de5\u5177\uff0c\u591a\u79cd\u5f62\u72b6\u4e0e\u53e4\u98ce\u5b57\u4f53\u3002",url:"https://www.butterpig.top/personalseal",type:"web"},
-  {id:"w32",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5728\u7ebf\u5de5\u5177",name:"SnapWC",icon:"\u2b07\ufe0f",desc:"\u514d\u8d39\u89c6\u9891\u4e0b\u8f7d\u89e3\u6790\u5de5\u5177\uff0c\u652f\u6301\u591a\u5e73\u53f0\u89c6\u9891\u97f3\u9891\u63d0\u53d6\u3002",url:"https://snapwc.com/zh",type:"web"},
-  // ===== \u8d44\u6e90\u83b7\u53d6 =====
-  {id:"w33",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u679c\u6838\u5265\u58f3",icon:"\u1f95c",desc:"\u4e92\u8054\u7f51\u51c0\u571f\uff0c\u5206\u4eab\u7eaf\u51c0\u8f6f\u4ef6\u548c\u5b9e\u7528\u5de5\u5177\u3002",url:"https://www.ghxi.com/",type:"web"},
-  {id:"w34",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u5947\u8ff9\u79c0\u5de5\u5177\u7bb1",icon:"\u1f9f0",desc:"\u8bbe\u8ba1\u5e08\u7684\u767e\u5b9d\u7bb1\uff0c\u5404\u7c7b\u8bbe\u8ba1\u8d44\u6e90\u4e0e\u5de5\u5177\u5408\u96c6\u3002",url:"https://www.qijishow.com/",type:"web"},
-  {id:"w35",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u4e0d\u6b7b\u9e1f",icon:"\u1f426",desc:"\u5206\u4eab\u4e3a\u738b\uff0c\u514d\u8d39\u5b9e\u7528\u6709\u8da3\u7684\u8d44\u6e90\u5bfc\u822a\u7ad9\u3002",url:"https://iui.su/",type:"web"},
-  {id:"w36",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u963f\u865a\u540c\u5b66\u7684\u50a8\u7269\u95f4",icon:"\u1f4e6",desc:"\u963f\u865a\u7684\u8f6f\u4ef6\u548c\u8d44\u6e90\u6536\u85cf\uff0c\u5206\u7c7b\u6e05\u6670\u8d44\u6e90\u4e30\u5bcc\u3002",url:"https://www.axutongxue.com/",type:"web"},
-  {id:"w37",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u5c0f\u4f17\u6280\u672f\u5de5\u5177\u5e93",icon:"\u1f527",desc:"\u4e13\u6ce8\u5206\u4eab\u5b9e\u7528\u8f6f\u4ef6\u548c\u7cbe\u54c1\u7f51\u7ad9\u7684\u5408\u96c6\u3002",url:"https://www.xiaozhongjishu.com/",type:"web"},
-  {id:"w38",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u8f6f\u4ed3",icon:"\u1f4da",desc:"\u8f6f\u4ef6\u8d44\u6e90\u5bfc\u822a\uff0c\u6536\u96c6\u5404\u7c7b\u4f18\u8d28\u8f6f\u4ef6\u548c\u7d20\u6750\u3002",url:"https://www.ruancang.net/",type:"web"},
-  {id:"w39",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u67ab\u97f3\u5e94\u7528",icon:"\u1f341",desc:"\u4e13\u6ce8\u5206\u4eab\u514d\u8d39\u7eff\u8272\u65e0\u6bd2\u65e0\u5e7f\u7684\u5b9e\u7528\u8f6f\u4ef6\u3002",url:"https://www.fy6b.com/",type:"web"},
-  {id:"w40",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u5f00\u6e90\u7cbe\u9009",icon:"\u1f48e",desc:"\u63a2\u7d22\u514d\u8d39\u4f18\u8d28\u7684\u5f00\u6e90\u5de5\u5177\uff0c\u5c3d\u4eab\u6570\u5b57\u81ea\u7531\u3002",url:"https://www.ossnav.com/",type:"web"},
-  {id:"w41",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"Jiumo \u641c\u4e66",icon:"\u1f4d6",desc:"\u7535\u5b50\u4e66\u641c\u7d22\u5f15\u64ce\uff0c\u5e2e\u52a9\u627e\u5230\u5404\u7c7b\u7535\u5b50\u4e66\u8d44\u6e90\u3002",url:"https://www.jiumosearch.com/",type:"web"},
-  {id:"w42",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u7d20\u6750\u8d44\u6e90\u7f51",icon:"\u1f3ad",desc:"\u514d\u8d39\u9ad8\u8d28\u91cf\u8bbe\u8ba1\u7d20\u6750\u5206\u4eab\u7ad9\uff0c\u79cd\u7c7b\u9f50\u5168\u3002",url:"https://www.sucaizy.com/",type:"web"},
-  {id:"w43",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"\u8003\u62c9\u65b0\u5a92\u4f53\u5bfc\u822a",icon:"\u1f428",desc:"\u65b0\u5a92\u4f53\u8fd0\u8425\u5fc5\u5907\u5bfc\u822a\uff0c\u6536\u5f55\u5927\u91cf\u8fd0\u8425\u5de5\u5177\u3002",url:"https://www.kaolamedia.com/",type:"web"},
-  {id:"w44",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u8d44\u6e90\u83b7\u53d6",name:"LX Music",icon:"\u1f3b6",desc:"\u5f00\u6e90\u514d\u8d39\u97f3\u4e50\u67e5\u627e\u5de5\u5177\uff0c\u805a\u5408\u5168\u7f51\u97f3\u4e50\u8d44\u6e90\u3002",url:"https://lxmusic.toside.cn/",type:"web"},
-  // ===== \u5b66\u4e60\u77e5\u8bc6 =====
-  {id:"w45",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"\u5b66\u5427\u5bfc\u822a",icon:"\u1f393",desc:"\u5b66\u4e60\u8d44\u6e90\u5927\u5168\uff0c\u805a\u5408\u5404\u7c7b\u4f18\u8d28\u5b66\u4e60\u7f51\u7ad9\u3002",url:"https://www.xue8nav.com/",type:"web"},
-  {id:"w46",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"\u4e66\u4eab\u5bb6",icon:"\u1f4da",desc:"\u7535\u5b50\u4e66\u8d44\u6e90\u5bfc\u822a\uff0c\u627e\u4e66\u770b\u4e66\u7684\u7edd\u4f73\u5165\u53e3\u3002",url:"http://shuxiangjia.cn/",type:"web"},
-  {id:"w47",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"wikiHow",icon:"\u1f4dd",desc:"\u4f60\u53ef\u4ee5\u4fe1\u8d56\u7684\u4e07\u4e8b\u6307\u5357\uff0c\u6db5\u76d6\u751f\u6d3b\u65b9\u65b9\u9762\u9762\u3002",url:"https://zh.wikihow.com/",type:"web"},
-  {id:"w48",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"\u5168\u5386\u53f2",icon:"\u1f3db\ufe0f",desc:"\u4ee5\u65f6\u7a7a\u5173\u7cfb\u5448\u73b0\u7684\u5386\u53f2\u77e5\u8bc6\u5e73\u53f0\uff0c\u53ef\u89c6\u5316\u5386\u53f2\u3002",url:"https://www.allhistory.com/",type:"web"},
-  {id:"w49",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"\u4e66\u683c",icon:"\u1f4dc",desc:"\u5728\u7ebf\u53e4\u7c4d\u56fe\u4e66\u9986\uff0c\u5206\u4eab\u9ad8\u8d28\u91cf\u7684\u516c\u5171\u7248\u6743\u4e66\u7c4d\u3002",url:"https://new.shuge.org/",type:"web"},
-  {id:"w50",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"\u56fd\u5916\u7f51\u7ad9\u5927\u5168",icon:"\u1f30d",desc:"\u4e16\u754c\u5404\u56fd\u7f51\u5740\u5927\u5168\uff0c\u63a2\u7d22\u5168\u7403\u4e92\u8054\u7f51\u3002",url:"http://www.world68.com/",type:"web"},
-  {id:"w51",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u5b66\u4e60\u77e5\u8bc6",name:"GitHub \u63a2\u7d22",icon:"\u1f419",desc:"\u5168\u7403\u6700\u5927\u7684\u5f00\u6e90\u793e\u533a\uff0c\u53d1\u73b0\u6709\u8da3\u7684\u5f00\u6e90\u9879\u76ee\u3002",url:"https://github.com/explore",type:"web"},
-  // ===== \u4f11\u95f2\u5a31\u4e50 =====
-  {id:"w52",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u4f11\u95f2\u5a31\u4e50",name:"\u8336\u676f\u72d0",icon:"\u1f98a",desc:"\u5728\u7ebf\u5f71\u89c6\u641c\u7d22\u805a\u5408\uff0c\u514d\u8d39\u8ffd\u5267\u770b\u7535\u5f71\u3002",url:"https://cupfox.app/",type:"web"},
-  {id:"w53",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u4f11\u95f2\u5a31\u4e50",name:"\u6a21\u62df\u94a2\u7434",icon:"\u1f3b9",desc:"\u5728\u7ebf\u865a\u62df\u94a2\u7434\uff0c\u65e0\u9700\u4e0b\u8f7d\u5373\u53ef\u5f39\u594f\u3002",url:"https://www.autopiano.cn/",type:"web"},
-  {id:"w54",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u4f11\u95f2\u5a31\u4e50",name:"\u865a\u62df\u6d77\u6d0b",icon:"\u1f30a",desc:"\u5728\u7ebf3D\u865a\u62df\u6d77\u6d0b\u4f53\u9a8c\uff0c\u653e\u677e\u8eab\u5fc3\u3002",url:"https://virtocean.com/",type:"web"},
-  {id:"w55",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u4f11\u95f2\u5a31\u4e50",name:"\u5343\u4ebf\u50cf\u7d20\u770b\u4e2d\u56fd",icon:"\u1f3d9\ufe0f",desc:"\u8d85\u9ad8\u6e05\u57ce\u5e02\u5168\u666f\u7167\u7247\uff0c\u63a2\u7d22\u4e2d\u56fd\u7684\u6bcf\u4e2a\u89d2\u843d\u3002",url:"http://pf.bigpixel.cn/zh-CN.html",type:"web"},
-  {id:"w56",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u4f11\u95f2\u5a31\u4e50",name:"4399\u5c0f\u6e38\u620f",icon:"\u1f3ae",desc:"\u7ecf\u5178\u5728\u7ebf\u5c0f\u6e38\u620f\u5e73\u53f0\uff0c\u6d77\u91cf\u514d\u8d39\u6e38\u620f\u3002",url:"https://www.4399.com/",type:"web"},
-  // ===== \u97f3\u9891\u7d20\u6750 =====
-  {id:"w57",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u97f3\u9891\u7d20\u6750",name:"\u6dd8\u58f0\u7f51",icon:"\u1f3bc",desc:"\u7efc\u5408\u97f3\u6548\u7d20\u6750\u641c\u7d22\u5e73\u53f0\uff0c\u627e\u97f3\u6548\u5c31\u4e0a\u6dd8\u58f0\u3002",url:"https://www.tosound.com/",type:"web"},
-  {id:"w58",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u97f3\u9891\u7d20\u6750",name:"1Music.cc",icon:"\u1f3b5",desc:"\u514d\u8d39\u9ad8\u54c1\u8d28\u97f3\u4e50\u4e0b\u8f7d\uff0c\u652f\u6301FLAC/MP3\u683c\u5f0f\u3002",url:"https://1music.cc/",type:"web"},
-  {id:"w59",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u97f3\u9891\u7d20\u6750",name:"BGM\u732b",icon:"\u1f431",desc:"AI\u5b9a\u5236\u80cc\u666f\u97f3\u4e50\u4e0b\u8f7d\u5e73\u53f0\uff0c\u514d\u7248\u6743\u3002",url:"http://bgmcat.com/",type:"web"},
-  // ===== \u7f51\u76d8\u4f20\u8f93 =====
-  {id:"w60",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u7f51\u76d8\u4f20\u8f93",name:"\u5c0f\u98de\u673a\u7f51\u76d8",icon:"\u2708\ufe0f",desc:"\u514d\u8d39\u7f51\u76d8\uff0c\u4e0a\u4f20\u4e0b\u8f7d\u4e0d\u9650\u901f\uff0c\u5206\u4eab\u65b9\u4fbf\u3002",url:"https://www.feijipan.com/",type:"web"},
-  {id:"w61",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u7f51\u76d8\u4f20\u8f93",name:"AirPortal",icon:"\u1f4e1",desc:"\u7a7a\u6295\u5feb\u4f20\uff0c\u8bbe\u5907\u95f4\u5feb\u901f\u4f20\u8f93\u6587\u4ef6\u3002",url:"https://airportal.cn/",type:"web"},
-  {id:"w62",cat:"\u5b9e\u7528\u7f51\u7ad9",sub:"\u7f51\u76d8\u4f20\u8f93",name:"\u949b\u76d8",icon:"\u1f4bf",desc:"\u4e34\u65f6\u5927\u6587\u4ef6\u7f51\u76d8\uff0c\u65e0\u9700\u6ce8\u518c\u5373\u53ef\u5206\u4eab\u3002",url:"https://tmp.link/",type:"web"}
+  // ===== AI 工具 =====
+  {id:"w1",cat:"实用网站",sub:"AI工具",name:"DeepSeek",icon:"🤖",desc:"国产顶级大模型，免费使用，支持深度思考和联网搜索。",url:"https://www.deepseek.com/",type:"web"},
+  {id:"w2",cat:"实用网站",sub:"AI工具",name:"ChatGPT",icon:"💬",desc:"OpenAI 旗下人工智能聊天机器人，全球最流行的AI助手。",url:"https://chatgpt.com/",type:"web"},
+  {id:"w3",cat:"实用网站",sub:"AI工具",name:"可灵 AI",icon:"🎬",desc:"快手旗下AI创意平台，支持文生图、图生视频等强大功能。",url:"https://klingai.kuaishou.com/",type:"web"},
+  {id:"w4",cat:"实用网站",sub:"AI工具",name:"即梦AI",icon:"✨",desc:"剪映旗下AI创作平台，一站式视频/图片生成工具。",url:"https://jimeng.jianying.com/",type:"web"},
+  {id:"w5",cat:"实用网站",sub:"AI工具",name:"通义万相",icon:"🎨",desc:"阿里云AI创意作画平台，支持文生图、视频创作等。",url:"https://tongyi.aliyun.com/wanxiang/videoCreation",type:"web"},
+  {id:"w6",cat:"实用网站",sub:"AI工具",name:"Gomoon",icon:"🌙",desc:"桌面端大模型效率工具，集成多种AI能力提升工作效率。",url:"https://gomoon.top/",type:"web"},
+  {id:"w7",cat:"实用网站",sub:"AI工具",name:"Tavily AI",icon:"🔎",desc:"AI驱动的搜索引擎，专为AI代理和研究场景设计。",url:"https://app.tavily.com/home",type:"web"},
+  {id:"w8",cat:"实用网站",sub:"AI工具",name:"智谱清言",icon:"🧠",desc:"智谱AI旗下大模型产品，支持视频生成等高级功能。",url:"https://chatglm.cn/video",type:"web"},
+  {id:"w9",cat:"实用网站",sub:"AI工具",name:"AI价格雷达",icon:"📡",desc:"全球AI工具价格、模型能力和免费额度每日追踪。",url:"https://yangmao.ai/zh/",type:"web"},
+  // ===== 设计素材 =====
+  {id:"w10",cat:"实用网站",sub:"设计素材",name:"Pexels",icon:"📸",desc:"全球最大的免费素材平台之一，海量高质量图片和视频。",url:"https://www.pexels.com/zh-cn/",type:"web"},
+  {id:"w11",cat:"实用网站",sub:"设计素材",name:"Pixabay",icon:"🖼️",desc:"免费正版高清图片、视频和音频素材库，CC0协议。",url:"https://pixabay.com/",type:"web"},
+  {id:"w12",cat:"实用网站",sub:"设计素材",name:"iconfont",icon:"🔣",desc:"阿里巴巴矢量图标库，海量免费图标，支持SVG/PNG下载。",url:"https://www.iconfont.cn/",type:"web"},
+  {id:"w13",cat:"实用网站",sub:"设计素材",name:"Canva 设计",icon:"🎯",desc:"在线平面设计平台，海量模板，轻松制作海报、PPT、Logo。",url:"https://www.canva.cn/",type:"web"},
+  {id:"w14",cat:"实用网站",sub:"设计素材",name:"极简壁纸",icon:"🖥️",desc:"海量高清电脑壁纸，支持多种分辨率，简约风格。",url:"https://bz.zzzmh.cn/",type:"web"},
+  {id:"w15",cat:"实用网站",sub:"设计素材",name:"wallhaven",icon:"🏞️",desc:"超高质量壁纸网站，分类丰富，支持关键词搜索。",url:"https://wallhaven.cc/",type:"web"},
+  {id:"w16",cat:"实用网站",sub:"设计素材",name:"清洁PNG",icon:"✂️",desc:"免费高清透明PNG图片下载，无需抠图直接使用。",url:"https://www.cleanpng.com/",type:"web"},
+  {id:"w17",cat:"实用网站",sub:"设计素材",name:"矢量图标",icon:"🔷",desc:"免费矢量图标下载，超过114万SVG和PNG图标。",url:"https://igoutu.cn/icons",type:"web"},
+  // ===== 在线工具 =====
+  {id:"w18",cat:"实用网站",sub:"在线工具",name:"iLovePDF",icon:"📄",desc:"全能PDF在线处理工具，合并、拆分、压缩、转换一站式。",url:"https://www.ilovepdf.com/",type:"web"},
+  {id:"w19",cat:"实用网站",sub:"在线工具",name:"一个木函",icon:"🧰",desc:"多功能在线工具箱，图片处理、文字转换、加密等应有尽有。",url:"https://ol.woobx.cn/",type:"web"},
+  {id:"w20",cat:"实用网站",sub:"在线工具",name:"Photopea",icon:"🖌️",desc:"在线版Photoshop，无需安装，支持PSD文件编辑。",url:"https://www.photopea.com/",type:"web"},
+  {id:"w21",cat:"实用网站",sub:"在线工具",name:"即时工具",icon:"⚡",desc:"数百种在线工具合集，视频、音频、图片、文档处理。",url:"https://www.67tool.com/",type:"web"},
+  {id:"w22",cat:"实用网站",sub:"在线工具",name:"TTSMaker",icon:"🔊",desc:"免费文字转语音工具，支持多种语言和声音风格。",url:"https://ttsmaker.cn/",type:"web"},
+  {id:"w23",cat:"实用网站",sub:"在线工具",name:"LALAL.AI",icon:"🎵",desc:"AI音轨分离工具，从音频中提取人声或伴奏。",url:"https://www.lalal.ai/zh-hans/",type:"web"},
+  {id:"w24",cat:"实用网站",sub:"在线工具",name:"VirusTotal",icon:"🛡️",desc:"在线病毒检测工具，多引擎扫描文件安全性。",url:"https://www.virustotal.com/",type:"web"},
+  {id:"w25",cat:"实用网站",sub:"在线工具",name:"改图鸭",icon:"🦆",desc:"在线图片编辑处理工具，压缩、裁剪、格式转换等。",url:"https://www.gaituya.com/",type:"web"},
+  {id:"w26",cat:"实用网站",sub:"在线工具",name:"Bfsub 抠图",icon:"🔲",desc:"免费AI在线抠图工具，一键去除图片背景。",url:"https://bgsub.cn/webapp/",type:"web"},
+  {id:"w27",cat:"实用网站",sub:"在线工具",name:"网速测试",icon:"📶",desc:"快速测试当前网络速度，简洁无广告。",url:"https://fast.com/",type:"web"},
+  {id:"w28",cat:"实用网站",sub:"在线工具",name:"docsmall",icon:"📦",desc:"免费在线图片/GIF/PDF压缩工具，轻量高效。",url:"https://docsmall.com/",type:"web"},
+  {id:"w29",cat:"实用网站",sub:"在线工具",name:"文件传输",icon:"📤",desc:"在线文件传输工具，无需登录即可快速分享文件。",url:"https://send.terase.cn/#/send",type:"web"},
+  {id:"w30",cat:"实用网站",sub:"在线工具",name:"Splitter.ai",icon:"🎧",desc:"AI音频处理工具，分离音轨、提取乐器声部。",url:"https://splitter.ai/",type:"web"},
+  {id:"w31",cat:"实用网站",sub:"在线工具",name:"在线印章设计",icon:"🔴",desc:"在线个性化印章设计工具，多种形状与古风字体。",url:"https://www.butterpig.top/personalseal",type:"web"},
+  {id:"w32",cat:"实用网站",sub:"在线工具",name:"SnapWC",icon:"⬇️",desc:"免费视频下载解析工具，支持多平台视频音频提取。",url:"https://snapwc.com/zh",type:"web"},
+  // ===== 资源获取 =====
+  {id:"w33",cat:"实用网站",sub:"资源获取",name:"果核剥壳",icon:"🥜",desc:"互联网净土，分享纯净软件和实用工具。",url:"https://www.ghxi.com/",type:"web"},
+  {id:"w34",cat:"实用网站",sub:"资源获取",name:"奇迹秀工具箱",icon:"🧰",desc:"设计师的百宝箱，各类设计资源与工具合集。",url:"https://www.qijishow.com/",type:"web"},
+  {id:"w35",cat:"实用网站",sub:"资源获取",name:"不死鸟",icon:"🐦",desc:"分享为王，免费实用有趣的资源导航站。",url:"https://iui.su/",type:"web"},
+  {id:"w36",cat:"实用网站",sub:"资源获取",name:"阿虚同学的储物间",icon:"📦",desc:"阿虚的软件和资源收藏，分类清晰资源丰富。",url:"https://www.axutongxue.com/",type:"web"},
+  {id:"w37",cat:"实用网站",sub:"资源获取",name:"小众技术工具库",icon:"🔧",desc:"专注分享实用软件和精品网站的合集。",url:"https://www.xiaozhongjishu.com/",type:"web"},
+  {id:"w38",cat:"实用网站",sub:"资源获取",name:"软仓",icon:"📚",desc:"软件资源导航，收集各类优质软件和素材。",url:"https://www.ruancang.net/",type:"web"},
+  {id:"w39",cat:"实用网站",sub:"资源获取",name:"枫音应用",icon:"🍁",desc:"专注分享免费绿色无毒无广的实用软件。",url:"https://www.fy6b.com/",type:"web"},
+  {id:"w40",cat:"实用网站",sub:"资源获取",name:"开源精选",icon:"💎",desc:"探索免费优质的开源工具，尽享数字自由。",url:"https://www.ossnav.com/",type:"web"},
+  {id:"w41",cat:"实用网站",sub:"资源获取",name:"Jiumo 搜书",icon:"📖",desc:"电子书搜索引擎，帮助找到各类电子书资源。",url:"https://www.jiumosearch.com/",type:"web"},
+  {id:"w42",cat:"实用网站",sub:"资源获取",name:"素材资源网",icon:"🎭",desc:"免费高质量设计素材分享站，种类齐全。",url:"https://www.sucaizy.com/",type:"web"},
+  {id:"w43",cat:"实用网站",sub:"资源获取",name:"考拉新媒体导航",icon:"🐨",desc:"新媒体运营必备导航，收录大量运营工具。",url:"https://www.kaolamedia.com/",type:"web"},
+  {id:"w44",cat:"实用网站",sub:"资源获取",name:"LX Music",icon:"🎶",desc:"开源免费音乐查找工具，聚合全网音乐资源。",url:"https://lxmusic.toside.cn/",type:"web"},
+  // ===== 学习知识 =====
+  {id:"w45",cat:"实用网站",sub:"学习知识",name:"学吧导航",icon:"🎓",desc:"学习资源大全，聚合各类优质学习网站。",url:"https://www.xue8nav.com/",type:"web"},
+  {id:"w46",cat:"实用网站",sub:"学习知识",name:"书享家",icon:"📚",desc:"电子书资源导航，找书看书的绝佳入口。",url:"http://shuxiangjia.cn/",type:"web"},
+  {id:"w47",cat:"实用网站",sub:"学习知识",name:"wikiHow",icon:"📝",desc:"你可以信赖的万事指南，涵盖生活方方面面。",url:"https://zh.wikihow.com/",type:"web"},
+  {id:"w48",cat:"实用网站",sub:"学习知识",name:"全历史",icon:"🏛️",desc:"以时空关系呈现的历史知识平台，可视化历史。",url:"https://www.allhistory.com/",type:"web"},
+  {id:"w49",cat:"实用网站",sub:"学习知识",name:"书格",icon:"📜",desc:"在线古籍图书馆，分享高质量的公共版权书籍。",url:"https://new.shuge.org/",type:"web"},
+  {id:"w50",cat:"实用网站",sub:"学习知识",name:"国外网站大全",icon:"🌍",desc:"世界各国网址大全，探索全球互联网。",url:"http://www.world68.com/",type:"web"},
+  {id:"w51",cat:"实用网站",sub:"学习知识",name:"GitHub 探索",icon:"🐙",desc:"全球最大的开源社区，发现有趣的开源项目。",url:"https://github.com/explore",type:"web"},
+  // ===== 休闲娱乐 =====
+  {id:"w52",cat:"实用网站",sub:"休闲娱乐",name:"茶杯狐",icon:"🦊",desc:"在线影视搜索聚合，免费追剧看电影。",url:"https://cupfox.app/",type:"web"},
+  {id:"w53",cat:"实用网站",sub:"休闲娱乐",name:"模拟钢琴",icon:"🎹",desc:"在线虚拟钢琴，无需下载即可弹奏。",url:"https://www.autopiano.cn/",type:"web"},
+  {id:"w54",cat:"实用网站",sub:"休闲娱乐",name:"虚拟海洋",icon:"🌊",desc:"在线3D虚拟海洋体验，放松身心。",url:"https://virtocean.com/",type:"web"},
+  {id:"w55",cat:"实用网站",sub:"休闲娱乐",name:"千亿像素看中国",icon:"🏙️",desc:"超高清城市全景照片，探索中国的每个角落。",url:"http://pf.bigpixel.cn/zh-CN.html",type:"web"},
+  {id:"w56",cat:"实用网站",sub:"休闲娱乐",name:"4399小游戏",icon:"🎮",desc:"经典在线小游戏平台，海量免费游戏。",url:"https://www.4399.com/",type:"web"},
+  // ===== 音频素材 =====
+  {id:"w57",cat:"实用网站",sub:"音频素材",name:"淘声网",icon:"🎼",desc:"综合音效素材搜索平台，找音效就上淘声。",url:"https://www.tosound.com/",type:"web"},
+  {id:"w58",cat:"实用网站",sub:"音频素材",name:"1Music.cc",icon:"🎵",desc:"免费高品质音乐下载，支持FLAC/MP3格式。",url:"https://1music.cc/",type:"web"},
+  {id:"w59",cat:"实用网站",sub:"音频素材",name:"BGM猫",icon:"🐱",desc:"AI定制背景音乐下载平台，免版权。",url:"http://bgmcat.com/",type:"web"},
+  // ===== 网盘传输 =====
+  {id:"w60",cat:"实用网站",sub:"网盘传输",name:"小飞机网盘",icon:"✈️",desc:"免费网盘，上传下载不限速，分享方便。",url:"https://www.feijipan.com/",type:"web"},
+  {id:"w61",cat:"实用网站",sub:"网盘传输",name:"AirPortal",icon:"📡",desc:"空投快传，设备间快速传输文件。",url:"https://airportal.cn/",type:"web"},
+  {id:"w62",cat:"实用网站",sub:"网盘传输",name:"钛盘",icon:"💿",desc:"临时大文件网盘，无需注册即可分享。",url:"https://tmp.link/",type:"web"}
 ];
 
 // Build category tree
