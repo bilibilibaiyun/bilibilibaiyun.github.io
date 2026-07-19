@@ -279,15 +279,16 @@ body{
 <script>
 // ========== DATA ==========
 const TOOLS = [
-  {id:1,cat:"鐢佃剳宸ュ叿",name:"NDM 涓嬭浇鍣?,icon:"images/ndm.webp",desc:"鏈€寮哄厤璐瑰绾夸笅杞藉伐鍏凤紝鏀寔澶氱嚎绋嬩笅杞姐€佹祻瑙堝櫒鎻掍欢闆嗘垚锛屾浛浠DM鐨勫厤璐归€夋嫨銆?,url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
-  {id:2,cat:"鐢佃剳宸ュ叿",name:"OpenClaw AI Agent 绁炲櫒",icon:"images/openclaw.webp",desc:"鍛婂埆澶嶆潅鎿嶄綔锛屽皬鐧戒篃鑳借交鏉惧畨瑁呯殑AI Agent绁炲櫒锛屽紑婧愮函鍑€鑷畾涔夋帴鍙ｏ紝鏀寔DeepSeek鍜孠imi銆?,url:"https://bilibilibaiyun.lanzouq.com/b009i6mndi",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1GeKn6AEYs",type:"tool"},
-  {id:3,cat:"鐢佃剳宸ュ叿",name:"娲涢洩闊充箰",icon:"images/music.webp",desc:"寮€婧愬厤璐归煶涔愭挱鏀惧櫒锛屾敮鎸佸骞冲彴锛屽彲瀹夎闊虫簮鎻掍欢鐣呭惉鍏ㄧ綉闊充箰锛屾敮鎸佹棤鎹熶笅杞姐€?,url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
-  {id:4,cat:"鐢佃剳宸ュ叿",name:"BandiScreen 褰曞睆",icon:"images/bandicam.webp",desc:"Bandi褰曞睆婊¤鐗堬紝绠€鍗曞ソ鐢ㄧ殑鐢佃剳褰曞睆宸ュ叿锛屾敮鎸侀珮娓呭綍鍒讹紝寤鸿浜烘墜涓€涓€?,url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
-  {id:5,cat:"鐢佃剳宸ュ叿",name:"WinRAR",icon:"images/winrar.webp",desc:"缁忓吀鍘嬬缉瑙ｅ帇宸ュ叿锛屾敮鎸丷AR/ZIP绛夊绉嶆牸寮忥紝绾噣鐗堝厤骞垮憡鍏嶆縺娲汇€?,url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
-  {id:6,cat:"鍏朵粬宸ュ叿",name:"鏂版満绯荤粺浼樺寲",icon:"images/optimize.webp",desc:"瓒呰缁嗙殑鏂版満绯荤粺浼樺寲鏀荤暐锛屽惈绯荤粺璁剧疆銆佽蒋浠跺畨瑁呫€佹€ц兘浼樺寲绛夊叏鏂逛綅鎸囧崡銆?,url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"},
-  {id:7,cat:"鐢佃剳宸ュ叿",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"鍔ㄦ€佸绾歌蒋浠舵墦鍖呯増锛屽厤璐圭函鍑€濂界敤锛屾棤闇€浠樿垂鍗冲彲浣撻獙娴烽噺鍔ㄦ€佸绾搞€?,url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"},
-  {id:8,cat:"鐢佃剳宸ュ叿",name:"LocalSend 灞€鍩熺綉浼犺緭",icon:"images/localesend.webp",desc:"寮€婧愬眬鍩熺綉鏂囦欢浼犺緭宸ュ叿锛岄€熷害鍙揪999MB/S鈿★笍锛屾敮鎸佺數鑴?鎵嬫満鍏ㄥ钩鍙颁簰浼狅紝鏃犳崯涓嶉檺閫熸棤闇€鑱旂綉銆?,url:"https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1EaKP6bEwo",type:"tool"},
+  {id:1,cat:"电脑工具",name:"NDM 下载器",icon:"images/ndm.webp",desc:"最强免费多线下载工具，支持多线程下载、浏览器插件集成，替代IDM的免费选择。",url:"https://wwasm.lanzouq.com/idGMW3vfq5fg",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1zoMJ65ExN",type:"tool"},
+  {id:2,cat:"电脑工具",name:"OpenClaw AI Agent 神器",icon:"images/openclaw.webp",desc:"告别复杂操作，小白也能轻松安装的AI Agent神器，开源纯净自定义接口，支持DeepSeek和Kimi。",url:"https://bilibilibaiyun.lanzouq.com/b009i6mndi",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1GeKn6AEYs",type:"tool"},
+  {id:3,cat:"电脑工具",name:"洛雪音乐",icon:"images/music.webp",desc:"开源免费音乐播放器，支持多平台，可安装音源插件畅听全网音乐，支持无损下载。",url:"https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1TJN16REmy",type:"tool"},
+  {id:4,cat:"电脑工具",name:"BandiScreen 录屏",icon:"images/bandicam.webp",desc:"Bandi录屏满血版，简单好用的电脑录屏工具，支持高清录制，建议人手一个。",url:"https://bilibilibaiyun.lanzouq.com/i77t83w07sja",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1kMNg6LEFd",type:"tool"},
+  {id:5,cat:"电脑工具",name:"WinRAR",icon:"images/winrar.webp",desc:"经典压缩解压工具，支持RAR/ZIP等多种格式，纯净版免广告免激活。",url:"https://wwasm.lanzouq.com/ix6Qj3va59ji",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1t3Mj6EEPA",type:"tool"},
+  {id:6,cat:"其他工具",name:"新机系统优化",icon:"images/optimize.webp",desc:"超详细的新机系统优化攻略，含系统设置、软件安装、性能优化等全方位指南。",url:null,pwd:"",tutorial:"https://www.bilibili.com/video/BV1b9Nn6sENh",type:"tool"},
+  {id:7,cat:"电脑工具",name:"Wallpaper Engine",icon:"images/wallpaper.webp",desc:"动态壁纸软件打包版，免费纯净好用，无需付费即可体验海量动态壁纸。",url:"https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV11fNX63Evu",type:"tool"},
+  {id:8,cat:"电脑工具",name:"LocalSend 局域网传输",icon:"images/localesend.webp",desc:"开源局域网文件传输工具，速度可达999MB/S⚡️，支持电脑/手机全平台互传，无损不限速无需联网。",url:"https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1EaKP6bEwo",type:"tool"},
   {id:9,cat:"手机工具",name:"开源阅读",icon:"images/reading.webp",desc:"GitHub 46k Stars开源阅读神器，附8000+书源，全网小说免费看。",url:"https://bilibilibaiyun.lanzouq.com/il8lv3xb3ggd",pwd:"baiyun",tutorial:"https://www.bilibili.com/video/BV1huKB6GEKU",type:"tool"}
+];
 ];
 
 const WEBSITES = [
