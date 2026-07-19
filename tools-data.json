@@ -1,15 +1,16 @@
 {
   "tools": [
-    { "name": "NDM 涓嬭浇鍣?, "bvid": "BV1zoMJ65ExN", "bilibiliUrl": "https://www.bilibili.com/video/BV1zoMJ65ExN", "downloadUrl": "https://wwasm.lanzouq.com/idGMW3vfq5fg", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/ndm.webp" },
-    { "name": "OpenClaw AI Agent 绁炲櫒", "bvid": "BV1GeKn6AEYs", "bilibiliUrl": "https://www.bilibili.com/video/BV1GeKn6AEYs", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/b009i6mndi", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/openclaw.webp" },
+    { "name": "寮€婧愰槄璇?, "bvid": "BV1huKB6GEKU", "bilibiliUrl": "https://www.bilibili.com/video/BV1huKB6GEKU", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/il8lv3xb3ggd", "password": "baiyun", "category": "鎵嬫満宸ュ叿", "icon": "images/reading.webp" },
     { "name": "LocalSend 灞€鍩熺綉浼犺緭", "bvid": "BV1EaKP6bEwo", "bilibiliUrl": "https://www.bilibili.com/video/BV1EaKP6bEwo", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/ijjVw3x6mate", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/localesend.webp" },
-    { "name": "Wallpaper Engine", "bvid": "BV11fNX63Evu", "bilibiliUrl": "https://www.bilibili.com/video/BV11fNX63Evu", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/wallpaper.webp" },
+    { "name": "OpenClaw AI Agent 绁炲櫒", "bvid": "BV1GeKn6AEYs", "bilibiliUrl": "https://www.bilibili.com/video/BV1GeKn6AEYs", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/b009i6mndi", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/openclaw.webp" },
     { "name": "娲涢洩闊充箰", "bvid": "BV1TJN16REmy", "bilibiliUrl": "https://www.bilibili.com/video/BV1TJN16REmy", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/i6XCT3w76amb", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/music.webp" },
     { "name": "BandiScreen 褰曞睆", "bvid": "BV1kMNg6LEFd", "bilibiliUrl": "https://www.bilibili.com/video/BV1kMNg6LEFd", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/i77t83w07sja", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/bandicam.webp" },
+    { "name": "鏂版満绯荤粺浼樺寲", "bvid": "BV1b9Nn6sENh", "bilibiliUrl": "https://www.bilibili.com/video/BV1b9Nn6sENh", "downloadUrl": null, "password": "", "category": "鍏朵粬宸ュ叿", "icon": "images/optimize.webp" },
+    { "name": "NDM 涓嬭浇鍣?, "bvid": "BV1zoMJ65ExN", "bilibiliUrl": "https://www.bilibili.com/video/BV1zoMJ65ExN", "downloadUrl": "https://wwasm.lanzouq.com/idGMW3vfq5fg", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/ndm.webp" },
     { "name": "WinRAR", "bvid": "BV1t3Mj6EEPA", "bilibiliUrl": "https://www.bilibili.com/video/BV1t3Mj6EEPA", "downloadUrl": "https://wwasm.lanzouq.com/ix6Qj3va59ji", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/winrar.webp" },
-    { "name": "鏂版満绯荤粺浼樺寲", "bvid": "BV1b9Nn6sENh", "bilibiliUrl": "https://www.bilibili.com/video/BV1b9Nn6sENh", "downloadUrl": null, "password": "", "category": "鍏朵粬宸ュ叿", "icon": "images/optimize.webp" }
+    { "name": "Wallpaper Engine", "bvid": "BV11fNX63Evu", "bilibiliUrl": "https://www.bilibili.com/video/BV11fNX63Evu", "downloadUrl": "https://bilibilibaiyun.lanzouq.com/iEtlr3wcs9kf", "password": "baiyun", "category": "鐢佃剳宸ュ叿", "icon": "images/wallpaper.webp" }
   ],
-  "lastUpdated": "2026-07-19T05:06:00+08:00",
+  "lastUpdated": "2026-07-19T12:45:00+08:00",
   "bilibiliChannel": "https://space.bilibili.com/3546697630222922",
   "bilibiliChannelName": "鍋ヨ皥鐨勭櫧浜?,
   "defaultPassword": "baiyun"
