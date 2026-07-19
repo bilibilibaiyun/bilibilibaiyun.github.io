@@ -437,28 +437,36 @@ function updateActiveNav(){
 
 function getFilteredItems(cat, sub){
   let items;
-  if(cat === '实用网站'){
-    items = sub ? WEBSITES.filter(w => w.sub === sub) : WEBSITES;
-  } else {
-    items = sub ? [] : TOOLS.filter(t => t.cat === cat);
-  }
   if(searchQuery){
+    // 全局搜索：跨所有工具和网站
     const q = searchQuery.toLowerCase();
-    items = items.filter(i =>
+    const allItems = [...TOOLS, ...WEBSITES];
+    items = allItems.filter(i =>
       i.name.toLowerCase().includes(q) ||
       (i.desc && i.desc.toLowerCase().includes(q)) ||
       (i.sub && i.sub.toLowerCase().includes(q))
     );
+  } else if(cat === '实用网站'){
+    items = sub ? WEBSITES.filter(w => w.sub === sub) : WEBSITES;
+  } else {
+    items = sub ? [] : TOOLS.filter(t => t.cat === cat);
   }
   return items;
 }
 
 function renderContent(cat, sub){
   const items = getFilteredItems(cat, sub);
-  document.getElementById('cat-title').textContent = sub || cat;
+  const isSearching = searchQuery !== '';
+  if(isSearching){
+    document.getElementById('cat-title').textContent = '🔍 搜索结果';
+    document.getElementById('cat-desc').textContent = '「'+searchQuery+'」的搜索结果';
+  } else {
+    document.getElementById('cat-title').textContent = sub || cat;
+    const isWeb = cat === '实用网站';
+    document.getElementById('cat-desc').textContent = isWeb ? '精选实用网站，按分类整理' : '精选免费工具，带教程和下载';
+  }
   const isWeb = cat === '实用网站';
-  document.getElementById('cat-desc').textContent = isWeb ? '精选实用网站，按分类整理' : '精选免费工具，带教程和下载';
-  document.getElementById('cat-stats').innerHTML = '<span class="cat-stat">共 <b>'+items.length+'</b> 个'+(isWeb?'网站':'工具')+'</span>';
+  document.getElementById('cat-stats').innerHTML = '<span class="cat-stat">共 <b>'+items.length+'</b> 个'+(isSearching?'结果':(isWeb?'网站':'工具'))+'</span>';
 
   const grid = document.getElementById('card-grid');
   const empty = document.getElementById('empty-state');
@@ -533,7 +541,16 @@ function closeModal(e){
 
 function doSearch(){
   searchQuery = document.getElementById('search-input').value.trim();
-  if(activeCat) renderContent(activeCat, activeSub);
+  if(searchQuery){
+    // 有搜索词时，跨分类全局搜索
+    renderContent(activeCat || '电脑工具', activeSub);
+  } else if(activeCat){
+    // 清空搜索时，回到当前分类
+    renderContent(activeCat, activeSub);
+  } else {
+    const cats = Object.keys(getCatTree());
+    if(cats.length) selectCategory(cats[0]);
+  }
 }
 
 function toggleSidebar(){
