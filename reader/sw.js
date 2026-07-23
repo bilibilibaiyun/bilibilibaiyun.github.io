@@ -1,5 +1,6 @@
-// 寮€婧愰槄璇荤綉椤电増 - Service Worker v4
-// 鍙仛涓€浠朵簨锛氱粫杩?CORS 杩斿洖鍘熷 HTML锛岃В鏋愪氦缁欏墠绔?self.addEventListener('install', e => self.skipWaiting());
+// 开源阅读网页版 - Service Worker v4
+// 只做一件事：绕过 CORS 返回原始 HTML，解析交给前端
+self.addEventListener('install', e => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(clients.claim()));
 
 async function fetchHtml(url) {
@@ -39,15 +40,15 @@ self.addEventListener('fetch', event => {
   let promise;
   
   if (path === 'fetch') {
-    // fetch 浠ｇ悊锛氳繑鍥炲師濮?HTML
+    // fetch 代理：返回原始 HTML
     promise = fetchHtml(params.url).then(r => {
-      if (!r) return { ok: false, error: '鏃犳硶杩炴帴鍒扮洰鏍囩珯鐐? };
-      // 鍙繑鍥炲叧閿俊鎭紝HTML 杩囧ぇ浼氱垎
+      if (!r) return { ok: false, error: '无法连接到目标站点' };
+      // 只返回关键信息，HTML 过大会爆
       return { 
         ok: r.ok, 
         status: r.status,
         url: r.url,
-        html: r.html.substring(0, 50000), // 闄愬埗 50KB
+        html: r.html.substring(0, 50000), // 限制 50KB
         contentType: r.contentType,
         len: r.html.length
       };
