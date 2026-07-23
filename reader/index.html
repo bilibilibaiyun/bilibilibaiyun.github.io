@@ -502,130 +502,172 @@ function showToast(msg, duration = 2000) {
 }
 
 // ==================== API ====================
-// Service Worker 浠ｇ悊锛岀敤鐩稿璺緞纭繚鍦?SW scope 鍐?const API_BASE = 'api/novels';
 const SW_ENABLED = 'serviceWorker' in navigator;
 
-// 鍐呯疆婕旂ず鏁版嵁 - 褰揂PI涓嶅彲鐢ㄦ椂浣跨敤
-const DEMO_DATA = {
-  search: [
-    { title: '鍓戞潵', author: '鐑界伀鎴忚渚?, cover: '', intro: '澶у崈涓栫晫锛屾棤濂囦笉鏈夈€傛垜闄堝钩瀹夛紝鍞湁涓€鍓戯紝鍙惉灞憋紝鍊掓捣锛岄檷濡栵紝闀囬瓟锛屾晻绁烇紝鎽樻槦锛屾柇姹燂紝鎽у煄锛屽紑澶╋紒', url: 'demo://book/jianlai' },
-    { title: '鏂楃牬鑻嶇┕', author: '澶╄殨鍦熻眴', cover: '', intro: '杩欓噷鏄睘浜庢枟姘旂殑涓栫晫锛屾病鏈夎姳淇忚壋涓界殑榄旀硶锛屾湁鐨勶紝浠呬粎鏄箒琛嶅埌宸呭嘲鐨勬枟姘旓紒', url: 'demo://book/doupocangqiong' },
-    { title: '鍑′汉淇粰浼?, author: '蹇樿', cover: '', intro: '涓€涓櫘閫氬北鏉戝皬瀛愶紝鍋剁劧涓嬭繘鍏ュ埌褰撳湴姹熸箹灏忛棬娲撅紝鎴愪簡涓€鍚嶈鍚嶅紵瀛愩€備粬浠ヨ繖鏍疯韩浠斤紝濡備綍鍦ㄩ棬娲句腑绔嬭冻锛?, url: 'demo://book/fanrenxiuxian' },
-    { title: '瀹岀編涓栫晫', author: '杈颁笢', cover: '', intro: '涓€绮掑皹鍙～娴凤紝涓€鏍硅崏鏂╁敖鏃ユ湀鏄熻景锛屽脊鎸囬棿澶╃炕鍦拌銆傜兢闆勫苟璧凤紝涓囨棌鏋楃珛锛岃鍦ｄ簤闇革紝涔卞ぉ鍔ㄥ湴銆?, url: 'demo://book/wanmeishijie' },
-    { title: '鍚炲櫖鏄熺┖', author: '鎴戝悆瑗跨孩鏌?, cover: '', intro: '鏄熺┖涓紝涓€棰楅櫒鐭充笂锛屼竴涓井涓嶈冻閬撶殑灏忎汉鐗╋紝寮€濮嬩簡浠栫殑浼犲涔嬭矾銆?, url: 'demo://book/tunshixingkong' },
-    { title: '璇＄涔嬩富', author: '鐖辨綔姘寸殑涔岃醇', cover: '', intro: '钂告苯涓庢満姊扮殑娴疆涓紝璋佽兘瑙﹀強闈炲嚒锛熷湪鍘嗗彶鍜岄粦鏆楃殑杩烽浘涓紝鍙堟槸璋佸湪鑰宠锛?, url: 'demo://book/guimizhizhu' }
-  ],
-  hot: [
-    { title: '鍓戞潵', author: '鐑界伀鎴忚渚?, cover: '', url: 'demo://book/jianlai' },
-    { title: '鏂楃牬鑻嶇┕', author: '澶╄殨鍦熻眴', cover: '', url: 'demo://book/doupocangqiong' },
-    { title: '鍑′汉淇粰浼?, author: '蹇樿', cover: '', url: 'demo://book/fanrenxiuxian' },
-    { title: '瀹岀編涓栫晫', author: '杈颁笢', cover: '', url: 'demo://book/wanmeishijie' },
-    { title: '璇＄涔嬩富', author: '鐖辨綔姘寸殑涔岃醇', cover: '', url: 'demo://book/guimizhizhu' },
-    { title: '鍚炲櫖鏄熺┖', author: '鎴戝悆瑗跨孩鏌?, cover: '', url: 'demo://book/tunshixingkong' }
-  ]
+// 婕旂ず鏁版嵁
+const DEMO_BOOKS = {
+  '鍓戞潵': { author:'鐑界伀鎴忚渚?, intro:'澶у崈涓栫晫锛屾棤濂囦笉鏈夈€傛垜闄堝钩瀹夛紝鍞湁涓€鍓戯紝鍙惉灞憋紝鍊掓捣锛岄檷濡栵紝闀囬瓟锛屾晻绁烇紝鎽樻槦锛屾柇姹燂紝鎽у煄锛屽紑澶╋紒' },
+  '鏂楃牬鑻嶇┕': { author:'澶╄殨鍦熻眴', intro:'杩欓噷鏄睘浜庢枟姘旂殑涓栫晫锛屾病鏈夎姳淇忚壋涓界殑榄旀硶锛屾湁鐨勶紝浠呬粎鏄箒琛嶅埌宸呭嘲鐨勬枟姘旓紒' },
+  '鍑′汉淇粰浼?: { author:'蹇樿', intro:'涓€涓櫘閫氬北鏉戝皬瀛愶紝鍋剁劧涓嬭繘鍏ュ埌褰撳湴姹熸箹灏忛棬娲撅紝鎴愪簡涓€鍚嶈鍚嶅紵瀛愩€? },
+  '瀹岀編涓栫晫': { author:'杈颁笢', intro:'涓€绮掑皹鍙～娴凤紝涓€鏍硅崏鏂╁敖鏃ユ湀鏄熻景锛屽脊鎸囬棿澶╃炕鍦拌銆? },
+  '璇＄涔嬩富': { author:'鐖辨綔姘寸殑涔岃醇', intro:'钂告苯涓庢満姊扮殑娴疆涓紝璋佽兘瑙﹀強闈炲嚒锛? },
+  '鍚炲櫖鏄熺┖': { author:'鎴戝悆瑗跨孩鏌?, intro:'鏄熺┖涓紝涓€棰楅櫒鐭充笂锛屼竴涓井涓嶈冻閬撶殑灏忎汉鐗╋紝寮€濮嬩簡浠栫殑浼犲涔嬭矾銆? }
 };
 
-// 妯℃嫙绔犺妭鏁版嵁
-function generateDemoChapters(bookId, count = 100) {
+function cleanHTML(html) {
+  return html.replace(/<script[\s\S]*?<\/script>/gi,'')
+    .replace(/<style[\s\S]*?<\/style>/gi,'')
+    .replace(/<!--[\s\S]*?-->/g,'')
+    .replace(/<br\s*\/?>/gi,'\n').replace(/&nbsp;/g,' ')
+    .replace(/<[^>]+>/g,'').replace(/&[a-z]+;/gi,'')
+    .replace(/\n{3,}/g,'\n\n').trim();
+}
+
+// 閫氳繃 SW 鎶撳彇鍘熷 HTML
+async function fetchViaSW(url) {
+  const resp = await fetch('api/novels/fetch?url=' + encodeURIComponent(url));
+  const data = await resp.json();
+  console.log('SW fetch:', url.substring(0, 60), '->', data.ok ? data.len+'b status:'+data.status : data.error);
+  if (!data.ok || !data.html) throw new Error(data.error || 'fetch failed');
+  return { html: data.html, finalUrl: data.url };
+}
+
+// 浠?HTML 涓В鏋愭悳绱㈢粨鏋?function parseSearchResults(html) {
+  const books = [];
+  const seen = new Set();
+  const aRx = /<a[^>]*href="(https?:\/\/[^"]+)"[^>]*>([^<]{1,60})<\/a>/g;
+  let m;
+  while ((m = aRx.exec(html)) !== null) {
+    const title = m[2].replace(/<[^>]+>/g,'').trim();
+    if (!title || title.length < 2 || seen.has(m[1])) continue;
+    seen.add(m[1]);
+    const block = html.substring(Math.max(0,m.index-200), Math.min(html.length,m.index+200));
+    const author = (block.match(/浣滆€匸锛?]\s*([^<>\n]{1,30})/) || ['',''])[1].trim();
+    books.push({ title, author, cover:'', intro:'', url:m[1] });
+    if (books.length >= 20) break;
+  }
+  return books;
+}
+
+// 浠?HTML 瑙ｆ瀽涔︾睄璇︽儏
+function parseBookDetail(html, bookUrl) {
+  const title = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || ['','鏈煡'])[1].replace(/<[^>]+>/g,'').trim();
+  const author = (html.match(/浣滆€匸锛?]\s*([^<>\n]{1,30})/) || ['',''])[1].trim();
+  const cover = (html.match(/<img[^>]*src="([^"]+\.(?:jpg|png|webp|jpeg))"/i) || ['',''])[1];
+  const introMatch = html.match(/(?:id="intro"|class="intro")[^>]*>([\s\S]*?)<\/div>/);
+  const intro = introMatch ? cleanHTML(introMatch[1]).substring(0,300) : '';
+  
   const chapters = [];
-  for (let i = 1; i <= count; i++) {
-    chapters.push({ title: `绗?{i}绔?绔犺妭鏍囬${i}`, url: `demo://chapter/${bookId}/${i}` });
+  const listBlock = html.match(/(?:id="(?:list|chapters|chapter-list|catalog)"|class="[^"]*(?:list|chapter|catalog)[^"]*"|id="chapters-list"|class="chapter-list")[\s\S]*?<\/div>/);
+  if (listBlock) {
+    const chRx = /<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g;
+    let c;
+    while ((c = chRx.exec(listBlock[0])) !== null) {
+      const ct = cleanHTML(c[2]);
+      if (ct.length >= 2) chapters.push({ title: ct, url: c[1].startsWith('http') ? c[1] : new URL(c[1], bookUrl).href });
+    }
   }
-  return chapters;
+  if (chapters.length === 0) {
+    const ddRx = /<(?:dd|li)>[\s\S]*?<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g;
+    while ((c = ddRx.exec(html)) !== null) {
+      const ct = cleanHTML(c[2]);
+      if (ct.length >= 2 && !ct.includes('棣栭〉') && !ct.includes('涓婁竴椤?)) chapters.push({ title: ct, url: c[1].startsWith('http') ? c[1] : new URL(c[1], bookUrl).href });
+    }
+  }
+  return { title: title || '鏈煡', author: author || '鏈煡浣滆€?, cover, intro, chapters };
 }
 
-function generateDemoContent(bookId, chapterId) {
-  const paragraphs = [
-    '銆€銆€' + '杩欐槸涓€娈电ず渚嬫枃鏈紝鐢ㄤ簬灞曠ず闃呰鍣ㄧ殑鏁堟灉銆傚綋杩炴帴鐪熷疄鏁版嵁婧愬悗锛岃繖閲屼細鏄剧ず瀹為檯鐨勭珷鑺傚唴瀹广€?.repeat(3),
-    '銆€銆€' + '杩欎釜闃呰鍣ㄦ敮鎸佸瓧浣撳ぇ灏忚皟鑺傘€佽闂磋窛璋冩暣銆佸闂?鎶ょ溂鍙屼富棰樺垏鎹€傜偣鍑诲睆骞曞乏渚у垏鎹㈠埌涓婁竴绔狅紝鍙充晶鍒囨崲鍒颁笅涓€绔狅紝涓棿鍖哄煙鍙互鍒囨崲鑿滃崟鏄剧ず銆?.repeat(2),
-    '銆€銆€' + '涔︾睄浼氳嚜鍔ㄤ繚瀛樺埌涔︽灦锛岄槄璇昏繘搴︿細瀹炴椂璁板綍銆備綘鍙互闅忔椂浠庝功鏋剁户缁箣鍓嶇殑闃呰銆?.repeat(2),
-    '銆€銆€' + chapterId % 5 === 0 ? '銆愰噸瑕佹儏鑺傘€戞晠浜嬬殑杞姌鐐瑰嚭鐜板湪杩欓噷锛屼富瑙掗潰涓翠簡鍓嶆墍鏈湁鐨勬寫鎴?..' : '',
-    '銆€銆€' + 'Lorem ipsum dolor sit amet, 杩欐槸涓€娈靛～鍏呮枃鏈敤浜庡睍绀洪槄璇绘晥鏋溿€傚綋瀹為檯杩炴帴鍒颁功婧愭暟鎹椂锛岃繖浜涘唴瀹瑰皢琚湡瀹炵殑灏忚绔犺妭鏇挎崲銆?.repeat(2)
+// 浠?HTML 瑙ｆ瀽绔犺妭鍐呭
+function parseChapterContent(html) {
+  const patterns = [
+    /id="content"[^>]*>([\s\S]*?)<\/div>/,
+    /id="contents"[^>]*>([\s\S]*?)<\/div>/,
+    /id="chaptercontent"[^>]*>([\s\S]*?)<\/div>/,
+    /class="[^"]*content[^"]*"[^>]*>([\s\S]*?)<\/div>/,
+    /class="[^"]*read-content[^"]*"[^>]*>([\s\S]*?)<\/div>/,
+    /class="[^"]*txt[^"]*"[^>]*>([\s\S]*?)<\/div>/,
+    /id="TextContent"[^>]*>([\s\S]*?)<\/div>/
   ];
-  return paragraphs.join('\n\n');
+  for (const p of patterns) {
+    const m = html.match(p);
+    if (m && m[1]) {
+      const content = cleanHTML(m[1]);
+      const cn = (content.match(/[\u4e00-\u9fff]/g) || []).length;
+      if (cn > 10 && content.length > 50) return content;
+    }
+  }
+  return '';
 }
 
-// 鎼滅储
+// 鎼滅储涔︾睄
 async function searchBooksAPI(keyword) {
-  if (SW_ENABLED) {
+  const hosts = ['https://www.biquge.info/search.php?keyword=', 'https://www.ibiquge.net/search.php?keyword='];
+  for (const base of hosts) {
     try {
-      const resp = await fetch(API_BASE + '/search?keyword=' + encodeURIComponent(keyword));
-      const data = await resp.json();
-      if (data.ok && data.data && data.data.length > 0) return data.data;
-    } catch(e) {}
+      const { html } = await fetchViaSW(base + encodeURIComponent(keyword));
+      const books = parseSearchResults(html);
+      if (books.length > 0) { console.log('Search found', books.length, 'books from', base); return books; }
+    } catch(e) { console.log('Search try failed:', e.message); continue; }
   }
-  return DEMO_DATA.search.filter(b => b.title.includes(keyword) || b.author.includes(keyword));
+  // fallback demo
+  return Object.entries(DEMO_BOOKS)
+    .filter(([k,v]) => k.includes(keyword) || v.author.includes(keyword))
+    .map(([k,v]) => ({ title:k, author:v.author, cover:'', intro:v.intro, url:'demo://book/'+k }));
 }
 
 // 鑾峰彇涔︾睄璇︽儏
 async function getBookDetailAPI(bookUrl) {
-  if (SW_ENABLED) {
-    try {
-      const resp = await fetch(API_BASE + '/detail?url=' + encodeURIComponent(bookUrl));
-      const data = await resp.json();
-      if (data.ok && data.data && data.data.chapters && data.data.chapters.length > 0) return data.data;
-    } catch(e) {}
+  if (bookUrl.startsWith('demo://')) {
+    const name = decodeURIComponent(bookUrl.split('/').pop());
+    const demo = DEMO_BOOKS[name];
+    if (!demo) return null;
+    const chapters = [];
+    for (let i=1;i<=50;i++) chapters.push({ title:'绗?+i+'绔?, url:'demo://chapter/'+name+'/'+i });
+    return { title:name, author:demo.author, cover:'', intro:demo.intro, chapters };
   }
-  const bookId = bookUrl.split('/').pop();
-  const book = DEMO_DATA.search.find(b => b.url.includes(bookId)) || DEMO_DATA.hot.find(b => b.url.includes(bookId));
-  if (!book) return null;
-  return { ...book, category: '鐜勫够', wordCount: '300涓?, chapters: generateDemoChapters(bookId, 120), source: 'demo' };
+  try {
+    const { html, finalUrl } = await fetchViaSW(bookUrl);
+    const detail = parseBookDetail(html, finalUrl || bookUrl);
+    console.log('Detail parsed:', detail.title, 'chapters:', detail.chapters.length);
+    if (detail.title && detail.title !== '鏈煡' && detail.chapters.length > 0) return detail;
+  } catch(e) { console.log('Detail failed:', e.message); }
+  return null;
 }
 
 // 鑾峰彇绔犺妭鍐呭
 async function getChapterContentAPI(bookUrl, chapterUrl) {
-  if (SW_ENABLED) {
-    try {
-      const resp = await fetch(API_BASE + '/content?url=' + encodeURIComponent(chapterUrl));
-      const data = await resp.json();
-      if (data.ok && data.data && data.data.content) return data.data;
-    } catch(e) {}
+  if (chapterUrl.startsWith('demo://')) {
+    return { content: '銆€銆€' + '杩欐槸婕旂ず鍐呭锛岃杩炴帴鐪熷疄涔︽簮鍚庨槄璇汇€?.repeat(20) };
   }
-  const parts = chapterUrl.split('/');
-  const chapterId = parseInt(parts[parts.length - 1]) || 1;
-  return { content: generateDemoContent(bookUrl, chapterId) };
+  try {
+    const { html } = await fetchViaSW(chapterUrl);
+    const content = parseChapterContent(html);
+    if (content) { console.log('Content parsed:', content.length, 'chars'); return { content }; }
+  } catch(e) { console.log('Content failed:', e.message); }
+  return null;
 }
 
 // 鐑棬鎺ㄨ崘
 async function getHotBooksAPI() {
-  if (SW_ENABLED) {
+  const hosts = ['https://www.biquge.info/', 'https://www.ibiquge.net/'];
+  for (const host of hosts) {
     try {
-      const resp = await fetch(API_BASE + '/hot');
-      const data = await resp.json();
-      if (data.ok && data.data && data.data.length > 0) return data.data;
-    } catch(e) {}
+      const { html } = await fetchViaSW(host);
+      const books = parseSearchResults(html);
+      if (books.length > 0) return books.slice(0, 20);
+    } catch(e) { continue; }
   }
-  return DEMO_DATA.hot;
+  return Object.entries(DEMO_BOOKS).map(([k,v]) => ({ title:k, author:v.author, cover:'', intro:v.intro, url:'demo://book/'+k }));
 }
 
-// 娉ㄥ唽 Service Worker锛堢敤鐩稿璺緞锛屽吋瀹瑰瓙鐩綍閮ㄧ讲锛?if (SW_ENABLED) {
-  // 鍏堟竻闄ゆ棫 SW 缂撳瓨
+// 娉ㄥ唽 SW
+if (SW_ENABLED) {
   navigator.serviceWorker.getRegistrations().then(regs => {
-    regs.forEach(r => {
-      if (r.active && r.active.scriptURL.includes('sw.js')) {
-        r.unregister();
-      }
-    });
+    regs.forEach(r => { if (r.active && r.active.scriptURL.includes('sw.js')) r.unregister(); });
   });
-  
-  // 娉ㄥ唽鏂?SW
-  navigator.serviceWorker.register('sw.js?v=2', { scope: '.' })
-    .then(reg => {
-      console.log('SW v2 registered:', reg.scope);
-      reg.addEventListener('updatefound', () => {
-        const newWorker = reg.installing;
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
-            console.log('SW updated, reloading...');
-          }
-        });
-      });
-    })
+  navigator.serviceWorker.register('sw.js?v=4', { scope: '.' })
+    .then(reg => console.log('SW v4 registered:', reg.scope))
     .catch(err => console.log('SW failed:', err));
-  
-  // SW 鏇存柊鍚庤嚜鍔ㄥ埛鏂?  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    console.log('SW controller changed');
-  });
 }
 
 // ==================== 涔︽灦 ====================
