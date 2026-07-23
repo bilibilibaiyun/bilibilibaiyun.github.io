@@ -615,11 +615,33 @@ async function getHotBooksAPI() {
 }
 
 // 娉ㄥ唽 Service Worker锛堢敤鐩稿璺緞锛屽吋瀹瑰瓙鐩綍閮ㄧ讲锛?if (SW_ENABLED) {
-  const swPath = new URL('sw.js', import.meta.url || document.currentScript?.src || location.href).pathname;
-  // 绠€鍗曟柟寮忥細鐢ㄥ綋鍓嶉〉闈㈢殑鐩稿璺緞
-  navigator.serviceWorker.register('sw.js', { scope: '.' })
-    .then(reg => console.log('SW registered:', reg.scope))
+  // 鍏堟竻闄ゆ棫 SW 缂撳瓨
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(r => {
+      if (r.active && r.active.scriptURL.includes('sw.js')) {
+        r.unregister();
+      }
+    });
+  });
+  
+  // 娉ㄥ唽鏂?SW
+  navigator.serviceWorker.register('sw.js?v=2', { scope: '.' })
+    .then(reg => {
+      console.log('SW v2 registered:', reg.scope);
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+            console.log('SW updated, reloading...');
+          }
+        });
+      });
+    })
     .catch(err => console.log('SW failed:', err));
+  
+  // SW 鏇存柊鍚庤嚜鍔ㄥ埛鏂?  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log('SW controller changed');
+  });
 }
 
 // ==================== 涔︽灦 ====================
