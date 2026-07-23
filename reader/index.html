@@ -131,7 +131,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
     <select id="search-source" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg-input);color:var(--text);font-size:13px"></select>
     <button class="btn" onclick="doSearch()">搜索</button>
   </div>
-  <div class="search-results" id="search-results"><div class="empty-state"><div class="icon">🔎</div><p>选择一个书源并输入关键词搜索</p></div></div>
+  <div style="padding:8px 24px;border-bottom:1px solid var(--border);background:var(--bg-card);display:flex;gap:8px;align-items:center">
+    <span style="font-size:12px;color:var(--text2);white-space:nowrap">URL搜索</span>
+    <input type="text" id="url-search-input" placeholder="粘贴书源搜索URL，如 https://example.com/search?q=keyword" style="flex:1;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg-input);color:var(--text);font-size:13px;outline:none" onkeydown="if(event.key==='Enter')doUrlSearch()">
+    <button class="btn" onclick="doUrlSearch()" style="padding:8px 16px;font-size:13px">打开</button>
+  </div>
+  <div class="search-results" id="search-results"><div class="empty-state"><div class="icon">🔎</div><p>选书源搜索，或直接粘贴URL打开</p></div></div>
 </div>
 
 <!-- 书源管理 -->
@@ -327,6 +332,32 @@ function delSource(i) {
 function initSearch() {
   const sel = $('search-source');
   sel.innerHTML = '<option value="">选择书源</option>' + S.sources.map((s,i)=>`<option value="${i}">${s.name||i}</option>`).join('');
+}
+
+// 直接URL搜索
+async function doUrlSearch() {
+  const url = $('url-search-input').value.trim();
+  if(!url) { showToast('请输入URL'); return; }
+  showScreen('detail');
+  const el = $('detail-content');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div><div>正在加载...</div></div>';
+  $('detail-title').textContent = '加载中...';
+  try {
+    const html = await fetchHTML(url);
+    const doc = parseHTML(html);
+    const title = doc.querySelector('title')?.textContent?.replace(/[-_|].*$/,'').trim() || '未知页面';
+    $('detail-title').textContent = title;
+    // 显示页面所有文字内容
+    const body = doc.body;
+    if(body) {
+      const text = body.innerText || body.textContent;
+      el.innerHTML = `<div style="font-size:14px;line-height:1.8;white-space:pre-wrap;padding:16px">${text}</div>`;
+    } else {
+      el.innerHTML = '<div class="empty-state"><p>页面没有可显示的内容</p></div>';
+    }
+  } catch(e) {
+    el.innerHTML = `<div class="empty-state"><p>加载失败：${e.message}</p></div>`;
+  }
 }
 
 async function doSearch() {
