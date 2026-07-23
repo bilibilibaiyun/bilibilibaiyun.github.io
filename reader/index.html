@@ -614,9 +614,10 @@ async function getHotBooksAPI() {
   return DEMO_DATA.hot;
 }
 
-// 娉ㄥ唽 Service Worker
-if (SW_ENABLED) {
-  navigator.serviceWorker.register('/sw.js', { scope: '/' })
+// 娉ㄥ唽 Service Worker锛堢敤鐩稿璺緞锛屽吋瀹瑰瓙鐩綍閮ㄧ讲锛?if (SW_ENABLED) {
+  const swPath = new URL('sw.js', import.meta.url || document.currentScript?.src || location.href).pathname;
+  // 绠€鍗曟柟寮忥細鐢ㄥ綋鍓嶉〉闈㈢殑鐩稿璺緞
+  navigator.serviceWorker.register('sw.js', { scope: '.' })
     .then(reg => console.log('SW registered:', reg.scope))
     .catch(err => console.log('SW failed:', err));
 }
