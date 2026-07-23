@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>闃呰 - 寮€婧愰槄璇荤綉椤电増</title>
+<style>
+:root {
+  --bg: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-input: #0f3460;
+  --text: #e0e0e0;
+  --text-secondary: #a0a0b0;
+  --accent: #e94560;
+  --accent2: #0f3460;
+  --border: #2a2a4a;
+  --progress-bg: #333;
+  --progress-fill: #e94560;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --radius: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+/* 椤堕儴鏍?*/
+.top-bar {
+  display: flex; align-items: center; padding: 12px 16px;
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100; gap: 12px;
+}
+.top-bar h1 { font-size: 18px; font-weight: 600; flex: 1; }
+.top-bar .btn {
+  background: none; border: none; color: var(--text); font-size: 20px;
+  padding: 6px; cursor: pointer; border-radius: 6px; line-height: 1;
+}
+.top-bar .btn:hover { background: var(--accent2); }
+/* 涓诲鍣?*/
+#app { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.screen { display: none; flex: 1; overflow-y: auto; flex-direction: column; }
+.screen.active { display: flex; }
+/* 鎼滅储鏍?*/
+.search-bar {
+  display: flex; padding: 12px 16px; gap: 8px; background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.search-bar input {
+  flex: 1; padding: 10px 14px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--bg-input);
+  color: var(--text); font-size: 15px; outline: none;
+}
+.search-bar input:focus { border-color: var(--accent); }
+.search-bar .btn {
+  padding: 10px 18px; border-radius: 20px; background: var(--accent);
+  color: #fff; border: none; font-size: 14px; cursor: pointer; font-weight: 500;
+}
+.search-bar .btn:active { opacity: 0.8; }
+/* 涔︽灦缃戞牸 */
+.bookshelf { padding: 16px; }
+.bookshelf-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding-bottom: 80px;
+}
+.book-card {
+  cursor: pointer; text-align: center; transition: transform 0.2s;
+}
+.book-card:active { transform: scale(0.95); }
+.book-card .cover {
+  width: 100%; aspect-ratio: 3/4; background: var(--bg-input);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); margin-bottom: 8px;
+  position: relative;
+}
+.book-card .cover img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.book-card .cover .placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center;
+  justify-content: center; font-size: 32px; color: var(--text-secondary);
+}
+.book-card .title {
+  font-size: 13px; line-height: 1.3; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.book-card .progress {
+  font-size: 11px; color: var(--text-secondary); margin-top: 2px;
+}
+.empty-state {
+  text-align: center; padding: 60px 20px; color: var(--text-secondary);
+}
+.empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+.empty-state p { font-size: 14px; line-height: 1.6; }
+/* 鎼滅储缁撴灉 */
+.search-results { padding: 8px 16px; }
+.result-item {
+  display: flex; padding: 14px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; gap: 12px; align-items: flex-start;
+}
+.result-item:active { background: var(--accent2); margin: 0 -16px; padding: 14px 16px; }
+.result-item .r-cover {
+  width: 60px; height: 80px; border-radius: 4px; background: var(--bg-input);
+  flex-shrink: 0; overflow: hidden;
+}
+.result-item .r-cover img { width: 100%; height: 100%; object-fit: cover; }
+.result-item .r-cover .r-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center;
+  justify-content: center; font-size: 20px; color: var(--text-secondary);
+}
+.result-item .r-info { flex: 1; min-width: 0; }
+.result-item .r-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.result-item .r-author { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+.result-item .r-intro {
+  font-size: 12px; color: var(--text-secondary); overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+/* 涔︾睄璇︽儏 */
+.book-detail { padding: 16px; }
+.detail-header {
+  display: flex; gap: 16px; margin-bottom: 20px;
+}
+.detail-cover {
+  width: 100px; height: 133px; border-radius: var(--radius);
+  background: var(--bg-input); flex-shrink: 0; overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.detail-cover img { width: 100%; height: 100%; object-fit: cover; }
+.detail-info { flex: 1; }
+.detail-info .d-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.detail-info .d-author { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+.detail-info .d-meta { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; }
+.detail-info .btn-row { display: flex; gap: 8px; }
+.detail-info .btn-row button {
+  padding: 8px 16px; border-radius: 20px; border: none; font-size: 13px;
+  cursor: pointer; font-weight: 500;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-add { background: var(--accent2); color: var(--text); }
+.btn-remove { background: #5a3a3a; color: #ff9999; }
+.detail-intro {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.8;
+  margin-bottom: 20px; padding: 12px; background: var(--bg-card);
+  border-radius: var(--radius);
+}
+.chapter-list-header {
+  font-size: 15px; font-weight: 600; margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chapter-list-header .ch-count { font-size: 12px; color: var(--text-secondary); font-weight: 400; }
+.chapter-item {
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; font-size: 14px; display: flex; justify-content: space-between;
+}
+.chapter-item:active { color: var(--accent); }
+.chapter-item .ch-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chapter-item .ch-badge { font-size: 11px; color: var(--accent); flex-shrink: 0; margin-left: 8px; }
+.load-more-btn {
+  text-align: center; padding: 16px; color: var(--accent);
+  cursor: pointer; font-size: 14px;
+}
+/* 闃呰鍣?*/
+.reader-container {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+  touch-action: pan-y;
+}
+.reader-header {
+  display: flex; align-items: center; padding: 8px 16px;
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+  gap: 12px; transition: transform 0.3s;
+}
+.reader-header.hidden { transform: translateY(-100%); position: absolute; top: 0; left: 0; right: 0; }
+.reader-header .rh-title { flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.reader-content {
+  flex: 1; overflow-y: auto; padding: 20px; font-size: 18px;
+  line-height: 2; letter-spacing: 0.5px; text-align: justify;
+  scroll-behavior: smooth;
+}
+.reader-content.light { background: #f5f0e8; color: #333; }
+.reader-content pre {
+  white-space: pre-wrap; font-family: inherit; margin: 0;
+}
+.reader-footer {
+  display: flex; align-items: center; padding: 8px 16px;
+  background: var(--bg-card); border-top: 1px solid var(--border);
+  gap: 8px; justify-content: space-between; transition: transform 0.3s;
+}
+.reader-footer.hidden { transform: translateY(100%); position: absolute; bottom: 0; left: 0; right: 0; }
+.reader-footer .rf-progress {
+  font-size: 12px; color: var(--text-secondary);
+}
+.reader-footer .rf-btn {
+  background: none; border: none; color: var(--text); font-size: 20px;
+  padding: 8px; cursor: pointer; border-radius: 6px;
+}
+.reader-footer .rf-btn:active { background: var(--accent2); }
+/* 搴曢儴瀵艰埅 */
+.bottom-nav {
+  display: flex; border-top: 1px solid var(--border);
+  background: var(--bg-card); position: sticky; bottom: 0; z-index: 100;
+}
+.nav-item {
+  flex: 1; text-align: center; padding: 10px 0; cursor: pointer;
+  color: var(--text-secondary); font-size: 11px; transition: color 0.2s;
+}
+.nav-item .nav-icon { font-size: 22px; display: block; margin-bottom: 2px; }
+.nav-item.active { color: var(--accent); }
+/* 璁剧疆闈㈡澘 */
+.settings-content { padding: 16px; }
+.setting-group { margin-bottom: 24px; }
+.setting-group h3 {
+  font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.setting-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+.setting-row select, .setting-row input[type="range"] {
+  background: var(--bg-input); border: 1px solid var(--border);
+  color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 14px;
+}
+.setting-row input[type="range"] { width: 120px; }
+.settings-meta { font-size: 12px; color: var(--text-secondary); margin-top: 16px; text-align: center; }
+/* 鍒犻櫎纭寮圭獥 */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6); z-index: 200; display: flex;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.hidden { display: none; }
+.modal-box {
+  background: var(--bg-card); border-radius: 12px; padding: 24px;
+  max-width: 300px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.modal-box h3 { font-size: 16px; margin-bottom: 12px; }
+.modal-box p { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+.modal-box .modal-btns { display: flex; gap: 12px; justify-content: flex-end; }
+.modal-box .modal-btns button {
+  padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer;
+  font-size: 14px;
+}
+.modal-cancel { background: var(--accent2); color: var(--text); }
+.modal-confirm { background: var(--accent); color: #fff; }
+/* 鍔犺浇鎻愮ず */
+.loading {
+  text-align: center; padding: 24px; color: var(--text-secondary);
+}
+.loading .spinner {
+  display: inline-block; width: 24px; height: 24px; border: 2px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite;
+  margin-bottom: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #fff; padding: 10px 24px;
+  border-radius: 20px; font-size: 14px; z-index: 300;
+  transition: opacity 0.3s; pointer-events: none;
+}
+.toast.hidden { opacity: 0; }
+/* 鍝嶅簲寮?*/
+@media (min-width: 768px) {
+  #app { max-width: 480px; margin: 0 auto; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .bookshelf-grid { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Toast -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- ====== 涔︽灦 ====== -->
+  <div class="screen active" id="screen-bookshelf">
+    <div class="top-bar">
+      <h1>馃摎 涔︽灦</h1>
+      <button class="btn" onclick="showScreen('search')" title="鎼滅储">馃攳</button>
+    </div>
+    <div class="bookshelf" id="bookshelf-container">
+      <div class="empty-state" id="bookshelf-empty">
+        <div class="icon">馃摉</div>
+        <p>涔︽灦绌虹┖濡備篃</p>
+        <p style="margin-top:8px">鐐瑰嚮鍙充笂瑙?馃攳 鎼滅储娣诲姞涔︾睄</p>
+      </div>
+      <div class="bookshelf-grid" id="bookshelf-grid"></div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item active" onclick="showScreen('bookshelf')" id="nav-bookshelf">
+        <span class="nav-icon">馃摎</span>涔︽灦
+      </div>
+      <div class="nav-item" onclick="showScreen('discover')" id="nav-discover">
+        <span class="nav-icon">馃Л</span>鍙戠幇
+      </div>
+      <div class="nav-item" onclick="showScreen('settings')" id="nav-settings">
+        <span class="nav-icon">鈿欙笍</span>璁剧疆
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 鎼滅储 ====== -->
+  <div class="screen" id="screen-search">
+    <div class="top-bar">
+      <button class="btn" onclick="showScreen('bookshelf')">鈫?/button>
+      <h1>鎼滅储涔︾睄</h1>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="杈撳叆涔﹀悕鎴栦綔鑰?.." onkeydown="if(event.key==='Enter')searchBooks()">
+      <button class="btn" onclick="searchBooks()">鎼滅储</button>
+    </div>
+    <div class="search-results" id="search-results">
+      <div class="empty-state">
+        <div class="icon">馃攷</div>
+        <p>杈撳叆鍏抽敭璇嶅紑濮嬫悳绱?/p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 鍙戠幇 ====== -->
+  <div class="screen" id="screen-discover">
+    <div class="top-bar">
+      <h1>馃Л 鍙戠幇</h1>
+    </div>
+    <div style="padding:16px">
+      <div class="setting-group">
+        <h3>鐑棬鎺ㄨ崘</h3>
+        <div class="bookshelf-grid" id="discover-grid">
+          <div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="showScreen('bookshelf')" id="nav2-bookshelf">
+        <span class="nav-icon">馃摎</span>涔︽灦
+      </div>
+      <div class="nav-item active" onclick="showScreen('discover')" id="nav2-discover">
+        <span class="nav-icon">馃Л</span>鍙戠幇
+      </div>
+      <div class="nav-item" onclick="showScreen('settings')" id="nav2-settings">
+        <span class="nav-icon">鈿欙笍</span>璁剧疆
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 涔︾睄璇︽儏 ====== -->
+  <div class="screen" id="screen-detail">
+    <div class="top-bar">
+      <button class="btn" onclick="goBack()">鈫?/button>
+      <h1 id="detail-title">涔︾睄璇︽儏</h1>
+      <button class="btn" id="btn-delete-book" style="display:none" onclick="showDeleteModal()">馃棏锔?/button>
+    </div>
+    <div class="book-detail" id="book-detail-content"></div>
+  </div>
+
+  <!-- ====== 闃呰鍣?====== -->
+  <div class="screen" id="screen-reader">
+    <div class="reader-container" id="reader-container">
+      <div class="reader-header" id="reader-header">
+        <button class="btn" onclick="closeReader()">鈫?/button>
+        <span class="rh-title" id="reader-chapter-title">鍔犺浇涓?..</span>
+        <button class="btn" onclick="toggleReaderMenu()">鈿欙笍</button>
+      </div>
+      <div class="reader-content" id="reader-content">
+        <div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>
+      </div>
+      <div class="reader-footer" id="reader-footer">
+        <button class="rf-btn" onclick="prevChapter()">鈼€</button>
+        <span class="rf-progress" id="reader-progress">0%</span>
+        <button class="rf-btn" onclick="toggleReaderMenu()">鈿欙笍</button>
+        <button class="rf-btn" onclick="nextChapter()">鈻?/button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 璁剧疆 ====== -->
+  <div class="screen" id="screen-settings">
+    <div class="top-bar">
+      <h1>鈿欙笍 璁剧疆</h1>
+    </div>
+    <div class="settings-content">
+      <div class="setting-group">
+        <h3>闃呰璁剧疆</h3>
+        <div class="setting-row">
+          <span>瀛椾綋澶у皬</span>
+          <input type="range" min="14" max="28" value="18" id="setting-font-size" onchange="updateFontSize()">
+          <span id="setting-font-size-val">18px</span>
+        </div>
+        <div class="setting-row">
+          <span>琛岄棿璺?/span>
+          <input type="range" min="1.5" max="3" step="0.1" value="2" id="setting-line-height" onchange="updateLineHeight()">
+          <span id="setting-line-height-val">2.0</span>
+        </div>
+        <div class="setting-row">
+          <span>闃呰涓婚</span>
+          <select id="setting-theme" onchange="updateTheme()">
+            <option value="dark">澶滈棿妯″紡</option>
+            <option value="light">鎶ょ溂妯″紡</option>
+          </select>
+        </div>
+      </div>
+      <div class="setting-group">
+        <h3>鏁版嵁</h3>
+        <div class="setting-row">
+          <span>缂撳瓨鏁版嵁</span>
+          <button class="btn btn-primary" style="font-size:13px; padding:6px 14px" onclick="clearAllData()">娓呴櫎鍏ㄩ儴</button>
+        </div>
+      </div>
+      <div class="settings-meta">
+        <p>寮€婧愰槄璇荤綉椤电増 v2.0</p>
+        <p style="margin-top:8px;font-size:12px">馃摗 Service Worker 浠ｇ悊鐩磋繛涔︽簮</p>
+        <p style="font-size:11px;margin-top:2px">棣栨鎵撳紑闇€鍏佽 SW 娉ㄥ唽 路 闇€ HTTPS 鎴?localhost</p>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="showScreen('bookshelf')" id="nav3-bookshelf">
+        <span class="nav-icon">馃摎</span>涔︽灦
+      </div>
+      <div class="nav-item" onclick="showScreen('discover')" id="nav3-discover">
+        <span class="nav-icon">馃Л</span>鍙戠幇
+      </div>
+      <div class="nav-item active" onclick="showScreen('settings')" id="nav3-settings">
+        <span class="nav-icon">鈿欙笍</span>璁剧疆
+      </div>
+    </div>
+  </div>
+
+  <!-- 鍒犻櫎纭寮圭獥 -->
+  <div class="modal-overlay hidden" id="delete-modal">
+    <div class="modal-box">
+      <h3>纭鍒犻櫎</h3>
+      <p id="delete-modal-text">纭畾瑕佷粠涔︽灦涓Щ闄よ繖鏈功鍚楋紵</p>
+      <div class="modal-btns">
+        <button class="modal-cancel" onclick="hideDeleteModal()">鍙栨秷</button>
+        <button class="modal-confirm" onclick="confirmDeleteBook()">鍒犻櫎</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== 鐘舵€佺鐞?====================
+const STATE = {
+  bookshelf: [],        // { id, title, author, cover, intro, category, wordCount, lastChapter, lastReadChapter, lastReadIndex }
+  currentBook: null,    // 褰撳墠鏌ョ湅鐨勪功绫嶈鎯?  currentChapterIdx: 0,
+  chapters: [],
+  currentScreen: 'bookshelf',
+  previousScreen: null,
+  readerVisible: false,
+  settings: {
+    fontSize: 18,
+    lineHeight: 2,
+    theme: 'dark'
+  }
+};
+
+// ==================== 鎸佷箙鍖?====================
+function saveState() {
+  localStorage.setItem('reader_bookshelf', JSON.stringify(STATE.bookshelf));
+  localStorage.setItem('reader_settings', JSON.stringify(STATE.settings));
+}
+function loadState() {
+  try {
+    const bs = localStorage.getItem('reader_bookshelf');
+    if (bs) STATE.bookshelf = JSON.parse(bs);
+    const st = localStorage.getItem('reader_settings');
+    if (st) STATE.settings = { ...STATE.settings, ...JSON.parse(st) };
+  } catch(e) {}
+}
+loadState();
+
+// ==================== 灞忓箷鍒囨崲 ====================
+function showScreen(name) {
+  STATE.previousScreen = STATE.currentScreen;
+  STATE.currentScreen = name;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const screen = document.getElementById('screen-' + name);
+  if (screen) screen.classList.add('active');
+
+  // 鏇存柊搴曢儴瀵艰埅
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navMap = {
+    bookshelf: ['nav-bookshelf', 'nav2-bookshelf', 'nav3-bookshelf'],
+    discover: ['nav-discover', 'nav2-discover', 'nav3-discover'],
+    settings: ['nav-settings', 'nav2-settings', 'nav3-settings']
+  };
+  (navMap[name] || []).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  });
+
+  if (name === 'bookshelf') renderBookshelf();
+  if (name === 'discover') loadDiscover();
+  if (name === 'settings') loadSettings();
+}
+function goBack() {
+  if (STATE.currentScreen === 'reader') {
+    closeReader();
+  } else if (STATE.currentScreen === 'detail') {
+    showScreen(STATE.previousScreen || 'bookshelf');
+  } else {
+    showScreen('bookshelf');
+  }
+}
+
+// ==================== Toast ====================
+let toastTimer;
+function showToast(msg, duration = 2000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.add('hidden'), duration);
+}
+
+// ==================== API ====================
+// Service Worker 浠ｇ悊锛岀敤鐩稿璺緞纭繚鍦?SW scope 鍐?const API_BASE = 'api/novels';
+const SW_ENABLED = 'serviceWorker' in navigator;
+
+// 鍐呯疆婕旂ず鏁版嵁 - 褰揂PI涓嶅彲鐢ㄦ椂浣跨敤
+const DEMO_DATA = {
+  search: [
+    { title: '鍓戞潵', author: '鐑界伀鎴忚渚?, cover: '', intro: '澶у崈涓栫晫锛屾棤濂囦笉鏈夈€傛垜闄堝钩瀹夛紝鍞湁涓€鍓戯紝鍙惉灞憋紝鍊掓捣锛岄檷濡栵紝闀囬瓟锛屾晻绁烇紝鎽樻槦锛屾柇姹燂紝鎽у煄锛屽紑澶╋紒', url: 'demo://book/jianlai' },
+    { title: '鏂楃牬鑻嶇┕', author: '澶╄殨鍦熻眴', cover: '', intro: '杩欓噷鏄睘浜庢枟姘旂殑涓栫晫锛屾病鏈夎姳淇忚壋涓界殑榄旀硶锛屾湁鐨勶紝浠呬粎鏄箒琛嶅埌宸呭嘲鐨勬枟姘旓紒', url: 'demo://book/doupocangqiong' },
+    { title: '鍑′汉淇粰浼?, author: '蹇樿', cover: '', intro: '涓€涓櫘閫氬北鏉戝皬瀛愶紝鍋剁劧涓嬭繘鍏ュ埌褰撳湴姹熸箹灏忛棬娲撅紝鎴愪簡涓€鍚嶈鍚嶅紵瀛愩€備粬浠ヨ繖鏍疯韩浠斤紝濡備綍鍦ㄩ棬娲句腑绔嬭冻锛?, url: 'demo://book/fanrenxiuxian' },
+    { title: '瀹岀編涓栫晫', author: '杈颁笢', cover: '', intro: '涓€绮掑皹鍙～娴凤紝涓€鏍硅崏鏂╁敖鏃ユ湀鏄熻景锛屽脊鎸囬棿澶╃炕鍦拌銆傜兢闆勫苟璧凤紝涓囨棌鏋楃珛锛岃鍦ｄ簤闇革紝涔卞ぉ鍔ㄥ湴銆?, url: 'demo://book/wanmeishijie' },
+    { title: '鍚炲櫖鏄熺┖', author: '鎴戝悆瑗跨孩鏌?, cover: '', intro: '鏄熺┖涓紝涓€棰楅櫒鐭充笂锛屼竴涓井涓嶈冻閬撶殑灏忎汉鐗╋紝寮€濮嬩簡浠栫殑浼犲涔嬭矾銆?, url: 'demo://book/tunshixingkong' },
+    { title: '璇＄涔嬩富', author: '鐖辨綔姘寸殑涔岃醇', cover: '', intro: '钂告苯涓庢満姊扮殑娴疆涓紝璋佽兘瑙﹀強闈炲嚒锛熷湪鍘嗗彶鍜岄粦鏆楃殑杩烽浘涓紝鍙堟槸璋佸湪鑰宠锛?, url: 'demo://book/guimizhizhu' }
+  ],
+  hot: [
+    { title: '鍓戞潵', author: '鐑界伀鎴忚渚?, cover: '', url: 'demo://book/jianlai' },
+    { title: '鏂楃牬鑻嶇┕', author: '澶╄殨鍦熻眴', cover: '', url: 'demo://book/doupocangqiong' },
+    { title: '鍑′汉淇粰浼?, author: '蹇樿', cover: '', url: 'demo://book/fanrenxiuxian' },
+    { title: '瀹岀編涓栫晫', author: '杈颁笢', cover: '', url: 'demo://book/wanmeishijie' },
+    { title: '璇＄涔嬩富', author: '鐖辨綔姘寸殑涔岃醇', cover: '', url: 'demo://book/guimizhizhu' },
+    { title: '鍚炲櫖鏄熺┖', author: '鎴戝悆瑗跨孩鏌?, cover: '', url: 'demo://book/tunshixingkong' }
+  ]
+};
+
+// 妯℃嫙绔犺妭鏁版嵁
+function generateDemoChapters(bookId, count = 100) {
+  const chapters = [];
+  for (let i = 1; i <= count; i++) {
+    chapters.push({ title: `绗?{i}绔?绔犺妭鏍囬${i}`, url: `demo://chapter/${bookId}/${i}` });
+  }
+  return chapters;
+}
+
+function generateDemoContent(bookId, chapterId) {
+  const paragraphs = [
+    '銆€銆€' + '杩欐槸涓€娈电ず渚嬫枃鏈紝鐢ㄤ簬灞曠ず闃呰鍣ㄧ殑鏁堟灉銆傚綋杩炴帴鐪熷疄鏁版嵁婧愬悗锛岃繖閲屼細鏄剧ず瀹為檯鐨勭珷鑺傚唴瀹广€?.repeat(3),
+    '銆€銆€' + '杩欎釜闃呰鍣ㄦ敮鎸佸瓧浣撳ぇ灏忚皟鑺傘€佽闂磋窛璋冩暣銆佸闂?鎶ょ溂鍙屼富棰樺垏鎹€傜偣鍑诲睆骞曞乏渚у垏鎹㈠埌涓婁竴绔狅紝鍙充晶鍒囨崲鍒颁笅涓€绔狅紝涓棿鍖哄煙鍙互鍒囨崲鑿滃崟鏄剧ず銆?.repeat(2),
+    '銆€銆€' + '涔︾睄浼氳嚜鍔ㄤ繚瀛樺埌涔︽灦锛岄槄璇昏繘搴︿細瀹炴椂璁板綍銆備綘鍙互闅忔椂浠庝功鏋剁户缁箣鍓嶇殑闃呰銆?.repeat(2),
+    '銆€銆€' + chapterId % 5 === 0 ? '銆愰噸瑕佹儏鑺傘€戞晠浜嬬殑杞姌鐐瑰嚭鐜板湪杩欓噷锛屼富瑙掗潰涓翠簡鍓嶆墍鏈湁鐨勬寫鎴?..' : '',
+    '銆€銆€' + 'Lorem ipsum dolor sit amet, 杩欐槸涓€娈靛～鍏呮枃鏈敤浜庡睍绀洪槄璇绘晥鏋溿€傚綋瀹為檯杩炴帴鍒颁功婧愭暟鎹椂锛岃繖浜涘唴瀹瑰皢琚湡瀹炵殑灏忚绔犺妭鏇挎崲銆?.repeat(2)
+  ];
+  return paragraphs.join('\n\n');
+}
+
+// 鎼滅储
+async function searchBooksAPI(keyword) {
+  if (SW_ENABLED) {
+    try {
+      const resp = await fetch(API_BASE + '/search?keyword=' + encodeURIComponent(keyword));
+      const data = await resp.json();
+      if (data.ok && data.data && data.data.length > 0) return data.data;
+    } catch(e) {}
+  }
+  return DEMO_DATA.search.filter(b => b.title.includes(keyword) || b.author.includes(keyword));
+}
+
+// 鑾峰彇涔︾睄璇︽儏
+async function getBookDetailAPI(bookUrl) {
+  if (SW_ENABLED) {
+    try {
+      const resp = await fetch(API_BASE + '/detail?url=' + encodeURIComponent(bookUrl));
+      const data = await resp.json();
+      if (data.ok && data.data && data.data.chapters && data.data.chapters.length > 0) return data.data;
+    } catch(e) {}
+  }
+  const bookId = bookUrl.split('/').pop();
+  const book = DEMO_DATA.search.find(b => b.url.includes(bookId)) || DEMO_DATA.hot.find(b => b.url.includes(bookId));
+  if (!book) return null;
+  return { ...book, category: '鐜勫够', wordCount: '300涓?, chapters: generateDemoChapters(bookId, 120), source: 'demo' };
+}
+
+// 鑾峰彇绔犺妭鍐呭
+async function getChapterContentAPI(bookUrl, chapterUrl) {
+  if (SW_ENABLED) {
+    try {
+      const resp = await fetch(API_BASE + '/content?url=' + encodeURIComponent(chapterUrl));
+      const data = await resp.json();
+      if (data.ok && data.data && data.data.content) return data.data;
+    } catch(e) {}
+  }
+  const parts = chapterUrl.split('/');
+  const chapterId = parseInt(parts[parts.length - 1]) || 1;
+  return { content: generateDemoContent(bookUrl, chapterId) };
+}
+
+// 鐑棬鎺ㄨ崘
+async function getHotBooksAPI() {
+  if (SW_ENABLED) {
+    try {
+      const resp = await fetch(API_BASE + '/hot');
+      const data = await resp.json();
+      if (data.ok && data.data && data.data.length > 0) return data.data;
+    } catch(e) {}
+  }
+  return DEMO_DATA.hot;
+}
+
+// 娉ㄥ唽 Service Worker
+if (SW_ENABLED) {
+  navigator.serviceWorker.register('/sw.js', { scope: '/' })
+    .then(reg => console.log('SW registered:', reg.scope))
+    .catch(err => console.log('SW failed:', err));
+}
+
+// ==================== 涔︽灦 ====================
+function renderBookshelf() {
+  const grid = document.getElementById('bookshelf-grid');
+  const empty = document.getElementById('bookshelf-empty');
+
+  if (STATE.bookshelf.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = STATE.bookshelf.map(book => {
+    const coverHTML = book.cover
+      ? `<img src="${book.cover}" alt="${book.title}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>馃摉</div>'">`
+      : '<div class="placeholder">馃摉</div>';
+    const pct = book.lastReadChapter && book.chaptersTotal
+      ? Math.round(book.lastReadChapter / book.chaptersTotal * 100) + '%'
+      : '';
+    const lastTitle = book.lastChapterTitle ? book.lastChapterTitle.substring(0, 10) : '';
+    const bookUrlEnc = encodeURIComponent(book.url);
+    return `
+      <div class="book-card" onclick="openBook('${bookUrlEnc}')" oncontextmenu="event.preventDefault();showDeleteBookModal('${bookUrlEnc}')">
+        <div class="cover">${coverHTML}</div>
+        <div class="title">${book.title}</div>
+        <div class="progress">${pct ? pct + ' 路 ' : ''}${lastTitle}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ==================== 鎼滅储 ====================
+let searchResults = [];
+async function searchBooks() {
+  const keyword = document.getElementById('search-input').value.trim();
+  if (!keyword) return;
+
+  const container = document.getElementById('search-results');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>鎼滅储涓?..</div></div>';
+
+  const results = await searchBooksAPI(keyword);
+  searchResults = results;
+
+  if (!results || results.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">馃槥</div><p>娌℃湁鎵惧埌鐩稿叧涔︾睄</p></div>';
+    return;
+  }
+
+  container.innerHTML = results.map((r, i) => {
+    const coverHTML = r.cover
+      ? `<img src="${r.cover}" onerror="this.parentElement.innerHTML='<div class=\\'r-placeholder\\'>馃摉</div>'">`
+      : '<div class="r-placeholder">馃摉</div>';
+    const bookUrl = encodeURIComponent(r.url);
+    return `
+      <div class="result-item" onclick="showBookDetail('${bookUrl}')">
+        <div class="r-cover">${coverHTML}</div>
+        <div class="r-info">
+          <div class="r-title">${r.title}</div>
+          <div class="r-author">${r.author || '鏈煡浣滆€?}</div>
+          <div class="r-intro">${(r.intro || '').substring(0, 80)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ==================== 鍙戠幇 ====================
+async function loadDiscover() {
+  const grid = document.getElementById('discover-grid');
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>';
+
+  const books = await getHotBooksAPI();
+  if (!books || books.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">馃摗</div><p>鍔犺浇澶辫触锛岃绋嶅悗閲嶈瘯</p></div>';
+    return;
+  }
+
+  grid.innerHTML = books.map(book => {
+    const coverHTML = book.cover
+      ? `<img src="${book.cover}" alt="${book.title}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>馃摉</div>'">`
+      : '<div class="placeholder">馃摉</div>';
+    const bookUrl = encodeURIComponent(book.url);
+    return `
+      <div class="book-card" onclick="showBookDetail('${bookUrl}')">
+        <div class="cover">${coverHTML}</div>
+        <div class="title">${book.title}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ==================== 涔︾睄璇︽儏 ====================
+let detailBookData = null;
+
+async function showBookDetail(bookUrlEncoded) {
+  const bookUrl = decodeURIComponent(bookUrlEncoded);
+  showScreen('detail');
+  const container = document.getElementById('book-detail-content');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>';
+
+  const data = await getBookDetailAPI(bookUrl);
+  if (!data) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">馃槥</div><p>鍔犺浇澶辫触</p></div>';
+    return;
+  }
+
+  detailBookData = data;
+  document.getElementById('detail-title').textContent = data.title;
+
+  // 妫€鏌ユ槸鍚﹀凡鍦ㄤ功鏋朵腑
+  const inShelf = STATE.bookshelf.find(b => b.url === bookUrl);
+
+  // 鏄剧ず鍒犻櫎鎸夐挳
+  document.getElementById('btn-delete-book').style.display = inShelf ? 'block' : 'none';
+
+  const coverHTML = data.cover
+    ? `<img src="${data.cover}" onerror="this.parentElement.innerHTML='馃摉'">`
+    : '馃摉';
+
+  const chapters = data.chapters || [];
+  const chapterHTML = chapters.slice(0, 50).map((ch, i) => `
+    <div class="chapter-item" onclick="startReading('${bookUrlEncoded}', ${i})">
+      <span class="ch-name">${ch.title || '绗?+(i+1)+'绔?}</span>
+      ${ch.isVip ? '<span class="ch-badge">VIP</span>' : ''}
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-cover">${coverHTML}</div>
+      <div class="detail-info">
+        <div class="d-title">${data.title}</div>
+        <div class="d-author">鉁嶏笍 ${data.author || '鏈煡'}</div>
+        <div class="d-meta">
+          ${data.category ? '馃搨 ' + data.category + ' 路 ' : ''}
+          ${data.wordCount ? '馃摑 ' + data.wordCount + '瀛?路 ' : ''}
+          ${chapters.length ? '馃搼 ' + chapters.length + '绔? : ''}
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="startReading('${bookUrlEncoded}', 0)">馃摉 寮€濮嬮槄璇?/button>
+          ${inShelf
+            ? `<button class="btn-remove" onclick="removeFromShelf('${bookUrlEncoded}')">绉诲嚭涔︽灦</button>`
+            : `<button class="btn-add" onclick="addToShelf()">鉃?鍔犲叆涔︽灦</button>`
+          }
+        </div>
+      </div>
+    </div>
+    <div class="detail-intro">
+      <div style="font-weight:600;margin-bottom:8px">馃摑 绠€浠?/div>
+      ${(data.intro || '鏆傛棤绠€浠?).replace(/\n/g, '<br>')}
+    </div>
+    <div class="chapter-list-header">
+      <span>馃搼 鐩綍</span>
+      <span class="ch-count">鍏?${chapters.length} 绔?/span>
+    </div>
+    <div id="chapter-list">${chapterHTML}</div>
+    ${chapters.length > 50 ? `<div class="load-more-btn" onclick="showToast('浠呮樉绀哄墠50绔?)">鏌ョ湅鍏ㄩ儴 ${chapters.length} 绔?鈫?/div>` : ''}
+  `;
+}
+
+function addToShelf() {
+  if (!detailBookData) return;
+  const bookUrl = detailBookData.url;
+  const bookUrlEnc = encodeURIComponent(bookUrl);
+  if (STATE.bookshelf.find(b => b.url === bookUrl)) {
+    showToast('宸插湪涔︽灦涓?);
+    return;
+  }
+
+  const book = {
+    url: bookUrl,
+    title: detailBookData.title,
+    author: detailBookData.author || '',
+    cover: detailBookData.cover || '',
+    intro: detailBookData.intro || '',
+    category: detailBookData.category || '',
+    wordCount: detailBookData.wordCount || '',
+    chaptersTotal: (detailBookData.chapters || []).length,
+    lastReadChapter: 0,
+    lastChapterTitle: ''
+  };
+  STATE.bookshelf.unshift(book);
+  saveState();
+  renderBookshelf();
+  document.getElementById('btn-delete-book').style.display = 'block';
+  showToast('宸插姞鍏ヤ功鏋?);
+
+  // 鏇存柊璇︽儏椤垫寜閽?  const btnRow = document.querySelector('.detail-info .btn-row');
+  if (btnRow) {
+    btnRow.innerHTML = `
+      <button class="btn-primary" onclick="startReading('${bookUrlEnc}', 0)">馃摉 缁х画闃呰</button>
+      <button class="btn-remove" onclick="removeFromShelf('${bookUrlEnc}')">绉诲嚭涔︽灦</button>
+    `;
+  }
+}
+
+function removeFromShelf(bookUrlEncoded) {
+  const bookUrl = decodeURIComponent(bookUrlEncoded);
+  STATE.bookshelf = STATE.bookshelf.filter(b => b.url !== bookUrl);
+  saveState();
+  renderBookshelf();
+  document.getElementById('btn-delete-book').style.display = 'none';
+  showToast('宸茬Щ鍑轰功鏋?);
+
+  // 鏇存柊璇︽儏椤垫寜閽?  const btnRow = document.querySelector('.detail-info .btn-row');
+  if (btnRow) {
+    btnRow.innerHTML = `
+      <button class="btn-primary" onclick="startReading('${bookUrlEncoded}', 0)">馃摉 寮€濮嬮槄璇?/button>
+      <button class="btn-add" onclick="addToShelf()">鉃?鍔犲叆涔︽灦</button>
+    `;
+  }
+}
+
+// 鍒犻櫎寮圭獥
+let deleteTargetUrl = null;
+function showDeleteBookModal(bookUrlEncoded) {
+  deleteTargetUrl = decodeURIComponent(bookUrlEncoded);
+  const book = STATE.bookshelf.find(b => b.url === deleteTargetUrl);
+  document.getElementById('delete-modal-text').textContent = `纭畾瑕佷粠涔︽灦涓Щ闄ゃ€?{book ? book.title : '杩欐湰涔?}銆嬪悧锛焋;
+  document.getElementById('delete-modal').classList.remove('hidden');
+}
+function showDeleteModal() {
+  if (!detailBookData) return;
+  deleteTargetUrl = detailBookData.url;
+  document.getElementById('delete-modal-text').textContent = `纭畾瑕佷粠涔︽灦涓Щ闄ゃ€?{detailBookData.title}銆嬪悧锛焋;
+  document.getElementById('delete-modal').classList.remove('hidden');
+}
+function hideDeleteModal() {
+  document.getElementById('delete-modal').classList.add('hidden');
+  deleteTargetUrl = null;
+}
+function confirmDeleteBook() {
+  if (deleteTargetUrl) removeFromShelf(encodeURIComponent(deleteTargetUrl));
+  hideDeleteModal();
+  showScreen('bookshelf');
+}
+
+// ==================== 闃呰鍣?====================
+async function startReading(bookUrlEncoded, chapterIdx) {
+  const bookUrl = decodeURIComponent(bookUrlEncoded);
+  
+  const data = await getBookDetailAPI(bookUrl);
+  if (!data) { showToast('鍔犺浇澶辫触'); return; }
+
+  STATE.currentBook = { ...data, url: bookUrl };
+  STATE.chapters = data.chapters || [];
+  STATE.currentChapterIdx = chapterIdx;
+
+  // 鏇存柊涔︽灦涓殑闃呰杩涘害
+  const shelfBook = STATE.bookshelf.find(b => b.url === bookUrl);
+  if (shelfBook) {
+    shelfBook.lastReadChapter = chapterIdx;
+    shelfBook.lastChapterTitle = STATE.chapters[chapterIdx]?.title || '';
+    shelfBook.chaptersTotal = STATE.chapters.length;
+    saveState();
+  }
+
+  showReaderScreen();
+  await loadChapterContent(chapterIdx);
+}
+
+function showReaderScreen() {
+  STATE.readerVisible = true;
+  STATE.previousScreen = STATE.currentScreen;
+  STATE.currentScreen = 'reader';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-reader').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+}
+
+async function loadChapterContent(idx) {
+  const contentEl = document.getElementById('reader-content');
+  const titleEl = document.getElementById('reader-chapter-title');
+
+  contentEl.innerHTML = '<div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>';
+
+  const chapter = STATE.chapters[idx];
+  if (!chapter) {
+    contentEl.innerHTML = '<div class="empty-state"><p>娌℃湁鏇村绔犺妭浜?/p></div>';
+    return;
+  }
+
+  titleEl.textContent = chapter.title || '绗? + (idx + 1) + '绔?;
+
+  const data = await getChapterContentAPI(STATE.currentBook.url, chapter.url);
+  if (!data || !data.content) {
+    contentEl.innerHTML = '<div class="empty-state"><p>绔犺妭鍐呭鍔犺浇澶辫触</p></div>';
+    return;
+  }
+
+  // 娓呯悊鍐呭
+  let content = data.content
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  const isLight = STATE.settings.theme === 'light';
+  contentEl.className = 'reader-content' + (isLight ? ' light' : '');
+  contentEl.style.fontSize = STATE.settings.fontSize + 'px';
+  contentEl.style.lineHeight = STATE.settings.lineHeight;
+
+  // 鍦ㄩ《閮ㄦ坊鍔犵珷鑺傛爣棰?  const chapterTitle = chapter.title || '绗? + (idx + 1) + '绔?;
+  content = `<div style="text-align:center;font-weight:700;font-size:${STATE.settings.fontSize + 4}px;margin-bottom:24px">${chapterTitle}</div>\n\n${content}`;
+
+  contentEl.innerHTML = '<pre>' + content + '</pre>';
+  contentEl.scrollTop = 0;
+
+  // 鏇存柊杩涘害
+  const total = STATE.chapters.length;
+  const pct = total > 0 ? Math.round((idx + 1) / total * 100) : 0;
+  document.getElementById('reader-progress').textContent = idx + 1 + '/' + total + ' (' + pct + '%)';
+
+  // 鏇存柊涔︽灦杩涘害
+  const shelfBook = STATE.bookshelf.find(b => b.url === STATE.currentBook.url);
+  if (shelfBook) {
+    shelfBook.lastReadChapter = idx;
+    shelfBook.lastChapterTitle = chapterTitle;
+    saveState();
+  }
+}
+
+function prevChapter() {
+  if (STATE.currentChapterIdx > 0) {
+    STATE.currentChapterIdx--;
+    loadChapterContent(STATE.currentChapterIdx);
+  } else {
+    showToast('宸茬粡鏄涓€绔犱簡');
+  }
+}
+
+function nextChapter() {
+  if (STATE.currentChapterIdx < STATE.chapters.length - 1) {
+    STATE.currentChapterIdx++;
+    loadChapterContent(STATE.currentChapterIdx);
+  } else {
+    showToast('宸茬粡鏄渶鍚庝竴绔犱簡');
+  }
+}
+
+function closeReader() {
+  STATE.readerVisible = false;
+  showScreen(STATE.previousScreen || 'bookshelf');
+}
+
+// 闃呰鍣ㄨ彍鍗曪紙鐐瑰嚮涓棿鍖哄煙鍒囨崲锛?function toggleReaderMenu() {
+  const header = document.getElementById('reader-header');
+  const footer = document.getElementById('reader-footer');
+  const isHidden = header.classList.contains('hidden');
+  if (isHidden) {
+    header.classList.remove('hidden');
+    footer.classList.remove('hidden');
+  } else {
+    header.classList.add('hidden');
+    footer.classList.add('hidden');
+  }
+}
+
+// 闃呰鍣ㄧ偣鍑诲尯鍩燂細宸﹁竟=涓婁竴椤碉紝涓棿=鑿滃崟锛屽彸杈?涓嬩竴椤?document.addEventListener('DOMContentLoaded', () => {
+  const readerContent = document.getElementById('reader-content');
+  readerContent.addEventListener('click', (e) => {
+    const rect = readerContent.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const width = rect.width;
+    if (x < width * 0.25) {
+      prevChapter();
+    } else if (x > width * 0.75) {
+      nextChapter();
+    } else {
+      toggleReaderMenu();
+    }
+  });
+});
+
+// ==================== 璁剧疆 ====================
+function loadSettings() {
+  document.getElementById('setting-font-size').value = STATE.settings.fontSize;
+  document.getElementById('setting-font-size-val').textContent = STATE.settings.fontSize + 'px';
+  document.getElementById('setting-line-height').value = STATE.settings.lineHeight;
+  document.getElementById('setting-line-height-val').textContent = STATE.settings.lineHeight.toFixed(1);
+  document.getElementById('setting-theme').value = STATE.settings.theme;
+}
+
+function updateFontSize() {
+  const val = document.getElementById('setting-font-size').value;
+  STATE.settings.fontSize = parseInt(val);
+  document.getElementById('setting-font-size-val').textContent = val + 'px';
+  saveState();
+  if (STATE.readerVisible) loadChapterContent(STATE.currentChapterIdx);
+}
+
+function updateLineHeight() {
+  const val = parseFloat(document.getElementById('setting-line-height').value);
+  STATE.settings.lineHeight = val;
+  document.getElementById('setting-line-height-val').textContent = val.toFixed(1);
+  saveState();
+  if (STATE.readerVisible) loadChapterContent(STATE.currentChapterIdx);
+}
+
+function updateTheme() {
+  STATE.settings.theme = document.getElementById('setting-theme').value;
+  saveState();
+  if (STATE.readerVisible) loadChapterContent(STATE.currentChapterIdx);
+}
+
+function clearAllData() {
+  if (confirm('纭畾瑕佹竻闄ゆ墍鏈変功鏋舵暟鎹拰璁剧疆鍚楋紵姝ゆ搷浣滀笉鍙仮澶嶃€?)) {
+    localStorage.removeItem('reader_bookshelf');
+    localStorage.removeItem('reader_settings');
+    STATE.bookshelf = [];
+    STATE.settings = { fontSize: 18, lineHeight: 2, theme: 'dark' };
+    renderBookshelf();
+    loadSettings();
+    showToast('宸叉竻闄ゅ叏閮ㄦ暟鎹?);
+  }
+}
+
+// ==================== 鎵撳紑涔︾睄 ====================
+function openBook(bookUrlEncoded) {
+  const bookUrl = decodeURIComponent(bookUrlEncoded);
+  const shelfBook = STATE.bookshelf.find(b => b.url === bookUrl);
+  if (!shelfBook) return;
+  startReading(bookUrlEncoded, shelfBook.lastReadChapter || 0);
+}
+
+// ==================== 鍒濆鍖?====================
+renderBookshelf();
+</script>
+</body>
+</html>
