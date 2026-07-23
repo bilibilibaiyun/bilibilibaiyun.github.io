@@ -19,9 +19,9 @@ async function fetchHtml(url) {
       currentUrl = new URL(loc, currentUrl).href;
       continue;
     }
-    return { 
-      html: await resp.text(), 
-      url: currentUrl, 
+    return {
+      html: await resp.text(),
+      url: currentUrl,
       status: resp.status,
       ok: resp.ok,
       contentType: resp.headers.get('content-type') || ''
@@ -33,22 +33,20 @@ async function fetchHtml(url) {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (!url.pathname.includes('/api/novels/')) return;
-  
+
   const params = Object.fromEntries(url.searchParams);
   const path = url.pathname.split('/api/novels/')[1];
-  
+
   let promise;
-  
+
   if (path === 'fetch') {
-    // fetch 代理：返回原始 HTML
     promise = fetchHtml(params.url).then(r => {
       if (!r) return { ok: false, error: '无法连接到目标站点' };
-      // 只返回关键信息，HTML 过大会爆
-      return { 
-        ok: r.ok, 
+      return {
+        ok: r.ok,
         status: r.status,
         url: r.url,
-        html: r.html.substring(0, 50000), // 限制 50KB
+        html: r.html.substring(0, 50000),
         contentType: r.contentType,
         len: r.html.length
       };
@@ -56,7 +54,7 @@ self.addEventListener('fetch', event => {
   } else {
     promise = Promise.resolve({ ok: false, error: 'unknown endpoint' });
   }
-  
+
   event.respondWith(promise.then(body =>
     new Response(JSON.stringify(body), {
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
