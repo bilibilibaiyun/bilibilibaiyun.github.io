@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>闃呰 - 寮€婧愰槄璇荤綉椤电増</title>
+<title>阅读 - 开源阅读网页版</title>
 <style>
 :root {
   --bg: #1a1a2e;
@@ -29,7 +29,7 @@ body {
   display: flex; flex-direction: column;
   background: var(--bg);
 }
-/* 椤堕儴鏍?*/
+/* 顶部栏 */
 .top-bar {
   display: flex; align-items: center; padding: 12px 24px;
   background: var(--bg-card); border-bottom: 1px solid var(--border);
@@ -41,10 +41,10 @@ body {
   padding: 6px 10px; cursor: pointer; border-radius: 6px;
 }
 .top-bar .btn:hover { background: var(--accent2); }
-/* 灞忓箷瀹瑰櫒 */
+/* 屏幕容器 */
 .screen { display: none; flex: 1; overflow-y: auto; flex-direction: column; min-height: 0; }
 .screen.active { display: flex; }
-/* 鎼滅储鏍?*/
+/* 搜索栏 */
 .search-bar {
   display: flex; padding: 16px 24px; gap: 10px;
   background: var(--bg-card); border-bottom: 1px solid var(--border);
@@ -60,7 +60,7 @@ body {
   color: #fff; border: none; font-size: 14px; cursor: pointer; font-weight: 500;
 }
 .search-bar .btn:hover { opacity: 0.9; }
-/* 涔︽灦 */
+/* 书架 */
 .bookshelf { padding: 24px; flex: 1; }
 .bookshelf-grid {
   display: grid;
@@ -89,7 +89,7 @@ body {
 }
 .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
 .empty-state p { font-size: 15px; line-height: 1.8; }
-/* 鎼滅储缁撴灉 */
+/* 搜索结果 */
 .search-results { padding: 8px 24px; }
 .result-item {
   display: flex; padding: 16px 0; border-bottom: 1px solid var(--border);
@@ -110,7 +110,7 @@ body {
   font-size: 13px; color: var(--text-secondary); overflow: hidden;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
 }
-/* 涔︾睄璇︽儏 */
+/* 书籍详情 */
 .book-detail { padding: 24px; max-width: 800px; margin: 0 auto; width: 100%; }
 .detail-header { display: flex; gap: 24px; margin-bottom: 24px; }
 .detail-cover {
@@ -150,7 +150,7 @@ body {
 .chapter-item:hover { color: var(--accent); padding-left: 8px; }
 .chapter-item .ch-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chapter-item .ch-badge { font-size: 11px; color: var(--accent); flex-shrink: 0; margin-left: 8px; }
-/* 闃呰鍣?*/
+/* 阅读器 */
 .reader-container {
   flex: 1; display: flex; flex-direction: column; overflow: hidden;
   position: relative;
@@ -190,7 +190,7 @@ body {
 .reader-footer .rf-progress {
   font-size: 13px; color: var(--text-secondary); min-width: 120px; text-align: center;
 }
-/* 搴曢儴瀵艰埅 */
+/* 底部导航 */
 .bottom-nav {
   display: flex; border-top: 1px solid var(--border);
   background: var(--bg-card); flex-shrink: 0;
@@ -202,7 +202,7 @@ body {
 .nav-item:hover { background: var(--accent2); }
 .nav-item .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
 .nav-item.active { color: var(--accent); }
-/* 璁剧疆 */
+/* 设置 */
 .settings-content { padding: 24px; max-width: 600px; margin: 0 auto; width: 100%; }
 .setting-group { margin-bottom: 28px; }
 .setting-group h3 {
@@ -218,7 +218,7 @@ body {
   color: var(--text); padding: 6px 12px; border-radius: 6px; font-size: 14px;
 }
 .settings-meta { font-size: 13px; color: var(--text-secondary); margin-top: 16px; text-align: center; line-height: 1.8; }
-/* 寮圭獥 */
+/* 弹窗 */
 .modal-overlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.6); z-index: 200; display: flex;
@@ -237,7 +237,7 @@ body {
 }
 .modal-cancel { background: var(--accent2); color: var(--text); }
 .modal-confirm { background: var(--accent); color: #fff; }
-/* 鍔犺浇 */
+/* 加载 */
 .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
 .loading .spinner {
   display: inline-block; width: 28px; height: 28px;
@@ -260,177 +260,178 @@ body {
   <!-- Toast -->
   <div class="toast hidden" id="toast"></div>
 
-  <!-- ====== 涔︽灦 ====== -->
+  <!-- ====== 书架 ====== -->
   <div class="screen active" id="screen-bookshelf">
     <div class="top-bar">
-      <h1>馃摎 涔︽灦</h1>
-      <button class="btn" onclick="showScreen('search')" title="鎼滅储">馃攳</button>
+      <h1>📚 书架</h1>
+      <button class="btn" onclick="showScreen('search')" title="搜索">🔍</button>
     </div>
     <div class="bookshelf" id="bookshelf-container">
       <div class="empty-state" id="bookshelf-empty">
-        <div class="icon">馃摉</div>
-        <p>涔︽灦绌虹┖濡備篃</p>
-        <p style="margin-top:8px">鐐瑰嚮鍙充笂瑙?馃攳 鎼滅储娣诲姞涔︾睄</p>
+        <div class="icon">📖</div>
+        <p>书架空空如也</p>
+        <p style="margin-top:8px">点击右上角 🔍 搜索添加书籍</p>
       </div>
       <div class="bookshelf-grid" id="bookshelf-grid"></div>
     </div>
     <div class="bottom-nav">
       <div class="nav-item active" onclick="showScreen('bookshelf')" id="nav-bookshelf">
-        <span class="nav-icon">馃摎</span>涔︽灦
+        <span class="nav-icon">📚</span>书架
       </div>
       <div class="nav-item" onclick="showScreen('discover')" id="nav-discover">
-        <span class="nav-icon">馃Л</span>鍙戠幇
+        <span class="nav-icon">🧭</span>发现
       </div>
       <div class="nav-item" onclick="showScreen('settings')" id="nav-settings">
-        <span class="nav-icon">鈿欙笍</span>璁剧疆
+        <span class="nav-icon">⚙️</span>设置
       </div>
     </div>
   </div>
 
-  <!-- ====== 鎼滅储 ====== -->
+  <!-- ====== 搜索 ====== -->
   <div class="screen" id="screen-search">
     <div class="top-bar">
-      <button class="btn" onclick="showScreen('bookshelf')">鈫?/button>
-      <h1>鎼滅储涔︾睄</h1>
+      <button class="btn" onclick="showScreen('bookshelf')">←</button>
+      <h1>搜索书籍</h1>
     </div>
     <div class="search-bar">
-      <input type="text" id="search-input" placeholder="杈撳叆涔﹀悕鎴栦綔鑰?.." onkeydown="if(event.key==='Enter')searchBooks()">
-      <button class="btn" onclick="searchBooks()">鎼滅储</button>
+      <input type="text" id="search-input" placeholder="输入书名或作者..." onkeydown="if(event.key==='Enter')searchBooks()">
+      <button class="btn" onclick="searchBooks()">搜索</button>
     </div>
     <div class="search-results" id="search-results">
       <div class="empty-state">
-        <div class="icon">馃攷</div>
-        <p>杈撳叆鍏抽敭璇嶅紑濮嬫悳绱?/p>
+        <div class="icon">🔎</div>
+        <p>输入关键词开始搜索</p>
       </div>
     </div>
   </div>
 
-  <!-- ====== 鍙戠幇 ====== -->
+  <!-- ====== 发现 ====== -->
   <div class="screen" id="screen-discover">
     <div class="top-bar">
-      <h1>馃Л 鍙戠幇</h1>
+      <h1>🧭 发现</h1>
     </div>
     <div style="padding:16px">
       <div class="setting-group">
-        <h3>鐑棬鎺ㄨ崘</h3>
+        <h3>热门推荐</h3>
         <div class="bookshelf-grid" id="discover-grid">
-          <div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>
+          <div class="loading"><div class="spinner"></div><div>加载中...</div></div>
         </div>
       </div>
     </div>
     <div class="bottom-nav">
       <div class="nav-item" onclick="showScreen('bookshelf')" id="nav2-bookshelf">
-        <span class="nav-icon">馃摎</span>涔︽灦
+        <span class="nav-icon">📚</span>书架
       </div>
       <div class="nav-item active" onclick="showScreen('discover')" id="nav2-discover">
-        <span class="nav-icon">馃Л</span>鍙戠幇
+        <span class="nav-icon">🧭</span>发现
       </div>
       <div class="nav-item" onclick="showScreen('settings')" id="nav2-settings">
-        <span class="nav-icon">鈿欙笍</span>璁剧疆
+        <span class="nav-icon">⚙️</span>设置
       </div>
     </div>
   </div>
 
-  <!-- ====== 涔︾睄璇︽儏 ====== -->
+  <!-- ====== 书籍详情 ====== -->
   <div class="screen" id="screen-detail">
     <div class="top-bar">
-      <button class="btn" onclick="goBack()">鈫?/button>
-      <h1 id="detail-title">涔︾睄璇︽儏</h1>
-      <button class="btn" id="btn-delete-book" style="display:none" onclick="showDeleteModal()">馃棏锔?/button>
+      <button class="btn" onclick="goBack()">←</button>
+      <h1 id="detail-title">书籍详情</h1>
+      <button class="btn" id="btn-delete-book" style="display:none" onclick="showDeleteModal()">🗑️</button>
     </div>
     <div class="book-detail" id="book-detail-content"></div>
   </div>
 
-  <!-- ====== 闃呰鍣?====== -->
+  <!-- ====== 阅读器 ====== -->
   <div class="screen" id="screen-reader">
     <div class="reader-container" id="reader-container">
       <div class="reader-header" id="reader-header">
-        <button class="btn" onclick="closeReader()">鈫?/button>
-        <span class="rh-title" id="reader-chapter-title">鍔犺浇涓?..</span>
-        <button class="btn" onclick="toggleReaderMenu()">鈿欙笍</button>
+        <button class="btn" onclick="closeReader()">←</button>
+        <span class="rh-title" id="reader-chapter-title">加载中...</span>
+        <button class="btn" onclick="toggleReaderMenu()">⚙️</button>
       </div>
       <div class="reader-content" id="reader-content">
-        <div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>
+        <div class="loading"><div class="spinner"></div><div>加载中...</div></div>
       </div>
       <div class="reader-footer" id="reader-footer">
-        <button class="rf-btn" onclick="prevChapter()">鈼€</button>
+        <button class="rf-btn" onclick="prevChapter()">◀</button>
         <span class="rf-progress" id="reader-progress">0%</span>
-        <button class="rf-btn" onclick="toggleReaderMenu()">鈿欙笍</button>
-        <button class="rf-btn" onclick="nextChapter()">鈻?/button>
+        <button class="rf-btn" onclick="toggleReaderMenu()">⚙️</button>
+        <button class="rf-btn" onclick="nextChapter()">▶</button>
       </div>
     </div>
   </div>
 
-  <!-- ====== 璁剧疆 ====== -->
+  <!-- ====== 设置 ====== -->
   <div class="screen" id="screen-settings">
     <div class="top-bar">
-      <h1>鈿欙笍 璁剧疆</h1>
+      <h1>⚙️ 设置</h1>
     </div>
     <div class="settings-content">
       <div class="setting-group">
-        <h3>闃呰璁剧疆</h3>
+        <h3>阅读设置</h3>
         <div class="setting-row">
-          <span>瀛椾綋澶у皬</span>
+          <span>字体大小</span>
           <input type="range" min="14" max="28" value="18" id="setting-font-size" onchange="updateFontSize()">
           <span id="setting-font-size-val">18px</span>
         </div>
         <div class="setting-row">
-          <span>琛岄棿璺?/span>
+          <span>行间距</span>
           <input type="range" min="1.5" max="3" step="0.1" value="2" id="setting-line-height" onchange="updateLineHeight()">
           <span id="setting-line-height-val">2.0</span>
         </div>
         <div class="setting-row">
-          <span>闃呰涓婚</span>
+          <span>阅读主题</span>
           <select id="setting-theme" onchange="updateTheme()">
-            <option value="dark">澶滈棿妯″紡</option>
-            <option value="light">鎶ょ溂妯″紡</option>
+            <option value="dark">夜间模式</option>
+            <option value="light">护眼模式</option>
           </select>
         </div>
       </div>
       <div class="setting-group">
-        <h3>鏁版嵁</h3>
+        <h3>数据</h3>
         <div class="setting-row">
-          <span>缂撳瓨鏁版嵁</span>
-          <button class="btn btn-primary" style="font-size:13px; padding:6px 14px" onclick="clearAllData()">娓呴櫎鍏ㄩ儴</button>
+          <span>缓存数据</span>
+          <button class="btn btn-primary" style="font-size:13px; padding:6px 14px" onclick="clearAllData()">清除全部</button>
         </div>
       </div>
       <div class="settings-meta">
-        <p>寮€婧愰槄璇荤綉椤电増 v2.0</p>
-        <p style="margin-top:8px;font-size:12px">馃摗 Service Worker 浠ｇ悊鐩磋繛涔︽簮</p>
-        <p style="font-size:11px;margin-top:2px">棣栨鎵撳紑闇€鍏佽 SW 娉ㄥ唽 路 闇€ HTTPS 鎴?localhost</p>
+        <p>开源阅读网页版 v2.0</p>
+        <p style="margin-top:8px;font-size:12px">📡 Service Worker 代理直连书源</p>
+        <p style="font-size:11px;margin-top:2px">首次打开需允许 SW 注册 · 需 HTTPS 或 localhost</p>
       </div>
     </div>
     <div class="bottom-nav">
       <div class="nav-item" onclick="showScreen('bookshelf')" id="nav3-bookshelf">
-        <span class="nav-icon">馃摎</span>涔︽灦
+        <span class="nav-icon">📚</span>书架
       </div>
       <div class="nav-item" onclick="showScreen('discover')" id="nav3-discover">
-        <span class="nav-icon">馃Л</span>鍙戠幇
+        <span class="nav-icon">🧭</span>发现
       </div>
       <div class="nav-item active" onclick="showScreen('settings')" id="nav3-settings">
-        <span class="nav-icon">鈿欙笍</span>璁剧疆
+        <span class="nav-icon">⚙️</span>设置
       </div>
     </div>
   </div>
 
-  <!-- 鍒犻櫎纭寮圭獥 -->
+  <!-- 删除确认弹窗 -->
   <div class="modal-overlay hidden" id="delete-modal">
     <div class="modal-box">
-      <h3>纭鍒犻櫎</h3>
-      <p id="delete-modal-text">纭畾瑕佷粠涔︽灦涓Щ闄よ繖鏈功鍚楋紵</p>
+      <h3>确认删除</h3>
+      <p id="delete-modal-text">确定要从书架中移除这本书吗？</p>
       <div class="modal-btns">
-        <button class="modal-cancel" onclick="hideDeleteModal()">鍙栨秷</button>
-        <button class="modal-confirm" onclick="confirmDeleteBook()">鍒犻櫎</button>
+        <button class="modal-cancel" onclick="hideDeleteModal()">取消</button>
+        <button class="modal-confirm" onclick="confirmDeleteBook()">删除</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// ==================== 鐘舵€佺鐞?====================
+// ==================== 状态管理 ====================
 const STATE = {
   bookshelf: [],        // { id, title, author, cover, intro, category, wordCount, lastChapter, lastReadChapter, lastReadIndex }
-  currentBook: null,    // 褰撳墠鏌ョ湅鐨勪功绫嶈鎯?  currentChapterIdx: 0,
+  currentBook: null,    // 当前查看的书籍详情
+  currentChapterIdx: 0,
   chapters: [],
   currentScreen: 'bookshelf',
   previousScreen: null,
@@ -442,7 +443,7 @@ const STATE = {
   }
 };
 
-// ==================== 鎸佷箙鍖?====================
+// ==================== 持久化 ====================
 function saveState() {
   localStorage.setItem('reader_bookshelf', JSON.stringify(STATE.bookshelf));
   localStorage.setItem('reader_settings', JSON.stringify(STATE.settings));
@@ -457,7 +458,7 @@ function loadState() {
 }
 loadState();
 
-// ==================== 灞忓箷鍒囨崲 ====================
+// ==================== 屏幕切换 ====================
 function showScreen(name) {
   STATE.previousScreen = STATE.currentScreen;
   STATE.currentScreen = name;
@@ -465,7 +466,7 @@ function showScreen(name) {
   const screen = document.getElementById('screen-' + name);
   if (screen) screen.classList.add('active');
 
-  // 鏇存柊搴曢儴瀵艰埅
+  // 更新底部导航
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const navMap = {
     bookshelf: ['nav-bookshelf', 'nav2-bookshelf', 'nav3-bookshelf'],
@@ -504,14 +505,14 @@ function showToast(msg, duration = 2000) {
 // ==================== API ====================
 const SW_ENABLED = 'serviceWorker' in navigator;
 
-// 婕旂ず鏁版嵁
+// 演示数据
 const DEMO_BOOKS = {
-  '鍓戞潵': { author:'鐑界伀鎴忚渚?, intro:'澶у崈涓栫晫锛屾棤濂囦笉鏈夈€傛垜闄堝钩瀹夛紝鍞湁涓€鍓戯紝鍙惉灞憋紝鍊掓捣锛岄檷濡栵紝闀囬瓟锛屾晻绁烇紝鎽樻槦锛屾柇姹燂紝鎽у煄锛屽紑澶╋紒' },
-  '鏂楃牬鑻嶇┕': { author:'澶╄殨鍦熻眴', intro:'杩欓噷鏄睘浜庢枟姘旂殑涓栫晫锛屾病鏈夎姳淇忚壋涓界殑榄旀硶锛屾湁鐨勶紝浠呬粎鏄箒琛嶅埌宸呭嘲鐨勬枟姘旓紒' },
-  '鍑′汉淇粰浼?: { author:'蹇樿', intro:'涓€涓櫘閫氬北鏉戝皬瀛愶紝鍋剁劧涓嬭繘鍏ュ埌褰撳湴姹熸箹灏忛棬娲撅紝鎴愪簡涓€鍚嶈鍚嶅紵瀛愩€? },
-  '瀹岀編涓栫晫': { author:'杈颁笢', intro:'涓€绮掑皹鍙～娴凤紝涓€鏍硅崏鏂╁敖鏃ユ湀鏄熻景锛屽脊鎸囬棿澶╃炕鍦拌銆? },
-  '璇＄涔嬩富': { author:'鐖辨綔姘寸殑涔岃醇', intro:'钂告苯涓庢満姊扮殑娴疆涓紝璋佽兘瑙﹀強闈炲嚒锛? },
-  '鍚炲櫖鏄熺┖': { author:'鎴戝悆瑗跨孩鏌?, intro:'鏄熺┖涓紝涓€棰楅櫒鐭充笂锛屼竴涓井涓嶈冻閬撶殑灏忎汉鐗╋紝寮€濮嬩簡浠栫殑浼犲涔嬭矾銆? }
+  '剑来': { author:'烽火戏诸侯', intro:'大千世界，无奇不有。我陈平安，唯有一剑，可搬山，倒海，降妖，镇魔，敕神，摘星，断江，摧城，开天！' },
+  '斗破苍穹': { author:'天蚕土豆', intro:'这里是属于斗气的世界，没有花俏艳丽的魔法，有的，仅仅是繁衍到巅峰的斗气！' },
+  '凡人修仙传': { author:'忘语', intro:'一个普通山村小子，偶然下进入到当地江湖小门派，成了一名记名弟子。' },
+  '完美世界': { author:'辰东', intro:'一粒尘可填海，一根草斩尽日月星辰，弹指间天翻地覆。' },
+  '诡秘之主': { author:'爱潜水的乌贼', intro:'蒸汽与机械的浪潮中，谁能触及非凡？' },
+  '吞噬星空': { author:'我吃西红柿', intro:'星空中，一颗陨石上，一个微不足道的小人物，开始了他的传奇之路。' }
 };
 
 function cleanHTML(html) {
@@ -523,7 +524,7 @@ function cleanHTML(html) {
     .replace(/\n{3,}/g,'\n\n').trim();
 }
 
-// 閫氳繃 SW 鎶撳彇鍘熷 HTML
+// 通过 SW 抓取原始 HTML
 async function fetchViaSW(url) {
   const resp = await fetch('api/novels/fetch?url=' + encodeURIComponent(url));
   const data = await resp.json();
@@ -532,7 +533,8 @@ async function fetchViaSW(url) {
   return { html: data.html, finalUrl: data.url };
 }
 
-// 浠?HTML 涓В鏋愭悳绱㈢粨鏋?function parseSearchResults(html) {
+// 从 HTML 中解析搜索结果
+function parseSearchResults(html) {
   const books = [];
   const seen = new Set();
   const aRx = /<a[^>]*href="(https?:\/\/[^"]+)"[^>]*>([^<]{1,60})<\/a>/g;
@@ -542,17 +544,17 @@ async function fetchViaSW(url) {
     if (!title || title.length < 2 || seen.has(m[1])) continue;
     seen.add(m[1]);
     const block = html.substring(Math.max(0,m.index-200), Math.min(html.length,m.index+200));
-    const author = (block.match(/浣滆€匸锛?]\s*([^<>\n]{1,30})/) || ['',''])[1].trim();
+    const author = (block.match(/作者[：:]\s*([^<>\n]{1,30})/) || ['',''])[1].trim();
     books.push({ title, author, cover:'', intro:'', url:m[1] });
     if (books.length >= 20) break;
   }
   return books;
 }
 
-// 浠?HTML 瑙ｆ瀽涔︾睄璇︽儏
+// 从 HTML 解析书籍详情
 function parseBookDetail(html, bookUrl) {
-  const title = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || ['','鏈煡'])[1].replace(/<[^>]+>/g,'').trim();
-  const author = (html.match(/浣滆€匸锛?]\s*([^<>\n]{1,30})/) || ['',''])[1].trim();
+  const title = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || ['','未知'])[1].replace(/<[^>]+>/g,'').trim();
+  const author = (html.match(/作者[：:]\s*([^<>\n]{1,30})/) || ['',''])[1].trim();
   const cover = (html.match(/<img[^>]*src="([^"]+\.(?:jpg|png|webp|jpeg))"/i) || ['',''])[1];
   const introMatch = html.match(/(?:id="intro"|class="intro")[^>]*>([\s\S]*?)<\/div>/);
   const intro = introMatch ? cleanHTML(introMatch[1]).substring(0,300) : '';
@@ -571,13 +573,13 @@ function parseBookDetail(html, bookUrl) {
     const ddRx = /<(?:dd|li)>[\s\S]*?<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g;
     while ((c = ddRx.exec(html)) !== null) {
       const ct = cleanHTML(c[2]);
-      if (ct.length >= 2 && !ct.includes('棣栭〉') && !ct.includes('涓婁竴椤?)) chapters.push({ title: ct, url: c[1].startsWith('http') ? c[1] : new URL(c[1], bookUrl).href });
+      if (ct.length >= 2 && !ct.includes('首页') && !ct.includes('上一页')) chapters.push({ title: ct, url: c[1].startsWith('http') ? c[1] : new URL(c[1], bookUrl).href });
     }
   }
-  return { title: title || '鏈煡', author: author || '鏈煡浣滆€?, cover, intro, chapters };
+  return { title: title || '未知', author: author || '未知作者', cover, intro, chapters };
 }
 
-// 浠?HTML 瑙ｆ瀽绔犺妭鍐呭
+// 从 HTML 解析章节内容
 function parseChapterContent(html) {
   const patterns = [
     /id="content"[^>]*>([\s\S]*?)<\/div>/,
@@ -599,7 +601,7 @@ function parseChapterContent(html) {
   return '';
 }
 
-// 鎼滅储涔︾睄
+// 搜索书籍
 async function searchBooksAPI(keyword) {
   const hosts = ['https://www.biquge.info/search.php?keyword=', 'https://www.ibiquge.net/search.php?keyword='];
   for (const base of hosts) {
@@ -615,29 +617,29 @@ async function searchBooksAPI(keyword) {
     .map(([k,v]) => ({ title:k, author:v.author, cover:'', intro:v.intro, url:'demo://book/'+k }));
 }
 
-// 鑾峰彇涔︾睄璇︽儏
+// 获取书籍详情
 async function getBookDetailAPI(bookUrl) {
   if (bookUrl.startsWith('demo://')) {
     const name = decodeURIComponent(bookUrl.split('/').pop());
     const demo = DEMO_BOOKS[name];
     if (!demo) return null;
     const chapters = [];
-    for (let i=1;i<=50;i++) chapters.push({ title:'绗?+i+'绔?, url:'demo://chapter/'+name+'/'+i });
+    for (let i=1;i<=50;i++) chapters.push({ title:'第'+i+'章', url:'demo://chapter/'+name+'/'+i });
     return { title:name, author:demo.author, cover:'', intro:demo.intro, chapters };
   }
   try {
     const { html, finalUrl } = await fetchViaSW(bookUrl);
     const detail = parseBookDetail(html, finalUrl || bookUrl);
     console.log('Detail parsed:', detail.title, 'chapters:', detail.chapters.length);
-    if (detail.title && detail.title !== '鏈煡' && detail.chapters.length > 0) return detail;
+    if (detail.title && detail.title !== '未知' && detail.chapters.length > 0) return detail;
   } catch(e) { console.log('Detail failed:', e.message); }
   return null;
 }
 
-// 鑾峰彇绔犺妭鍐呭
+// 获取章节内容
 async function getChapterContentAPI(bookUrl, chapterUrl) {
   if (chapterUrl.startsWith('demo://')) {
-    return { content: '銆€銆€' + '杩欐槸婕旂ず鍐呭锛岃杩炴帴鐪熷疄涔︽簮鍚庨槄璇汇€?.repeat(20) };
+    return { content: '　　' + '这是演示内容，请连接真实书源后阅读。'.repeat(20) };
   }
   try {
     const { html } = await fetchViaSW(chapterUrl);
@@ -647,7 +649,7 @@ async function getChapterContentAPI(bookUrl, chapterUrl) {
   return null;
 }
 
-// 鐑棬鎺ㄨ崘
+// 热门推荐
 async function getHotBooksAPI() {
   const hosts = ['https://www.biquge.info/', 'https://www.ibiquge.net/'];
   for (const host of hosts) {
@@ -660,7 +662,7 @@ async function getHotBooksAPI() {
   return Object.entries(DEMO_BOOKS).map(([k,v]) => ({ title:k, author:v.author, cover:'', intro:v.intro, url:'demo://book/'+k }));
 }
 
-// 娉ㄥ唽 SW
+// 注册 SW
 if (SW_ENABLED) {
   navigator.serviceWorker.getRegistrations().then(regs => {
     regs.forEach(r => { if (r.active && r.active.scriptURL.includes('sw.js')) r.unregister(); });
@@ -670,7 +672,7 @@ if (SW_ENABLED) {
     .catch(err => console.log('SW failed:', err));
 }
 
-// ==================== 涔︽灦 ====================
+// ==================== 书架 ====================
 function renderBookshelf() {
   const grid = document.getElementById('bookshelf-grid');
   const empty = document.getElementById('bookshelf-empty');
@@ -684,8 +686,8 @@ function renderBookshelf() {
 
   grid.innerHTML = STATE.bookshelf.map(book => {
     const coverHTML = book.cover
-      ? `<img src="${book.cover}" alt="${book.title}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>馃摉</div>'">`
-      : '<div class="placeholder">馃摉</div>';
+      ? `<img src="${book.cover}" alt="${book.title}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📖</div>'">`
+      : '<div class="placeholder">📖</div>';
     const pct = book.lastReadChapter && book.chaptersTotal
       ? Math.round(book.lastReadChapter / book.chaptersTotal * 100) + '%'
       : '';
@@ -695,40 +697,40 @@ function renderBookshelf() {
       <div class="book-card" onclick="openBook('${bookUrlEnc}')" oncontextmenu="event.preventDefault();showDeleteBookModal('${bookUrlEnc}')">
         <div class="cover">${coverHTML}</div>
         <div class="title">${book.title}</div>
-        <div class="progress">${pct ? pct + ' 路 ' : ''}${lastTitle}</div>
+        <div class="progress">${pct ? pct + ' · ' : ''}${lastTitle}</div>
       </div>
     `;
   }).join('');
 }
 
-// ==================== 鎼滅储 ====================
+// ==================== 搜索 ====================
 let searchResults = [];
 async function searchBooks() {
   const keyword = document.getElementById('search-input').value.trim();
   if (!keyword) return;
 
   const container = document.getElementById('search-results');
-  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>鎼滅储涓?..</div></div>';
+  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>搜索中...</div></div>';
 
   const results = await searchBooksAPI(keyword);
   searchResults = results;
 
   if (!results || results.length === 0) {
-    container.innerHTML = '<div class="empty-state"><div class="icon">馃槥</div><p>娌℃湁鎵惧埌鐩稿叧涔︾睄</p></div>';
+    container.innerHTML = '<div class="empty-state"><div class="icon">😞</div><p>没有找到相关书籍</p></div>';
     return;
   }
 
   container.innerHTML = results.map((r, i) => {
     const coverHTML = r.cover
-      ? `<img src="${r.cover}" onerror="this.parentElement.innerHTML='<div class=\\'r-placeholder\\'>馃摉</div>'">`
-      : '<div class="r-placeholder">馃摉</div>';
+      ? `<img src="${r.cover}" onerror="this.parentElement.innerHTML='<div class=\\'r-placeholder\\'>📖</div>'">`
+      : '<div class="r-placeholder">📖</div>';
     const bookUrl = encodeURIComponent(r.url);
     return `
       <div class="result-item" onclick="showBookDetail('${bookUrl}')">
         <div class="r-cover">${coverHTML}</div>
         <div class="r-info">
           <div class="r-title">${r.title}</div>
-          <div class="r-author">${r.author || '鏈煡浣滆€?}</div>
+          <div class="r-author">${r.author || '未知作者'}</div>
           <div class="r-intro">${(r.intro || '').substring(0, 80)}</div>
         </div>
       </div>
@@ -736,21 +738,21 @@ async function searchBooks() {
   }).join('');
 }
 
-// ==================== 鍙戠幇 ====================
+// ==================== 发现 ====================
 async function loadDiscover() {
   const grid = document.getElementById('discover-grid');
-  grid.innerHTML = '<div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>';
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div><div>加载中...</div></div>';
 
   const books = await getHotBooksAPI();
   if (!books || books.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="icon">馃摗</div><p>鍔犺浇澶辫触锛岃绋嶅悗閲嶈瘯</p></div>';
+    grid.innerHTML = '<div class="empty-state"><div class="icon">📡</div><p>加载失败，请稍后重试</p></div>';
     return;
   }
 
   grid.innerHTML = books.map(book => {
     const coverHTML = book.cover
-      ? `<img src="${book.cover}" alt="${book.title}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>馃摉</div>'">`
-      : '<div class="placeholder">馃摉</div>';
+      ? `<img src="${book.cover}" alt="${book.title}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📖</div>'">`
+      : '<div class="placeholder">📖</div>';
     const bookUrl = encodeURIComponent(book.url);
     return `
       <div class="book-card" onclick="showBookDetail('${bookUrl}')">
@@ -761,38 +763,38 @@ async function loadDiscover() {
   }).join('');
 }
 
-// ==================== 涔︾睄璇︽儏 ====================
+// ==================== 书籍详情 ====================
 let detailBookData = null;
 
 async function showBookDetail(bookUrlEncoded) {
   const bookUrl = decodeURIComponent(bookUrlEncoded);
   showScreen('detail');
   const container = document.getElementById('book-detail-content');
-  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>';
+  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>加载中...</div></div>';
 
   const data = await getBookDetailAPI(bookUrl);
   if (!data) {
-    container.innerHTML = '<div class="empty-state"><div class="icon">馃槥</div><p>鍔犺浇澶辫触</p></div>';
+    container.innerHTML = '<div class="empty-state"><div class="icon">😞</div><p>加载失败</p></div>';
     return;
   }
 
   detailBookData = data;
   document.getElementById('detail-title').textContent = data.title;
 
-  // 妫€鏌ユ槸鍚﹀凡鍦ㄤ功鏋朵腑
+  // 检查是否已在书架中
   const inShelf = STATE.bookshelf.find(b => b.url === bookUrl);
 
-  // 鏄剧ず鍒犻櫎鎸夐挳
+  // 显示删除按钮
   document.getElementById('btn-delete-book').style.display = inShelf ? 'block' : 'none';
 
   const coverHTML = data.cover
-    ? `<img src="${data.cover}" onerror="this.parentElement.innerHTML='馃摉'">`
-    : '馃摉';
+    ? `<img src="${data.cover}" onerror="this.parentElement.innerHTML='📖'">`
+    : '📖';
 
   const chapters = data.chapters || [];
   const chapterHTML = chapters.slice(0, 50).map((ch, i) => `
     <div class="chapter-item" onclick="startReading('${bookUrlEncoded}', ${i})">
-      <span class="ch-name">${ch.title || '绗?+(i+1)+'绔?}</span>
+      <span class="ch-name">${ch.title || '第'+(i+1)+'章'}</span>
       ${ch.isVip ? '<span class="ch-badge">VIP</span>' : ''}
     </div>
   `).join('');
@@ -802,31 +804,31 @@ async function showBookDetail(bookUrlEncoded) {
       <div class="detail-cover">${coverHTML}</div>
       <div class="detail-info">
         <div class="d-title">${data.title}</div>
-        <div class="d-author">鉁嶏笍 ${data.author || '鏈煡'}</div>
+        <div class="d-author">✍️ ${data.author || '未知'}</div>
         <div class="d-meta">
-          ${data.category ? '馃搨 ' + data.category + ' 路 ' : ''}
-          ${data.wordCount ? '馃摑 ' + data.wordCount + '瀛?路 ' : ''}
-          ${chapters.length ? '馃搼 ' + chapters.length + '绔? : ''}
+          ${data.category ? '📂 ' + data.category + ' · ' : ''}
+          ${data.wordCount ? '📝 ' + data.wordCount + '字 · ' : ''}
+          ${chapters.length ? '📑 ' + chapters.length + '章' : ''}
         </div>
         <div class="btn-row">
-          <button class="btn-primary" onclick="startReading('${bookUrlEncoded}', 0)">馃摉 寮€濮嬮槄璇?/button>
+          <button class="btn-primary" onclick="startReading('${bookUrlEncoded}', 0)">📖 开始阅读</button>
           ${inShelf
-            ? `<button class="btn-remove" onclick="removeFromShelf('${bookUrlEncoded}')">绉诲嚭涔︽灦</button>`
-            : `<button class="btn-add" onclick="addToShelf()">鉃?鍔犲叆涔︽灦</button>`
+            ? `<button class="btn-remove" onclick="removeFromShelf('${bookUrlEncoded}')">移出书架</button>`
+            : `<button class="btn-add" onclick="addToShelf()">➕ 加入书架</button>`
           }
         </div>
       </div>
     </div>
     <div class="detail-intro">
-      <div style="font-weight:600;margin-bottom:8px">馃摑 绠€浠?/div>
-      ${(data.intro || '鏆傛棤绠€浠?).replace(/\n/g, '<br>')}
+      <div style="font-weight:600;margin-bottom:8px">📝 简介</div>
+      ${(data.intro || '暂无简介').replace(/\n/g, '<br>')}
     </div>
     <div class="chapter-list-header">
-      <span>馃搼 鐩綍</span>
-      <span class="ch-count">鍏?${chapters.length} 绔?/span>
+      <span>📑 目录</span>
+      <span class="ch-count">共 ${chapters.length} 章</span>
     </div>
     <div id="chapter-list">${chapterHTML}</div>
-    ${chapters.length > 50 ? `<div class="load-more-btn" onclick="showToast('浠呮樉绀哄墠50绔?)">鏌ョ湅鍏ㄩ儴 ${chapters.length} 绔?鈫?/div>` : ''}
+    ${chapters.length > 50 ? `<div class="load-more-btn" onclick="showToast('仅显示前50章')">查看全部 ${chapters.length} 章 →</div>` : ''}
   `;
 }
 
@@ -835,7 +837,7 @@ function addToShelf() {
   const bookUrl = detailBookData.url;
   const bookUrlEnc = encodeURIComponent(bookUrl);
   if (STATE.bookshelf.find(b => b.url === bookUrl)) {
-    showToast('宸插湪涔︽灦涓?);
+    showToast('已在书架中');
     return;
   }
 
@@ -855,13 +857,14 @@ function addToShelf() {
   saveState();
   renderBookshelf();
   document.getElementById('btn-delete-book').style.display = 'block';
-  showToast('宸插姞鍏ヤ功鏋?);
+  showToast('已加入书架');
 
-  // 鏇存柊璇︽儏椤垫寜閽?  const btnRow = document.querySelector('.detail-info .btn-row');
+  // 更新详情页按钮
+  const btnRow = document.querySelector('.detail-info .btn-row');
   if (btnRow) {
     btnRow.innerHTML = `
-      <button class="btn-primary" onclick="startReading('${bookUrlEnc}', 0)">馃摉 缁х画闃呰</button>
-      <button class="btn-remove" onclick="removeFromShelf('${bookUrlEnc}')">绉诲嚭涔︽灦</button>
+      <button class="btn-primary" onclick="startReading('${bookUrlEnc}', 0)">📖 继续阅读</button>
+      <button class="btn-remove" onclick="removeFromShelf('${bookUrlEnc}')">移出书架</button>
     `;
   }
 }
@@ -872,29 +875,30 @@ function removeFromShelf(bookUrlEncoded) {
   saveState();
   renderBookshelf();
   document.getElementById('btn-delete-book').style.display = 'none';
-  showToast('宸茬Щ鍑轰功鏋?);
+  showToast('已移出书架');
 
-  // 鏇存柊璇︽儏椤垫寜閽?  const btnRow = document.querySelector('.detail-info .btn-row');
+  // 更新详情页按钮
+  const btnRow = document.querySelector('.detail-info .btn-row');
   if (btnRow) {
     btnRow.innerHTML = `
-      <button class="btn-primary" onclick="startReading('${bookUrlEncoded}', 0)">馃摉 寮€濮嬮槄璇?/button>
-      <button class="btn-add" onclick="addToShelf()">鉃?鍔犲叆涔︽灦</button>
+      <button class="btn-primary" onclick="startReading('${bookUrlEncoded}', 0)">📖 开始阅读</button>
+      <button class="btn-add" onclick="addToShelf()">➕ 加入书架</button>
     `;
   }
 }
 
-// 鍒犻櫎寮圭獥
+// 删除弹窗
 let deleteTargetUrl = null;
 function showDeleteBookModal(bookUrlEncoded) {
   deleteTargetUrl = decodeURIComponent(bookUrlEncoded);
   const book = STATE.bookshelf.find(b => b.url === deleteTargetUrl);
-  document.getElementById('delete-modal-text').textContent = `纭畾瑕佷粠涔︽灦涓Щ闄ゃ€?{book ? book.title : '杩欐湰涔?}銆嬪悧锛焋;
+  document.getElementById('delete-modal-text').textContent = `确定要从书架中移除《${book ? book.title : '这本书'}》吗？`;
   document.getElementById('delete-modal').classList.remove('hidden');
 }
 function showDeleteModal() {
   if (!detailBookData) return;
   deleteTargetUrl = detailBookData.url;
-  document.getElementById('delete-modal-text').textContent = `纭畾瑕佷粠涔︽灦涓Щ闄ゃ€?{detailBookData.title}銆嬪悧锛焋;
+  document.getElementById('delete-modal-text').textContent = `确定要从书架中移除《${detailBookData.title}》吗？`;
   document.getElementById('delete-modal').classList.remove('hidden');
 }
 function hideDeleteModal() {
@@ -907,18 +911,18 @@ function confirmDeleteBook() {
   showScreen('bookshelf');
 }
 
-// ==================== 闃呰鍣?====================
+// ==================== 阅读器 ====================
 async function startReading(bookUrlEncoded, chapterIdx) {
   const bookUrl = decodeURIComponent(bookUrlEncoded);
   
   const data = await getBookDetailAPI(bookUrl);
-  if (!data) { showToast('鍔犺浇澶辫触'); return; }
+  if (!data) { showToast('加载失败'); return; }
 
   STATE.currentBook = { ...data, url: bookUrl };
   STATE.chapters = data.chapters || [];
   STATE.currentChapterIdx = chapterIdx;
 
-  // 鏇存柊涔︽灦涓殑闃呰杩涘害
+  // 更新书架中的阅读进度
   const shelfBook = STATE.bookshelf.find(b => b.url === bookUrl);
   if (shelfBook) {
     shelfBook.lastReadChapter = chapterIdx;
@@ -944,23 +948,23 @@ async function loadChapterContent(idx) {
   const contentEl = document.getElementById('reader-content');
   const titleEl = document.getElementById('reader-chapter-title');
 
-  contentEl.innerHTML = '<div class="loading"><div class="spinner"></div><div>鍔犺浇涓?..</div></div>';
+  contentEl.innerHTML = '<div class="loading"><div class="spinner"></div><div>加载中...</div></div>';
 
   const chapter = STATE.chapters[idx];
   if (!chapter) {
-    contentEl.innerHTML = '<div class="empty-state"><p>娌℃湁鏇村绔犺妭浜?/p></div>';
+    contentEl.innerHTML = '<div class="empty-state"><p>没有更多章节了</p></div>';
     return;
   }
 
-  titleEl.textContent = chapter.title || '绗? + (idx + 1) + '绔?;
+  titleEl.textContent = chapter.title || '第' + (idx + 1) + '章';
 
   const data = await getChapterContentAPI(STATE.currentBook.url, chapter.url);
   if (!data || !data.content) {
-    contentEl.innerHTML = '<div class="empty-state"><p>绔犺妭鍐呭鍔犺浇澶辫触</p></div>';
+    contentEl.innerHTML = '<div class="empty-state"><p>章节内容加载失败</p></div>';
     return;
   }
 
-  // 娓呯悊鍐呭
+  // 清理内容
   let content = data.content
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/&nbsp;/g, ' ')
@@ -973,18 +977,19 @@ async function loadChapterContent(idx) {
   contentEl.style.fontSize = STATE.settings.fontSize + 'px';
   contentEl.style.lineHeight = STATE.settings.lineHeight;
 
-  // 鍦ㄩ《閮ㄦ坊鍔犵珷鑺傛爣棰?  const chapterTitle = chapter.title || '绗? + (idx + 1) + '绔?;
+  // 在顶部添加章节标题
+  const chapterTitle = chapter.title || '第' + (idx + 1) + '章';
   content = `<div style="text-align:center;font-weight:700;font-size:${STATE.settings.fontSize + 4}px;margin-bottom:24px">${chapterTitle}</div>\n\n${content}`;
 
   contentEl.innerHTML = '<pre>' + content + '</pre>';
   contentEl.scrollTop = 0;
 
-  // 鏇存柊杩涘害
+  // 更新进度
   const total = STATE.chapters.length;
   const pct = total > 0 ? Math.round((idx + 1) / total * 100) : 0;
   document.getElementById('reader-progress').textContent = idx + 1 + '/' + total + ' (' + pct + '%)';
 
-  // 鏇存柊涔︽灦杩涘害
+  // 更新书架进度
   const shelfBook = STATE.bookshelf.find(b => b.url === STATE.currentBook.url);
   if (shelfBook) {
     shelfBook.lastReadChapter = idx;
@@ -998,7 +1003,7 @@ function prevChapter() {
     STATE.currentChapterIdx--;
     loadChapterContent(STATE.currentChapterIdx);
   } else {
-    showToast('宸茬粡鏄涓€绔犱簡');
+    showToast('已经是第一章了');
   }
 }
 
@@ -1007,7 +1012,7 @@ function nextChapter() {
     STATE.currentChapterIdx++;
     loadChapterContent(STATE.currentChapterIdx);
   } else {
-    showToast('宸茬粡鏄渶鍚庝竴绔犱簡');
+    showToast('已经是最后一章了');
   }
 }
 
@@ -1016,7 +1021,8 @@ function closeReader() {
   showScreen(STATE.previousScreen || 'bookshelf');
 }
 
-// 闃呰鍣ㄨ彍鍗曪紙鐐瑰嚮涓棿鍖哄煙鍒囨崲锛?function toggleReaderMenu() {
+// 阅读器菜单（点击中间区域切换）
+function toggleReaderMenu() {
   const header = document.getElementById('reader-header');
   const footer = document.getElementById('reader-footer');
   const isHidden = header.classList.contains('hidden');
@@ -1029,7 +1035,8 @@ function closeReader() {
   }
 }
 
-// 闃呰鍣ㄧ偣鍑诲尯鍩燂細宸﹁竟=涓婁竴椤碉紝涓棿=鑿滃崟锛屽彸杈?涓嬩竴椤?document.addEventListener('DOMContentLoaded', () => {
+// 阅读器点击区域：左边=上一页，中间=菜单，右边=下一页
+document.addEventListener('DOMContentLoaded', () => {
   const readerContent = document.getElementById('reader-content');
   readerContent.addEventListener('click', (e) => {
     const rect = readerContent.getBoundingClientRect();
@@ -1045,7 +1052,7 @@ function closeReader() {
   });
 });
 
-// ==================== 璁剧疆 ====================
+// ==================== 设置 ====================
 function loadSettings() {
   document.getElementById('setting-font-size').value = STATE.settings.fontSize;
   document.getElementById('setting-font-size-val').textContent = STATE.settings.fontSize + 'px';
@@ -1077,18 +1084,18 @@ function updateTheme() {
 }
 
 function clearAllData() {
-  if (confirm('纭畾瑕佹竻闄ゆ墍鏈変功鏋舵暟鎹拰璁剧疆鍚楋紵姝ゆ搷浣滀笉鍙仮澶嶃€?)) {
+  if (confirm('确定要清除所有书架数据和设置吗？此操作不可恢复。')) {
     localStorage.removeItem('reader_bookshelf');
     localStorage.removeItem('reader_settings');
     STATE.bookshelf = [];
     STATE.settings = { fontSize: 18, lineHeight: 2, theme: 'dark' };
     renderBookshelf();
     loadSettings();
-    showToast('宸叉竻闄ゅ叏閮ㄦ暟鎹?);
+    showToast('已清除全部数据');
   }
 }
 
-// ==================== 鎵撳紑涔︾睄 ====================
+// ==================== 打开书籍 ====================
 function openBook(bookUrlEncoded) {
   const bookUrl = decodeURIComponent(bookUrlEncoded);
   const shelfBook = STATE.bookshelf.find(b => b.url === bookUrl);
@@ -1096,7 +1103,7 @@ function openBook(bookUrlEncoded) {
   startReading(bookUrlEncoded, shelfBook.lastReadChapter || 0);
 }
 
-// ==================== 鍒濆鍖?====================
+// ==================== 初始化 ====================
 renderBookshelf();
 </script>
 </body>
