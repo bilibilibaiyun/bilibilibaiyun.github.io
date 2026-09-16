@@ -154,8 +154,9 @@ header{
   width:52px;height:52px;border-radius:14px;margin-bottom:16px;
   background:linear-gradient(135deg,rgba(109,94,252,.16),rgba(59,130,246,.16));
   border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;
-  font-size:27px;position:relative;z-index:1
+  font-size:27px;position:relative;z-index:1;overflow:hidden
 }
+.card-icon img{width:100%;height:100%;object-fit:contain}
 .card-name{font-size:15.5px;font-weight:700;margin-bottom:7px;position:relative;z-index:1;line-height:1.4}
 .card-desc{font-size:12.5px;color:var(--text2);line-height:1.6;flex:1;position:relative;z-index:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-foot{margin-top:14px;display:flex;align-items:center;gap:6px;position:relative;z-index:1;flex-wrap:wrap}
@@ -193,8 +194,9 @@ header{
 .modal-icon{
   width:78px;height:78px;border-radius:20px;margin:0 auto 16px;
   background:linear-gradient(135deg,rgba(109,94,252,.18),rgba(59,130,246,.18));
-  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:42px
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden
 }
+.modal-icon img{width:100%;height:100%;object-fit:contain}
 .modal-title{font-size:22px;font-weight:800;margin-bottom:8px}
 .modal-stars{display:inline-block;font-size:11px;color:#f59e0b;background:rgba(245,158,11,.13);padding:3px 12px;border-radius:99px;font-weight:700;margin-bottom:12px}
 .modal-desc{color:var(--text2);font-size:14px;line-height:1.75;margin-bottom:24px;text-align:left}
@@ -298,34 +300,34 @@ footer a{color:var(--c1);text-decoration:none;font-weight:600}
 <script>
 // ============ 数据 ============
 const TOOLS = [
-  {id:1,cat:"电脑工具",name:"白云歌",icon:"🎤",desc:"开源离线语音快速输入，本地识别、隐私不上传，吊打微信自带语音输入。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/58cc222c36bf"}],github:"https://github.com/bilibilibaiyun/BaiYunGe",video:"BV1XBen6iENf"},
-  {id:2,cat:"电脑工具",name:"LetRecovery 系统重装",icon:"💿",desc:"系统重装工具，支持无人值守、全自动完成，小白也能轻松使用。",stars:"1.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/8322cbc27c38"}],github:"https://github.com/NORMAL-EX/LetRecovery",video:"BV1CkYS6YEEe"},
-  {id:3,cat:"电脑工具",name:"FluxDown 下载器",icon:"⬇️",desc:"高性能多线下载工具，功能全面，自带资源嗅探。",stars:"2.9K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/c9ee2dfe977f"}],github:"https://github.com/zerx-lab/FluxDown",video:"BV1j8bg6eEXe"},
-  {id:4,cat:"电脑工具",name:"StarPie 鼠标轮盘",icon:"🖱️",desc:"开源鼠标轮盘工具，常用操作一划即达，显著提升鼠标效率。",stars:"438",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/23fd94a4bb37"}],github:"https://github.com/SoftBlack42/StarPie",video:"BV1Got26ZE5K"},
-  {id:5,cat:"电脑工具",name:"Bandi View 看图",icon:"🖼️",desc:"全能看图工具，激活教程，实用但不再贵。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/3ddd0552c5f8"}],video:"BV1iPty6xEc2"},
-  {id:6,cat:"电脑工具",name:"HypoMux 网卡聚合",icon:"🔗",desc:"网卡聚合工具，多网卡叠加带宽，办公室里更强的牛马。",stars:"3.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/af0d4b841ac0"}],github:"https://github.com/Hypostasis-Cat/HypoMux",video:"BV1YttR6SErz"},
-  {id:7,cat:"电脑工具",name:"图吧工具箱",icon:"🧰",desc:"装机必备一站式工具合集，内置超百种系统检测与硬件测试工具。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/1057e007008c"}],github:"https://github.com/luolangaga/tubatools",video:"BV1YttR6SErz"},
-  {id:8,cat:"电脑工具",name:"Recordly 录屏",icon:"🎬",desc:"支持自动变焦的顶级录屏神器，彻底告别手搓关键帧。",stars:"23.1K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/84a911ea93bb"}],github:"https://github.com/webadderallorg/Recordly",video:"BV1RFtQ6GER2"},
-  {id:9,cat:"电脑工具",name:"CompressO 压缩",icon:"🗜️",desc:"图片视频压缩工具，白云重构的汉化版，原版不支持中文。",stars:"4.4K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/1aac44f09c59"}],github:"https://github.com/1250759846qq/compressO-rebuild",video:"BV17B4f6eEFT"},
-  {id:10,cat:"电脑工具",name:"FileConverter",icon:"🔄",desc:"右键单击文件即可快捷格式转换，高效轻量。",stars:"1.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/020a140c1a4c"}],github:"https://github.com/Tichau/FileConverter",video:"BV18phc6NEBu"},
-  {id:11,cat:"电脑工具",name:"MangoDisk 磁盘清理",icon:"💾",desc:"磁盘分析清理 + 应用卸载，电脑 C 盘有救了。",stars:"1.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/96ebdcebe7e3"}],github:"https://github.com/harry0703/MangoDisk",video:"BV1q5896tEyt"},
-  {id:12,cat:"电脑工具",name:"全能截图工具",icon:"📸",desc:"全能截图工具，可以平替 Pixpin。",stars:"36",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/3af225a39869"}],github:"https://github.com/jiuwanzi-hui/Screenshot",video:"BV1D78i6aEcQ"},
-  {id:13,cat:"电脑工具",name:"窗口穿透工具",icon:"🪟",desc:"一键穿透当前窗口，对次级窗口进行编辑，办公效率小宝藏。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/5b51c77b1fa2"}],video:"BV1atbf6FEaF"},
-  {id:14,cat:"电脑工具",name:"WinRAR 纯净版",icon:"📦",desc:"纯净无广，经典免费解压工具。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/ee93772dfa7d"}],video:"BV1iv3Z69E1R"},
-  {id:15,cat:"影音娱乐",name:"酷狗概念版重构版",icon:"🎵",desc:"酷狗概念版第三方重构，告别广告，对大屏用户更友好。",stars:"321",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/1c69e6d1eb53"}],github:"https://github.com/zzyoxml/md3Music",video:"BV1vyYr6FEhL"},
-  {id:16,cat:"影音娱乐",name:"酷狗概念版双端",icon:"🎶",desc:"酷狗概念版手机 + 电脑双端一次性补齐，大厂良心之作。",downloads:[{label:"手机端",url:"https://pan.quark.cn/s/d601b5ff091a"},{label:"电脑端",url:"https://pan.quark.cn/s/aee848b7c8e7"}],github:"https://github.com/hoowhoami/EchoMusic",video:"BV1bpYV66Eia"},
-  {id:17,cat:"影音娱乐",name:"洛雪音乐",icon:"🎧",desc:"开源免费音乐播放器，最新版本 + 好用音源，双端畅听全网音乐。",stars:"53.1K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/4c89c6523c91"}],github:"https://github.com/lyswhut/lx-music-desktop",video:"BV1Ci8S6dEaG"},
-  {id:18,cat:"影音娱乐",name:"Kazumi 追番",icon:"📺",desc:"开源追番神器，电脑 + 手机双端可用。",stars:"29.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/3d90b1086ae8"}],github:"https://github.com/Predidit/Kazumi",video:"BV1LLhA6UEV7"},
-  {id:19,cat:"影音娱乐",name:"视频水印去除",icon:"🧼",desc:"视频水印去除工具，支持 CPU、GPU 加速。",stars:"12.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/f212b3deeaef"}],github:"https://github.com/YaoFANGUK/video-subtitle-remover",video:"BV1R88x6kEwW"},
-  {id:20,cat:"影音娱乐",name:"Wallpaper 独立版",icon:"🌄",desc:"省钱党狂喜，wallpaper 独立版可直接使用，免 Steam。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/a8d83509a1b1"}],video:"BV1WAu26FE8J"},
-  {id:21,cat:"手机工具",name:"开源阅读",icon:"📖",desc:"开源阅读天花板，附 8000+ 书源与 10G 阅读资源，全网小说免费看。",stars:"46.9K",downloads:[{label:"APP 全版本",url:"https://pan.quark.cn/s/24cada55c14d"},{label:"书源/资源包",url:"https://pan.quark.cn/s/31548ba71c71"},{label:"10G 阅读资源",url:"https://pan.quark.cn/s/4b0e1dac4fe3"}],github:"https://github.com/gedoor/legado",video:"BV17nMk6uEJc"},
-  {id:22,cat:"手机工具",name:"飞鼠格式",icon:"🐭",desc:"让鼠鼠停留在最美好的版本。",downloads:[{label:"飞鼠格式",url:"https://pan.quark.cn/s/e0fe4d778cca"},{label:"断网工具",url:"https://pan.quark.cn/s/a19f9405cd2c"}],github:"https://github.com/LaoFeng-mouse/flyingmouse-format",video:"BV1HUtE68EpE"},
-  {id:23,cat:"AI 智能",name:"Local Dream 生图",icon:"🎨",desc:"手机 CPU 推理本地模型，生图没有任何限制。",stars:"3.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/f93f0361d8f2"}],github:"https://github.com/xororz/local-dream",video:"BV13p876jEJE"},
-  {id:24,cat:"AI 智能",name:"OneClaw 龙虾",icon:"🦞",desc:"小白也可轻松部署的 AI Agent 神器。",stars:"385K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/ec43b3fc429f"}],github:"https://github.com/oneclaw/oneclaw",video:"BV1dhMZ61EGn"},
-  {id:25,cat:"AI 智能",name:"DeepSeek Harness 桌面端",icon:"🤖",desc:"白云自制的 DeepSeek Harness 桌面端，附入门教程。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/36ef18b1f511"}],github:"https://github.com/1250759846qq/DSH-Baiyun",video:"BV1UU8T6mEes"},
+  {id:1,cat:"电脑工具",name:"白云歌",icon:"🎤",img:"images/tools/t1.png",desc:"开源离线语音快速输入，本地识别、隐私不上传，吊打微信自带语音输入。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/58cc222c36bf"}],github:"https://github.com/bilibilibaiyun/BaiYunGe",video:"BV1XBen6iENf"},
+  {id:2,cat:"电脑工具",name:"LetRecovery 系统重装",icon:"💿",img:"images/tools/t2.png",desc:"系统重装工具，支持无人值守、全自动完成，小白也能轻松使用。",stars:"1.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/8322cbc27c38"}],github:"https://github.com/NORMAL-EX/LetRecovery",video:"BV1CkYS6YEEe"},
+  {id:3,cat:"电脑工具",name:"FluxDown 下载器",icon:"⬇️",img:"images/tools/t3.png",desc:"高性能多线下载工具，功能全面，自带资源嗅探。",stars:"2.9K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/c9ee2dfe977f"}],github:"https://github.com/zerx-lab/FluxDown",video:"BV1j8bg6eEXe"},
+  {id:4,cat:"电脑工具",name:"StarPie 鼠标轮盘",icon:"🖱️",img:"images/tools/t4.png",desc:"开源鼠标轮盘工具，常用操作一划即达，显著提升鼠标效率。",stars:"438",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/23fd94a4bb37"}],github:"https://github.com/SoftBlack42/StarPie",video:"BV1Got26ZE5K"},
+  {id:5,cat:"电脑工具",name:"Bandi View 看图",icon:"🖼️",img:"images/tools/t5.png",desc:"全能看图工具，激活教程，实用但不再贵。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/3ddd0552c5f8"}],video:"BV1iPty6xEc2"},
+  {id:6,cat:"电脑工具",name:"HypoMux 网卡聚合",icon:"🔗",img:"images/tools/t6.png",desc:"网卡聚合工具，多网卡叠加带宽，办公室里更强的牛马。",stars:"3.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/af0d4b841ac0"}],github:"https://github.com/Hypostasis-Cat/HypoMux",video:"BV1YttR6SErz"},
+  {id:7,cat:"电脑工具",name:"图吧工具箱",icon:"🧰",img:"images/tools/t7.png",desc:"装机必备一站式工具合集，内置超百种系统检测与硬件测试工具。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/1057e007008c"}],github:"https://github.com/luolangaga/tubatools",video:"BV1YttR6SErz"},
+  {id:8,cat:"电脑工具",name:"Recordly 录屏",icon:"🎬",img:"images/tools/t8.png",desc:"支持自动变焦的顶级录屏神器，彻底告别手搓关键帧。",stars:"23.1K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/84a911ea93bb"}],github:"https://github.com/webadderallorg/Recordly",video:"BV1RFtQ6GER2"},
+  {id:9,cat:"电脑工具",name:"CompressO 压缩",icon:"🗜️",img:"images/tools/t9.png",desc:"图片视频压缩工具，白云重构的汉化版，原版不支持中文。",stars:"4.4K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/1aac44f09c59"}],github:"https://github.com/1250759846qq/compressO-rebuild",video:"BV17B4f6eEFT"},
+  {id:10,cat:"电脑工具",name:"FileConverter",icon:"🔄",img:"images/tools/t10.png",desc:"右键单击文件即可快捷格式转换，高效轻量。",stars:"1.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/020a140c1a4c"}],github:"https://github.com/Tichau/FileConverter",video:"BV18phc6NEBu"},
+  {id:11,cat:"电脑工具",name:"MangoDisk 磁盘清理",icon:"💾",img:"images/tools/t11.png",desc:"磁盘分析清理 + 应用卸载，电脑 C 盘有救了。",stars:"1.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/96ebdcebe7e3"}],github:"https://github.com/harry0703/MangoDisk",video:"BV1q5896tEyt"},
+  {id:12,cat:"电脑工具",name:"全能截图工具",icon:"📸",img:"images/tools/t12.png",desc:"全能截图工具，可以平替 Pixpin。",stars:"36",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/3af225a39869"}],github:"https://github.com/jiuwanzi-hui/Screenshot",video:"BV1D78i6aEcQ"},
+  {id:13,cat:"电脑工具",name:"窗口穿透工具",icon:"🪟",img:"images/tools/t13.png",desc:"一键穿透当前窗口，对次级窗口进行编辑，办公效率小宝藏。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/5b51c77b1fa2"}],video:"BV1atbf6FEaF"},
+  {id:14,cat:"电脑工具",name:"WinRAR 纯净版",icon:"📦",img:"images/tools/t14.png",desc:"纯净无广，经典免费解压工具。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/ee93772dfa7d"}],video:"BV1iv3Z69E1R"},
+  {id:15,cat:"影音娱乐",name:"酷狗概念版重构版",icon:"🎵",img:"images/tools/t15.png",desc:"酷狗概念版第三方重构，告别广告，对大屏用户更友好。",stars:"321",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/1c69e6d1eb53"}],github:"https://github.com/zzyoxml/md3Music",video:"BV1vyYr6FEhL"},
+  {id:16,cat:"影音娱乐",name:"酷狗概念版双端",icon:"🎶",img:"images/tools/t16.png",desc:"酷狗概念版手机 + 电脑双端一次性补齐，大厂良心之作。",downloads:[{label:"手机端",url:"https://pan.quark.cn/s/d601b5ff091a"},{label:"电脑端",url:"https://pan.quark.cn/s/aee848b7c8e7"}],github:"https://github.com/hoowhoami/EchoMusic",video:"BV1bpYV66Eia"},
+  {id:17,cat:"影音娱乐",name:"洛雪音乐",icon:"🎧",img:"images/tools/t17.png",desc:"开源免费音乐播放器，最新版本 + 好用音源，双端畅听全网音乐。",stars:"53.1K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/4c89c6523c91"}],github:"https://github.com/lyswhut/lx-music-desktop",video:"BV1Ci8S6dEaG"},
+  {id:18,cat:"影音娱乐",name:"Kazumi 追番",icon:"📺",img:"images/tools/t18.png",desc:"开源追番神器，电脑 + 手机双端可用。",stars:"29.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/3d90b1086ae8"}],github:"https://github.com/Predidit/Kazumi",video:"BV1LLhA6UEV7"},
+  {id:19,cat:"影音娱乐",name:"视频水印去除",icon:"🧼",img:"images/tools/t19.png",desc:"视频水印去除工具，支持 CPU、GPU 加速。",stars:"12.5K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/f212b3deeaef"}],github:"https://github.com/YaoFANGUK/video-subtitle-remover",video:"BV1R88x6kEwW"},
+  {id:20,cat:"影音娱乐",name:"Wallpaper 独立版",icon:"🌄",img:"images/tools/t20.png",desc:"省钱党狂喜，wallpaper 独立版可直接使用，免 Steam。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/a8d83509a1b1"}],video:"BV1WAu26FE8J"},
+  {id:21,cat:"手机工具",name:"开源阅读",icon:"📖",img:"images/tools/t21.png",desc:"开源阅读天花板，附 8000+ 书源与 10G 阅读资源，全网小说免费看。",stars:"46.9K",downloads:[{label:"APP 全版本",url:"https://pan.quark.cn/s/24cada55c14d"},{label:"书源/资源包",url:"https://pan.quark.cn/s/31548ba71c71"},{label:"10G 阅读资源",url:"https://pan.quark.cn/s/4b0e1dac4fe3"}],github:"https://github.com/gedoor/legado",video:"BV17nMk6uEJc"},
+  {id:22,cat:"手机工具",name:"飞鼠格式",icon:"🐭",img:"images/tools/t22.png",desc:"让鼠鼠停留在最美好的版本。",downloads:[{label:"飞鼠格式",url:"https://pan.quark.cn/s/e0fe4d778cca"},{label:"断网工具",url:"https://pan.quark.cn/s/a19f9405cd2c"}],github:"https://github.com/LaoFeng-mouse/flyingmouse-format",video:"BV1HUtE68EpE"},
+  {id:23,cat:"AI 智能",name:"Local Dream 生图",icon:"🎨",img:"images/tools/t23.png",desc:"手机 CPU 推理本地模型，生图没有任何限制。",stars:"3.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/f93f0361d8f2"}],github:"https://github.com/xororz/local-dream",video:"BV13p876jEJE"},
+  {id:24,cat:"AI 智能",name:"OneClaw 龙虾",icon:"🦞",img:"images/tools/t24.png",desc:"小白也可轻松部署的 AI Agent 神器。",stars:"385K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/ec43b3fc429f"}],github:"https://github.com/oneclaw/oneclaw",video:"BV1dhMZ61EGn"},
+  {id:25,cat:"AI 智能",name:"DeepSeek Harness 桌面端",icon:"🤖",img:"images/tools/t25.png",desc:"白云自制的 DeepSeek Harness 桌面端，附入门教程。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/36ef18b1f511"}],github:"https://github.com/1250759846qq/DSH-Baiyun",video:"BV1UU8T6mEes"},
   {id:26,cat:"网盘传输",name:"Escrcpy 投屏",icon:"📱",desc:"开源安卓投屏工具，脱胎换骨的新版本。",stars:"10.8K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/bdb1d904aa68"}],github:"https://github.com/viarotel-org/escrcpy",video:"BV17th36kEtv"},
-  {id:27,cat:"网盘传输",name:"AirPlay2 接收器",icon:"🍏",desc:"开源 iOS 投屏天花板，苹果设备投屏到电脑，最高 4K。",stars:"2.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/5d27a2e12466"}],github:"https://github.com/openairplay/airplay2-receiver",video:"BV1Vg8s6BEXW"},
-  {id:28,cat:"网盘传输",name:"LocalSend 传输",icon:"📡",desc:"最强局域网传输工具，全平台互传，速度可达 999MB/s。",stars:"86.6K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/fe6bba0a84e4"}],github:"https://github.com/localsend/localsend",video:"BV1NpMX6mEmV"},
+  {id:27,cat:"网盘传输",name:"AirPlay2 接收器",icon:"🍏",img:"images/tools/t27.png",desc:"开源 iOS 投屏天花板，苹果设备投屏到电脑，最高 4K。",stars:"2.3K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/5d27a2e12466"}],github:"https://github.com/openairplay/airplay2-receiver",video:"BV1Vg8s6BEXW"},
+  {id:28,cat:"网盘传输",name:"LocalSend 传输",icon:"📡",img:"images/tools/t28.png",desc:"最强局域网传输工具，全平台互传，速度可达 999MB/s。",stars:"86.6K",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/fe6bba0a84e4"}],github:"https://github.com/localsend/localsend",video:"BV1NpMX6mEmV"},
   {id:29,cat:"网盘传输",name:"白云盘",icon:"☁️",desc:"私人网盘，一杯奶茶钱拥有自己的网盘。",github:"https://github.com/bilibilibaiyun/baiyun-drive",video:"BV1Zaue6DEBW"},
   {id:30,cat:"其他工具",name:"停服离线免费工具",icon:"🆓",desc:"厂商已停服，这款工具转为离线永久免费版本。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/524fe39be396"}],video:"BV13T416JErK"},
   {id:31,cat:"其他工具",name:"认准正版防被骗",icon:"⚠️",desc:"这款工具太好用，被无良厂商做成付费盗版，大家不要被骗。",downloads:[{label:"夸克下载",url:"https://pan.quark.cn/s/6b657e04396c"}],video:"BV1vb4D6zEa1"}
@@ -489,9 +491,10 @@ function renderContent(){
       </div>`;
     }
     const stars = item.stars ? `<span class="card-stars">⭐ ${item.stars}</span>` : '';
+    const iconHtml = item.img ? `<img src="${item.img}" alt="" onerror="this.outerHTML='${item.icon}'">` : item.icon;
     return `<div class="card" onclick="openTool(${item.id})">
       <span class="card-ext">⬇️</span>
-      <div class="card-icon">${item.icon}</div>
+      <div class="card-icon">${iconHtml}</div>
       <div class="card-name">${item.name}</div>
       <div class="card-desc">${item.desc}</div>
       <div class="card-foot"><span class="card-tag">${item.cat}</span>${stars}</div>
@@ -502,7 +505,7 @@ function renderContent(){
 function openTool(id){
   const item = TOOLS.find(t => t.id === id);
   if(!item) return;
-  $('modal-icon').textContent = item.icon;
+  $('modal-icon').innerHTML = item.img ? `<img src="${item.img}" alt="" onerror="this.parentElement.textContent='${item.icon}'">` : item.icon;
   $('modal-title').textContent = item.name;
   const stars = $('modal-stars');
   if(item.stars){ stars.style.display='inline-block'; stars.textContent='⭐ GitHub ' + item.stars + ' Stars'; }
